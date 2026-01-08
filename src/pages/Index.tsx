@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -10,33 +12,46 @@ import CursorEffect from "@/components/CursorEffect";
 import ScrollProgress from "@/components/ScrollProgress";
 import PageTransition from "@/components/PageTransition";
 import SectionDivider from "@/components/SectionDivider";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <PageTransition>
-      <div className="min-h-screen bg-background">
-        {/* Cinematic grain overlay */}
-        <div className="grain" />
-        
-        <CursorEffect />
-        <ScrollProgress />
-        <Header />
-        <main>
-          <HeroSection />
-          <SectionDivider variant="wave" />
-          <AboutSection />
-          <SectionDivider variant="dots" />
-          <SkillsSection />
-          <SectionDivider variant="line" />
-          <ExperienceSection />
-          <SectionDivider variant="wave" />
-          <ProjectsSection />
-          <SectionDivider variant="dots" />
-          <ContactSection />
-        </main>
-        <Footer />
-      </div>
-    </PageTransition>
+    <>
+      <AnimatePresence>
+        {isLoading && (
+          <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      {!isLoading && (
+        <PageTransition>
+          <div className="min-h-screen bg-background">
+            {/* Cinematic grain overlay */}
+            <div className="grain" />
+            
+            <CursorEffect />
+            <ScrollProgress />
+            <Header />
+            <main>
+              <HeroSection />
+              <SectionDivider variant="wave" />
+              <AboutSection />
+              <SectionDivider variant="dots" />
+              <SkillsSection />
+              <SectionDivider variant="line" />
+              <ExperienceSection />
+              <SectionDivider variant="wave" />
+              <ProjectsSection />
+              <SectionDivider variant="dots" />
+              <ContactSection />
+            </main>
+            <Footer />
+          </div>
+        </PageTransition>
+      )}
+    </>
   );
 };
 
