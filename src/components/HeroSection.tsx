@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown, FileText, Shirt, Layout, TrendingUp } from "lucide-react";
-import profileImage from "@/assets/profile-hero-deep.png";
+import profileImage from "@/assets/profile-transparent.png";
 
 const services = [
   { icon: FileText, label: "Full Stack" },
