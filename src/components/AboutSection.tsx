@@ -142,12 +142,14 @@ const AboutSection = () => {
               />
               
               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/30 to-transparent blur-2xl" />
-              <img
-                src={profileImage}
-                alt="Yashank Gaddi"
-                className="w-full h-full object-cover rounded-full border-2 border-primary/20 relative z-10"
-              />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20" />
+              <div className="w-full h-full rounded-full overflow-hidden relative z-10 border-2 border-primary/20">
+                <img
+                  src={profileImage}
+                  alt="Yashank Gaddi"
+                  className="w-full h-full object-cover object-center scale-110"
+                />
+              </div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20 pointer-events-none" />
             </motion.div>
             
             {/* Name below image */}
