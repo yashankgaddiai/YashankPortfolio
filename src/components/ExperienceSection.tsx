@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Briefcase, Calendar, ExternalLink } from "lucide-react";
+import { Calendar, ExternalLink } from "lucide-react";
 
 const experiences = [
   {
@@ -48,16 +46,34 @@ const experiences = [
   },
 ];
 
-const ExperienceSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
 
+const cardVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6 },
+  },
+};
+
+const ExperienceSection = () => {
   return (
     <section id="experience" className="py-24 md:py-32 bg-background">
-      <div className="container mx-auto px-6" ref={ref}>
+      <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -71,22 +87,40 @@ const ExperienceSection = () => {
 
         <div className="max-w-4xl mx-auto">
           {/* Timeline */}
-          <div className="relative">
+          <motion.div 
+            className="relative"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {/* Timeline Line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2" />
+            <motion.div 
+              className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              style={{ originY: 0 }}
+            />
 
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.15, duration: 0.5 }}
+                variants={cardVariants}
+                custom={index}
                 className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
                   index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background -translate-x-1/2 mt-6" />
+                <motion.div 
+                  className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background -translate-x-1/2 mt-6"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + index * 0.1, type: "spring", stiffness: 200 }}
+                />
 
                 {/* Content */}
                 <div
@@ -94,15 +128,22 @@ const ExperienceSection = () => {
                     index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"
                   }`}
                 >
-                  <div className="glass p-6 rounded-2xl hover:border-primary/30 transition-colors">
+                  <motion.div 
+                    className="glass p-6 rounded-2xl hover:border-primary/30 transition-colors"
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div
                       className={`flex items-center gap-2 mb-2 ${
                         index % 2 === 0 ? "md:justify-end" : ""
                       }`}
                     >
-                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary">
+                      <motion.span 
+                        className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary"
+                        whileHover={{ scale: 1.1 }}
+                      >
                         {exp.type}
-                      </span>
+                      </motion.span>
                     </div>
                     <h3 className="text-xl font-display font-semibold mb-1">
                       {exp.title}
@@ -123,10 +164,17 @@ const ExperienceSection = () => {
                       }`}
                     >
                       {exp.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start gap-2">
+                        <motion.li 
+                          key={i} 
+                          className="flex items-start gap-2"
+                          initial={{ opacity: 0, x: index % 2 === 0 ? 20 : -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.4 + i * 0.1, duration: 0.4 }}
+                        >
                           <span className="text-primary mt-1.5 flex-shrink-0">•</span>
                           <span>{achievement}</span>
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
                     {exp.links && (
@@ -136,22 +184,23 @@ const ExperienceSection = () => {
                         }`}
                       >
                         {exp.links.map((link) => (
-                          <a
+                          <motion.a
                             key={link.label}
                             href={link.url}
                             className="flex items-center gap-1 text-sm text-primary hover:underline"
+                            whileHover={{ x: 3 }}
                           >
                             {link.label}
                             <ExternalLink size={12} />
-                          </a>
+                          </motion.a>
                         ))}
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

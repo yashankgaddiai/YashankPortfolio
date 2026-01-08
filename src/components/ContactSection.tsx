@@ -1,15 +1,32 @@
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Linkedin, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
+
 const ContactSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -29,15 +46,26 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-24 md:py-32 bg-card relative overflow-hidden">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-warm opacity-10" />
+      <motion.div 
+        className="absolute inset-0 bg-gradient-warm opacity-10"
+        animate={{ 
+          opacity: [0.08, 0.12, 0.08],
+        }}
+        transition={{ 
+          duration: 4, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+      />
 
-      <div className="container mx-auto px-6 relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+      <motion.div 
+        className="container mx-auto px-6 relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <motion.div variants={itemVariants} className="text-center mb-16">
           <span className="text-primary font-medium text-sm uppercase tracking-widest">
             Get in Touch
           </span>
@@ -52,17 +80,26 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="space-y-8"
-          >
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="p-4 rounded-xl bg-primary/10 text-primary">
+          <motion.div variants={itemVariants} className="space-y-8">
+            <motion.div 
+              className="space-y-6"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.div 
+                className="flex items-center gap-4"
+                variants={itemVariants}
+                whileHover={{ x: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <motion.div 
+                  className="p-4 rounded-xl bg-primary/10 text-primary"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                >
                   <Mail size={24} />
-                </div>
+                </motion.div>
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
                   <a
@@ -72,12 +109,20 @@ const ContactSection = () => {
                     yashankgaddi.ai@gmail.com
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-4">
-                <div className="p-4 rounded-xl bg-primary/10 text-primary">
+              <motion.div 
+                className="flex items-center gap-4"
+                variants={itemVariants}
+                whileHover={{ x: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <motion.div 
+                  className="p-4 rounded-xl bg-primary/10 text-primary"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                >
                   <Phone size={24} />
-                </div>
+                </motion.div>
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>
                   <a
@@ -87,51 +132,69 @@ const ContactSection = () => {
                     +91-8074210219
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-4">
-                <div className="p-4 rounded-xl bg-primary/10 text-primary">
+              <motion.div 
+                className="flex items-center gap-4"
+                variants={itemVariants}
+                whileHover={{ x: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <motion.div 
+                  className="p-4 rounded-xl bg-primary/10 text-primary"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                >
                   <MapPin size={24} />
-                </div>
+                </motion.div>
                 <div>
                   <p className="text-sm text-muted-foreground">Location</p>
                   <p className="text-lg font-medium">Hyderabad, India</p>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Social Links */}
-            <div className="pt-6">
+            <motion.div variants={itemVariants} className="pt-6">
               <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
               <div className="flex gap-4">
-                <a
+                <motion.a
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Linkedin size={24} />
-                </a>
-                <a
+                </motion.a>
+                <motion.a
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors"
+                  whileHover={{ scale: 1.1, rotate: -5 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Github size={24} />
-                </a>
+                </motion.a>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <form onSubmit={handleSubmit} className="glass p-8 rounded-2xl space-y-6">
-              <div>
+          <motion.div variants={itemVariants}>
+            <motion.form 
+              onSubmit={handleSubmit} 
+              className="glass p-8 rounded-2xl space-y-6"
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+              >
                 <label
                   htmlFor="name"
                   className="block text-sm font-medium mb-2"
@@ -145,11 +208,16 @@ const ContactSection = () => {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   placeholder="Your name"
-                  className="bg-background/50 border-border"
+                  className="bg-background/50 border-border focus:border-primary transition-colors"
                   required
                 />
-              </div>
-              <div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+              >
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium mb-2"
@@ -164,11 +232,16 @@ const ContactSection = () => {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   placeholder="your@email.com"
-                  className="bg-background/50 border-border"
+                  className="bg-background/50 border-border focus:border-primary transition-colors"
                   required
                 />
-              </div>
-              <div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.4 }}
+              >
                 <label
                   htmlFor="message"
                   className="block text-sm font-medium mb-2"
@@ -183,22 +256,27 @@ const ContactSection = () => {
                   }
                   placeholder="Tell me about your project..."
                   rows={5}
-                  className="bg-background/50 border-border resize-none"
+                  className="bg-background/50 border-border resize-none focus:border-primary transition-colors"
                   required
                 />
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                size="lg"
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Send className="mr-2 h-4 w-4" />
-                Send Message
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                  size="lg"
+                >
+                  <Send className="mr-2 h-4 w-4" />
+                  Send Message
+                </Button>
+              </motion.div>
+            </motion.form>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
