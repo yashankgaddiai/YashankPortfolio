@@ -202,6 +202,14 @@ const HeroSection = () => {
             >
               AI Developer
             </motion.p>
+            
+            {/* Tagline */}
+            <motion.p
+              className="text-base md:text-lg text-muted-foreground/80 max-w-md leading-relaxed"
+              variants={itemVariants}
+            >
+              Building intelligent solutions that bridge the gap between human creativity and machine capability.
+            </motion.p>
 
             {/* Service Tags - 2x2 Grid with stagger + glow hover */}
             <motion.div
