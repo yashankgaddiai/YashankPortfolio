@@ -26,21 +26,10 @@ const HeroSection = () => {
         className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none z-10"
       >
         <div className="relative">
-          {/* Warm color overlay to blend with gradient */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-10 rounded-full"
-            style={{
-              background: 'linear-gradient(180deg, rgba(200, 100, 40, 0.2) 0%, rgba(180, 80, 30, 0.25) 50%, rgba(150, 60, 20, 0.3) 100%)',
-              mixBlendMode: 'color',
-            }}
-          />
           <img
             src={profileImage}
             alt="Yashank Gaddi"
             className="h-[55vh] lg:h-[65vh] w-auto object-contain object-bottom"
-            style={{
-              filter: 'sepia(0.15) saturate(1.2) brightness(0.95)',
-            }}
           />
         </div>
         {/* Gradient fade at bottom */}
