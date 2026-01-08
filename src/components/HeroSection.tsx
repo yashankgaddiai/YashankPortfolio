@@ -10,19 +10,34 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center overflow-hidden"
     >
       {/* Warm Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-warm opacity-90" />
+      <div className="absolute inset-0 bg-gradient-warm" />
       
-      {/* Overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background" />
+      {/* Profile Image - Positioned like reference */}
+      <div className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[10%]">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="relative w-full h-full max-w-2xl"
+        >
+          <img
+            src={profileImage}
+            alt="Yashank Gaddi"
+            className="absolute bottom-0 left-1/2 lg:left-auto lg:right-0 -translate-x-1/2 lg:translate-x-0 h-[85vh] w-auto object-contain object-bottom mix-blend-normal"
+          />
+          {/* Gradient overlay on image for blending */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        </motion.div>
+      </div>
 
       <div className="container mx-auto px-6 relative z-10 pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-8 relative z-20"
           >
             <div className="space-y-4">
               <motion.h1
@@ -44,10 +59,10 @@ const HeroSection = () => {
                 className="flex flex-wrap gap-3 pt-4"
               >
                 {["Full Stack", "AI Agents", "Web Apps", "Automation"].map(
-                  (tag, index) => (
+                  (tag) => (
                     <span
                       key={tag}
-                      className="glass px-4 py-2 rounded-full text-sm font-medium text-foreground/80 flex items-center gap-2"
+                      className="glass px-4 py-2 rounded-full text-sm font-medium text-foreground/90 flex items-center gap-2"
                     >
                       <Sparkles size={14} className="text-primary" />
                       {tag}
@@ -85,37 +100,21 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Profile Image */}
+          {/* Floating Card - Right side */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative flex justify-center lg:justify-end"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="hidden lg:flex justify-end items-center relative z-20"
           >
-            <div className="relative">
-              <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-foreground/20 shadow-2xl">
-                <img
-                  src={profileImage}
-                  alt="Yashank Gaddi"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              
-              {/* Floating Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-                className="absolute -right-4 md:right-0 bottom-8 glass-strong p-5 rounded-xl max-w-xs"
-              >
-                <h3 className="font-display font-semibold text-lg mb-2">
-                  Building the future with AI.
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Crafting intelligent solutions that help businesses scale and
-                  automate with confidence.
-                </p>
-              </motion.div>
+            <div className="glass-strong p-6 rounded-2xl max-w-sm">
+              <h3 className="font-display font-semibold text-xl mb-3">
+                Building the future with AI.
+              </h3>
+              <p className="text-muted-foreground">
+                Crafting intelligent solutions that help businesses scale and
+                automate with confidence.
+              </p>
             </div>
           </motion.div>
         </div>
