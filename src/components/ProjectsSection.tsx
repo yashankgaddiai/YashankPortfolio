@@ -14,6 +14,7 @@ const projects = [
     result: "Streamlined operations and reduced manual work",
     tech: ["React", "Node.js", "OpenAI", "Supabase"],
     image: aiAgenticVerseImage,
+    link: "https://aiagenticverse.com/",
     featured: true,
   },
   {
@@ -143,12 +144,19 @@ const ProjectsSection = () => {
                         ))}
                       </div>
                       <div className="flex gap-3">
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Live Demo
-                          </Button>
-                        </motion.div>
+                        {project.link && (
+                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                            <Button
+                              className="bg-primary text-primary-foreground hover:bg-primary/90"
+                              asChild
+                            >
+                              <a href={project.link} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="mr-2 h-4 w-4" />
+                                Live Demo
+                              </a>
+                            </Button>
+                          </motion.div>
+                        )}
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                           <Button variant="outline" className="border-border">
                             <Github className="mr-2 h-4 w-4" />
