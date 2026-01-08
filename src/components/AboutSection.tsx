@@ -114,17 +114,6 @@ const AboutSection = () => {
             className="absolute left-0 top-1/2 -translate-y-1/2 max-w-xs space-y-8 hidden md:block"
             variants={containerVariants}
           >
-            {/* Education */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
-                Education
-              </h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p><span className="text-foreground">GITAM University</span> — B.Tech CSE</p>
-                <p><span className="text-foreground">Hyderabad</span> — India</p>
-              </div>
-            </motion.div>
-
             {/* Experience */}
             <motion.div variants={itemVariants}>
               <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
@@ -153,18 +142,6 @@ const AboutSection = () => {
             className="absolute right-0 top-1/2 -translate-y-1/2 max-w-xs space-y-8 text-right hidden md:block"
             variants={containerVariants}
           >
-            {/* Languages */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
-                Languages
-              </h3>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>English</p>
-                <p>Hindi</p>
-                <p>Telugu</p>
-              </div>
-            </motion.div>
-
             {/* Tech Stack */}
             <motion.div variants={itemVariants}>
               <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
@@ -210,10 +187,6 @@ const AboutSection = () => {
           {/* Left Side */}
           <motion.div className="space-y-6" variants={containerVariants}>
             <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Education</h3>
-              <p className="text-xs text-muted-foreground">GITAM University — B.Tech CSE</p>
-            </motion.div>
-            <motion.div variants={itemVariants}>
               <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Experience</h3>
               <p className="text-xs text-muted-foreground">Co-Founder at AI Agentic Verse</p>
             </motion.div>
@@ -225,10 +198,6 @@ const AboutSection = () => {
 
           {/* Right Side */}
           <motion.div className="space-y-6 text-right" variants={containerVariants}>
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Languages</h3>
-              <p className="text-xs text-muted-foreground">English, Hindi, Telugu</p>
-            </motion.div>
             <motion.div variants={itemVariants}>
               <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Tech Stack</h3>
               <p className="text-xs text-muted-foreground">React, Next.js, Python</p>
