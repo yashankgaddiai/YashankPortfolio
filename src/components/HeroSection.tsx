@@ -59,19 +59,6 @@ const itemVariants = {
   },
 };
 
-const nameRevealVariants = {
-  hidden: { opacity: 0, scale: 0.9, y: 50 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      duration: 1,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-};
-
 const tagVariants = {
   hidden: { opacity: 0, x: -20, scale: 0.9 },
   visible: (i: number) => ({
@@ -95,8 +82,6 @@ const HeroSection = () => {
 
   // Parallax effect for background
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const nameScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
-  const nameOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.5]);
 
   return (
     <section
@@ -104,54 +89,6 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen overflow-hidden"
     >
-      {/* Hero Background - Name Display */}
-      <motion.div 
-        className="absolute inset-0 flex items-center justify-center will-change-transform"
-        style={{ y: backgroundY }}
-        variants={nameRevealVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div
-          className="text-center"
-          style={{ 
-            scale: nameScale,
-            opacity: nameOpacity,
-          }}
-        >
-          <h2 
-            className="text-[12vw] md:text-[10vw] lg:text-[9vw] font-display font-bold tracking-tight leading-none"
-            style={{
-              background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(25, 95%, 60%) 50%, hsl(var(--accent)) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            YASHANK
-          </h2>
-          <h2 
-            className="text-[12vw] md:text-[10vw] lg:text-[9vw] font-display font-bold tracking-tight leading-none -mt-[2vw]"
-            style={{
-              background: 'linear-gradient(135deg, hsl(25, 95%, 60%) 0%, hsl(var(--accent)) 50%, hsl(var(--primary)) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            GADDI
-          </h2>
-        </motion.div>
-        {/* Gradient fade at bottom */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/90 to-transparent" />
-        {/* Vignette effect */}
-        <div className="absolute inset-0 bg-radial-gradient pointer-events-none" 
-          style={{
-            background: "radial-gradient(circle at center, transparent 30%, hsl(var(--background)) 80%)"
-          }}
-        />
-      </motion.div>
-
       {/* Animated floating particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(5)].map((_, i) => (
@@ -181,12 +118,12 @@ const HeroSection = () => {
           className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
           style={{
             background: 'radial-gradient(circle, rgba(255, 120, 50, 0.08) 0%, transparent 70%)',
+            y: backgroundY,
           }}
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
             x: [0, 20, 0],
-            y: [0, -20, 0],
           }}
           transition={{
             duration: 8,
@@ -223,29 +160,48 @@ const HeroSection = () => {
         >
           {/* Left Content - Title with text reveal */}
           <motion.div className="space-y-8 max-w-lg" style={{ perspective: 800 }}>
-            {/* Title - Large display font with reveal animation */}
+            {/* Name - Large display font with reveal animation */}
             <motion.h1
-              className="text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95]"
+              className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[0.95]"
             >
               <motion.span 
                 className="block"
                 variants={textRevealVariants}
                 initial="hidden"
                 animate="visible"
+                style={{
+                  background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(25, 95%, 60%) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
               >
-                AI
+                YASHANK
               </motion.span>
               <motion.span 
-                className="italic text-7xl md:text-8xl lg:text-9xl block" 
-                style={{ fontFamily: "'Playfair Display', serif" }}
+                className="block text-6xl md:text-7xl lg:text-8xl" 
                 variants={textRevealVariants}
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.15 }}
+                style={{
+                  background: 'linear-gradient(135deg, hsl(25, 95%, 60%) 0%, hsl(var(--accent)) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
               >
-                Developer
+                GADDI
               </motion.span>
             </motion.h1>
+            
+            {/* Subtitle */}
+            <motion.p
+              className="text-xl md:text-2xl text-muted-foreground font-light"
+              variants={itemVariants}
+            >
+              AI Developer
+            </motion.p>
 
             {/* Service Tags - 2x2 Grid with stagger + glow hover */}
             <motion.div
