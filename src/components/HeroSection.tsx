@@ -15,16 +15,24 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen overflow-hidden"
     >
-      {/* Profile Image as Background - Contains the gradient */}
-      <div className="absolute inset-0">
+      {/* Warm Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-warm" />
+
+      {/* Profile Image - Centered */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none z-10"
+      >
         <img
           src={profileImage}
           alt="Yashank Gaddi"
-          className="w-full h-full object-cover object-center"
+          className="h-[55vh] lg:h-[65vh] w-auto object-contain object-bottom"
         />
         {/* Gradient fade at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent" />
-      </div>
+      </motion.div>
 
       {/* Main Content Container */}
       <div className="relative min-h-screen z-20">
