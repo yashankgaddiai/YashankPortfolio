@@ -100,7 +100,7 @@ const AboutSection = () => {
         viewport={{ once: true, margin: "-80px" }}
       >
         {/* Main Content Grid */}
-        <div className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center">
+        <div className="relative min-h-[600px] md:min-h-[700px]">
           
           {/* Large ABOUT Text Background - Parallax */}
           <motion.div 
@@ -120,7 +120,7 @@ const AboutSection = () => {
 
           {/* Center Profile Image - Floating with parallax */}
           <motion.div 
-            className="relative z-10 flex flex-col items-center justify-center"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
             style={{ y: imageY, scale: imageScale }}
           >
             <motion.div 
@@ -142,51 +142,21 @@ const AboutSection = () => {
               />
               
               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/30 to-transparent blur-2xl" />
-              <div className="w-full h-full rounded-full overflow-hidden relative z-10 border-2 border-primary/20">
-                <img
-                  src={profileImage}
-                  alt="Yashank Gaddi"
-                  className="w-full h-full object-cover object-center scale-110"
-                />
-              </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20 pointer-events-none" />
+              <img
+                src={profileImage}
+                alt="Yashank Gaddi"
+                className="w-full h-full object-cover rounded-full border-2 border-primary/20 relative z-10"
+              />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20" />
             </motion.div>
             
-            {/* Name below image */}
-            <motion.h2 
-              className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-center mt-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6, duration: 0.8, ease: cinematicEase }}
-              style={{
-                background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Yashank Gaddi
-            </motion.h2>
-
-            {/* Entrepreneur title */}
+            {/* Tagline below image */}
             <motion.p 
-              className="text-sm md:text-base uppercase tracking-[0.3em] text-muted-foreground mt-2 text-center"
+              className="text-center text-sm text-muted-foreground mt-6 italic"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8, duration: 0.8, ease: cinematicEase }}
-            >
-              Entrepreneur
-            </motion.p>
-            
-            {/* Tagline below */}
-            <motion.p 
-              className="text-center text-sm text-muted-foreground/80 mt-3 italic"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1, duration: 0.8, ease: cinematicEase }}
             >
               Building the AI-First Future
             </motion.p>
