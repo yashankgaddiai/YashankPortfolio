@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown, FileText, Shirt, Layout, TrendingUp } from "lucide-react";
+import profileImage from "@/assets/profile-new.png";
 
 const services = [
   { icon: FileText, label: "Full Stack" },
@@ -19,6 +20,34 @@ const HeroSection = () => {
 
       {/* Main Content Container */}
       <div className="relative min-h-screen">
+        {/* Profile Image - Centered with warm blend */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none z-10"
+        >
+          <div className="relative">
+            {/* Warm color overlay to blend image with gradient */}
+            <div 
+              className="absolute inset-0 pointer-events-none z-10"
+              style={{
+                background: 'linear-gradient(180deg, rgba(200, 100, 40, 0.25) 0%, rgba(180, 80, 30, 0.35) 50%, rgba(150, 60, 20, 0.4) 100%)',
+                mixBlendMode: 'color',
+              }}
+            />
+            <img
+              src={profileImage}
+              alt="Yashank Gaddi"
+              className="h-[70vh] lg:h-[85vh] w-auto object-contain object-bottom"
+              style={{
+                filter: 'sepia(0.2) saturate(1.3) brightness(0.92) contrast(1.05)',
+              }}
+            />
+            {/* Gradient fade at bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-20" />
+          </div>
+        </motion.div>
 
         {/* Content Layer */}
         <div className="container mx-auto px-6 relative z-20 min-h-screen flex flex-col justify-center pt-20">
