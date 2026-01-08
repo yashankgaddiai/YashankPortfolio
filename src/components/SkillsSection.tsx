@@ -154,32 +154,13 @@ const SkillsSection = () => {
                 key={category.title}
                 variants={cardVariants}
                 custom={categoryIndex}
-                whileHover={{ 
-                  y: -10, 
-                  rotateX: 5,
-                  boxShadow: "0 20px 40px -20px hsl(var(--primary) / 0.2)",
-                }}
-                transition={smoothSpring}
-                className="glass p-6 rounded-2xl hover:border-primary/50 transition-colors group cursor-pointer will-change-transform relative overflow-hidden"
+                className="glass p-6 rounded-2xl transition-colors relative overflow-hidden"
               >
-                {/* Gradient background on hover */}
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                />
-
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-5">
-                    <motion.div 
-                      className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors relative"
-                      whileHover={{ rotate: 15, scale: 1.1 }}
-                      transition={smoothSpring}
-                    >
+                    <div className="p-3 rounded-xl bg-primary/10 text-primary">
                       <Icon size={24} />
-                      {/* Glow effect */}
-                      <motion.div
-                        className="absolute inset-0 rounded-xl bg-primary/50 blur-xl opacity-0 group-hover:opacity-50 transition-opacity"
-                      />
-                    </motion.div>
+                    </div>
                     <h3 className="font-display font-semibold text-lg">
                       {category.title}
                     </h3>
@@ -190,12 +171,7 @@ const SkillsSection = () => {
                         key={skill}
                         custom={skillIndex}
                         variants={skillVariants}
-                        whileHover={{ 
-                          scale: 1.1, 
-                          backgroundColor: "hsl(var(--primary) / 0.2)",
-                          color: "hsl(var(--primary))",
-                        }}
-                        className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground cursor-default will-change-transform transition-colors"
+                        className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground cursor-default"
                       >
                         {skill}
                       </motion.span>
