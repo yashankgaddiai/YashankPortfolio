@@ -22,8 +22,8 @@ const HeroSection = () => {
           className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none"
         >
           <div className="relative">
-            {/* Warm color overlay to blend white background with gradient - reduced opacity */}
-            <div className="absolute inset-0 bg-gradient-warm mix-blend-multiply opacity-60" />
+            {/* Warm color overlay to blend white background with gradient - light blend */}
+            <div className="absolute inset-0 bg-gradient-warm mix-blend-multiply opacity-35" />
             <img
               src={profileImage}
               alt="Yashank Gaddi"
