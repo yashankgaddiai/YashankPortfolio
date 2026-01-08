@@ -247,11 +247,11 @@ const HeroSection = () => {
             {/* Name - Large display font with cinematic letter-by-letter reveal */}
             <div className="overflow-hidden">
               <motion.h1
-                className="text-7xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.95]"
+                className="text-7xl md:text-8xl lg:text-9xl font-display font-semibold leading-[0.9] tracking-tight"
                 style={{ perspective: 800 }}
               >
                 {/* First name with staggered letters */}
-                <span className="block overflow-hidden">
+                <span className="block overflow-hidden italic">
                   {firstNameLetters.map((letter, i) => (
                     <motion.span
                       key={i}
@@ -261,10 +261,11 @@ const HeroSection = () => {
                       animate={isLoaded ? "visible" : "hidden"}
                       className="inline-block"
                       style={{
-                        background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(25, 95%, 60%) 100%)',
+                        background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(25, 95%, 55%) 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
+                        textShadow: '0 0 80px hsl(var(--primary) / 0.3)',
                       }}
                     >
                       {letter}
@@ -273,7 +274,7 @@ const HeroSection = () => {
                 </span>
                 
                 {/* Last name with staggered letters */}
-                <span className="block overflow-hidden text-8xl md:text-9xl lg:text-[10rem]">
+                <span className="block overflow-hidden text-8xl md:text-9xl lg:text-[10rem] not-italic font-bold tracking-tighter">
                   {lastNameLetters.map((letter, i) => (
                     <motion.span
                       key={i}
@@ -283,10 +284,11 @@ const HeroSection = () => {
                       animate={isLoaded ? "visible" : "hidden"}
                       className="inline-block"
                       style={{
-                        background: 'linear-gradient(135deg, hsl(25, 95%, 60%) 0%, hsl(var(--accent)) 100%)',
+                        background: 'linear-gradient(145deg, hsl(25, 95%, 55%) 0%, hsl(var(--accent)) 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
+                        textShadow: '0 0 80px hsl(var(--primary) / 0.3)',
                       }}
                     >
                       {letter}
@@ -302,9 +304,9 @@ const HeroSection = () => {
               variants={itemVariants}
             >
               <motion.p
-                className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-light tracking-wide"
-                initial={{ opacity: 0, y: 30, letterSpacing: "0.3em" }}
-                animate={isLoaded ? { opacity: 1, y: 0, letterSpacing: "0.05em" } : {}}
+                className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-sans font-light tracking-widest uppercase"
+                initial={{ opacity: 0, y: 30, letterSpacing: "0.4em" }}
+                animate={isLoaded ? { opacity: 1, y: 0, letterSpacing: "0.2em" } : {}}
                 transition={{ duration: 1, delay: 1, ease: cinematicEase }}
               >
                 AI Developer
@@ -313,7 +315,7 @@ const HeroSection = () => {
             
             {/* Tagline with cinematic fade */}
             <motion.p
-              className="text-lg md:text-xl lg:text-2xl text-muted-foreground/80 max-w-xl leading-relaxed"
+              className="text-lg md:text-xl lg:text-2xl text-muted-foreground/80 max-w-xl leading-relaxed font-body font-light"
               initial={{ opacity: 0, y: 30 }}
               animate={isLoaded ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, delay: 1.3, ease: cinematicEase }}
