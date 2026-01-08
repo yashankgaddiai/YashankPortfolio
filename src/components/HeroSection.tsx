@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Code2, Brain, Layout, Rocket } from "lucide-react";
 import { useRef } from "react";
-import profileImage from "@/assets/profile-centered.png";
 import MagneticButton from "@/components/MagneticButton";
 
 const services = [
@@ -60,13 +59,14 @@ const itemVariants = {
   },
 };
 
-const imageVariants = {
-  hidden: { opacity: 0, scale: 1.1 },
+const nameRevealVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 50 },
   visible: {
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: {
-      duration: 1.2,
+      duration: 1,
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
@@ -95,8 +95,8 @@ const HeroSection = () => {
 
   // Parallax effect for background
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.5]);
+  const nameScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  const nameOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.5]);
 
   return (
     <section
@@ -104,23 +104,44 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen overflow-hidden"
     >
-      {/* Hero Background Image with parallax */}
+      {/* Hero Background - Name Display */}
       <motion.div 
         className="absolute inset-0 flex items-center justify-center will-change-transform"
         style={{ y: backgroundY }}
-        variants={imageVariants}
+        variants={nameRevealVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.img
-          src={profileImage}
-          alt="Yashank Gaddi"
-          className="w-[85%] h-[85%] object-contain object-center will-change-transform"
+        <motion.div
+          className="text-center"
           style={{ 
-            scale: imageScale,
-            opacity: imageOpacity,
+            scale: nameScale,
+            opacity: nameOpacity,
           }}
-        />
+        >
+          <h2 
+            className="text-[12vw] md:text-[10vw] lg:text-[9vw] font-display font-bold tracking-tight leading-none"
+            style={{
+              background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(25, 95%, 60%) 50%, hsl(var(--accent)) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            YASHANK
+          </h2>
+          <h2 
+            className="text-[12vw] md:text-[10vw] lg:text-[9vw] font-display font-bold tracking-tight leading-none -mt-[2vw]"
+            style={{
+              background: 'linear-gradient(135deg, hsl(25, 95%, 60%) 0%, hsl(var(--accent)) 50%, hsl(var(--primary)) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            GADDI
+          </h2>
+        </motion.div>
         {/* Gradient fade at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/90 to-transparent" />
         {/* Vignette effect */}
