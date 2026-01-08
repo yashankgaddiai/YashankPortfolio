@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import profileImage from "@/assets/profile.png";
 import { 
   Code2, 
@@ -9,11 +10,13 @@ import {
   Terminal
 } from "lucide-react";
 
-// Smooth spring for hover effects
+// Cinematic easing
+const cinematicEase = [0.16, 1, 0.3, 1] as const;
+
 const smoothSpring = {
   type: "spring" as const,
-  stiffness: 300,
-  damping: 25,
+  stiffness: 200,
+  damping: 30,
 };
 
 const containerVariants = {
@@ -21,20 +24,45 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.15,
+      delayChildren: 0.3,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { 
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.8,
+      ease: cinematicEase,
+    },
+  },
+};
+
+// Slide from sides animation
+const slideFromLeft = {
+  hidden: { opacity: 0, x: -80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { 
+      duration: 1,
+      ease: cinematicEase,
+    },
+  },
+};
+
+const slideFromRight = {
+  hidden: { opacity: 0, x: 80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { 
+      duration: 1,
+      ease: cinematicEase,
     },
   },
 };
@@ -50,8 +78,20 @@ const techStack = [
 ];
 
 const AboutSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Parallax effects
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.95]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+
   return (
-    <section id="about" className="py-24 md:py-32 bg-background relative overflow-hidden">
+    <section ref={sectionRef} id="about" className="py-24 md:py-32 bg-background relative overflow-hidden">
       <motion.div 
         className="container mx-auto px-6"
         variants={containerVariants}
@@ -62,129 +102,260 @@ const AboutSection = () => {
         {/* Main Content Grid */}
         <div className="relative min-h-[600px] md:min-h-[700px]">
           
-          {/* Large ABOUT Text Background */}
+          {/* Large ABOUT Text Background - Parallax */}
           <motion.div 
             className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            style={{ y: backgroundY }}
           >
-            <span className="text-[120px] md:text-[200px] lg:text-[280px] font-display font-bold text-foreground/[0.03] tracking-wider">
+            <motion.span 
+              className="text-[120px] md:text-[200px] lg:text-[280px] font-display font-bold text-foreground/[0.03] tracking-wider"
+              initial={{ opacity: 0, scale: 1.2 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: cinematicEase }}
+            >
               ABOUT
-            </span>
+            </motion.span>
           </motion.div>
 
-          {/* Center Profile Image */}
+          {/* Center Profile Image - Floating with parallax */}
           <motion.div 
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            style={{ y: imageY, scale: imageScale }}
           >
             <motion.div 
               className="relative w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
-              whileHover={{ scale: 1.03 }}
-              transition={smoothSpring}
+              initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
+              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: cinematicEase }}
+              whileHover={{ scale: 1.05, rotateY: 5 }}
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/20 to-transparent blur-2xl" />
+              {/* Animated glow ring */}
+              <motion.div 
+                className="absolute inset-[-20px] rounded-full"
+                style={{
+                  background: 'conic-gradient(from 0deg, transparent, hsl(var(--primary) / 0.3), transparent, hsl(var(--accent) / 0.3), transparent)',
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/30 to-transparent blur-2xl" />
               <img
                 src={profileImage}
                 alt="Yashank Gaddi"
-                className="w-full h-full object-cover rounded-full border-2 border-primary/20"
+                className="w-full h-full object-cover rounded-full border-2 border-primary/20 relative z-10"
               />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20" />
             </motion.div>
             
             {/* Tagline below image */}
             <motion.p 
-              className="text-center text-sm text-muted-foreground mt-4 italic"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              className="text-center text-sm text-muted-foreground mt-6 italic"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              transition={{ delay: 0.8, duration: 0.8, ease: cinematicEase }}
             >
               Building the AI-First Future
             </motion.p>
           </motion.div>
 
-          {/* Left Column */}
+          {/* Left Column - Slides from left */}
           <motion.div 
             className="absolute left-0 top-1/2 -translate-y-1/2 max-w-xs space-y-8 hidden md:block"
-            variants={containerVariants}
+            style={{ y: textY }}
+            variants={slideFromLeft}
           >
             {/* Experience */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+            <motion.div 
+              variants={itemVariants}
+              whileHover={{ x: 10 }}
+              transition={smoothSpring}
+            >
+              <motion.h3 
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
                 Experience
-              </h3>
+              </motion.h3>
               <div className="space-y-2 text-sm text-muted-foreground">
-                <p>Co-Founder at AI Agentic Verse</p>
-                <p>Full Stack Developer for international organizations</p>
+                <motion.p
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  Co-Founder at AI Agentic Verse
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                >
+                  Full Stack Developer for international organizations
+                </motion.p>
               </div>
             </motion.div>
 
             {/* Achievements */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+            <motion.div 
+              variants={itemVariants}
+              whileHover={{ x: 10 }}
+              transition={smoothSpring}
+            >
+              <motion.h3 
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
                 Achievements
-              </h3>
+              </motion.h3>
               <div className="space-y-2 text-sm text-muted-foreground">
-                <p>Built platforms reaching 70+ languages</p>
-                <p>Deployed AI solutions for global clients</p>
+                <motion.p
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                  whileHover={{ color: "hsl(var(--primary))" }}
+                >
+                  Built platforms reaching 70+ languages
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7, duration: 0.6 }}
+                  whileHover={{ color: "hsl(var(--primary))" }}
+                >
+                  Deployed AI solutions for global clients
+                </motion.p>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Right Column */}
+          {/* Right Column - Slides from right */}
           <motion.div 
             className="absolute right-0 top-1/2 -translate-y-1/2 max-w-xs space-y-8 text-right hidden md:block"
-            variants={containerVariants}
+            style={{ y: textY }}
+            variants={slideFromRight}
           >
             {/* Tech Stack */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+            <motion.div 
+              variants={itemVariants}
+              whileHover={{ x: -10 }}
+              transition={smoothSpring}
+            >
+              <motion.h3 
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
                 Tech Stack
-              </h3>
+              </motion.h3>
               <div className="space-y-1 text-sm text-muted-foreground">
-                <p>React, Next.js, Node.js</p>
-                <p>Python, TypeScript</p>
-                <p>AI/LLM Integration</p>
+                <motion.p
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  React, Next.js, Node.js
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                >
+                  Python, TypeScript
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                >
+                  AI/LLM Integration
+                </motion.p>
               </div>
             </motion.div>
 
             {/* Contact */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+            <motion.div 
+              variants={itemVariants}
+              whileHover={{ x: -10 }}
+              transition={smoothSpring}
+            >
+              <motion.h3 
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
                 Contact
-              </h3>
+              </motion.h3>
               <div className="text-sm text-muted-foreground">
-                <a 
+                <motion.a 
                   href="#contact" 
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline inline-block"
+                  whileHover={{ scale: 1.05, x: -5 }}
+                  transition={smoothSpring}
                 >
                   Visit Contact Section
-                </a>
+                </motion.a>
               </div>
             </motion.div>
 
             {/* Interests */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+            <motion.div 
+              variants={itemVariants}
+              whileHover={{ x: -10 }}
+              transition={smoothSpring}
+            >
+              <motion.h3 
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 }}
+              >
                 Interests
-              </h3>
+              </motion.h3>
               <div className="space-y-1 text-sm text-muted-foreground">
-                <p>AI Automation</p>
-                <p>Entrepreneurship</p>
+                <motion.p
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7, duration: 0.6 }}
+                >
+                  AI Automation
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8, duration: 0.6 }}
+                >
+                  Entrepreneurship
+                </motion.p>
               </div>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Mobile Layout - Shows on small screens */}
+        {/* Mobile Layout */}
         <div className="md:hidden mt-8 grid grid-cols-2 gap-8">
-          {/* Left Side */}
           <motion.div className="space-y-6" variants={containerVariants}>
             <motion.div variants={itemVariants}>
               <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Experience</h3>
@@ -196,7 +367,6 @@ const AboutSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side */}
           <motion.div className="space-y-6 text-right" variants={containerVariants}>
             <motion.div variants={itemVariants}>
               <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Tech Stack</h3>
@@ -212,14 +382,20 @@ const AboutSection = () => {
         {/* My Creative Stack - Bottom Section */}
         <motion.div 
           className="mt-16 md:mt-24"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 1, ease: cinematicEase }}
         >
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8">
+          <motion.p 
+            className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8"
+            initial={{ opacity: 0, letterSpacing: "0.1em" }}
+            whileInView={{ opacity: 1, letterSpacing: "0.3em" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
             My Creative Stack
-          </p>
+          </motion.p>
           
           <div className="flex flex-wrap items-center gap-6 md:gap-10">
             {/* Tech Icons */}
@@ -229,19 +405,27 @@ const AboutSection = () => {
                 return (
                   <motion.div
                     key={tech.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, rotateY: -30 }}
+                    whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.4 + index * 0.08, duration: 0.4 }}
-                    whileHover={{ scale: 1.15, y: -5 }}
+                    transition={{ delay: 0.4 + index * 0.1, duration: 0.6, ease: cinematicEase }}
+                    whileHover={{ scale: 1.2, y: -8, rotateY: 15 }}
                     className="group relative cursor-pointer"
+                    style={{ perspective: 500 }}
                   >
-                    <div className="p-3 rounded-xl bg-card border border-border/50 group-hover:border-primary/50 transition-colors">
+                    <motion.div 
+                      className="p-3 rounded-xl bg-card border border-border/50 group-hover:border-primary/50 group-hover:bg-primary/10 transition-all duration-300"
+                      whileHover={{ boxShadow: "0 10px 30px -10px hsl(var(--primary) / 0.4)" }}
+                    >
                       <Icon size={24} className="text-muted-foreground group-hover:text-primary transition-colors" />
-                    </div>
-                    <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    </motion.div>
+                    <motion.span 
+                      className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                      initial={{ y: 5 }}
+                      whileHover={{ y: 0 }}
+                    >
                       {tech.label}
-                    </span>
+                    </motion.span>
                   </motion.div>
                 );
               })}
@@ -250,14 +434,24 @@ const AboutSection = () => {
             {/* Description Text */}
             <motion.p 
               className="flex-1 text-muted-foreground text-sm md:text-base max-w-md ml-auto"
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.6, duration: 0.5 }}
+              transition={{ delay: 0.8, duration: 0.8, ease: cinematicEase }}
             >
               I leverage a vast ecosystem of{" "}
-              <span className="text-primary">industry standard tools</span> and
-              cutting edge <span className="text-primary">AI integration</span> to
+              <motion.span 
+                className="text-primary"
+                whileHover={{ textShadow: "0 0 20px hsl(var(--primary) / 0.5)" }}
+              >
+                industry standard tools
+              </motion.span> and
+              cutting edge <motion.span 
+                className="text-primary"
+                whileHover={{ textShadow: "0 0 20px hsl(var(--primary) / 0.5)" }}
+              >
+                AI integration
+              </motion.span> to
               transform ambitious ideas into high impact digital experiences.
             </motion.p>
           </div>

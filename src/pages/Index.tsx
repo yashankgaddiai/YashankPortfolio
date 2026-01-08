@@ -15,6 +15,9 @@ const Index = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background">
+        {/* Cinematic grain overlay */}
+        <div className="grain" />
+        
         <CursorEffect />
         <ScrollProgress />
         <Header />

@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import {
   Code2,
   Brain,
@@ -47,121 +48,197 @@ const skillCategories = [
   },
 ];
 
-// Smooth spring for hover effects
+// Cinematic easing
+const cinematicEase = [0.16, 1, 0.3, 1] as const;
+
 const smoothSpring = {
   type: "spring" as const,
-  stiffness: 300,
+  stiffness: 200,
   damping: 25,
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.15,
-    },
-  },
-};
-
+// Wave animation for cards
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, rotateX: -10 },
-  visible: {
+  hidden: (i: number) => ({ 
+    opacity: 0, 
+    y: 80, 
+    rotateX: -15,
+    rotateY: i % 2 === 0 ? -10 : 10,
+    scale: 0.9,
+  }),
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
     rotateX: 0,
+    rotateY: 0,
+    scale: 1,
     transition: { 
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.8,
+      delay: i * 0.1,
+      ease: cinematicEase,
     },
-  },
+  }),
 };
 
 const skillVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.6, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: {
-      delay: i * 0.05,
-      duration: 0.3,
-      ease: [0.22, 1, 0.36, 1] as const,
+      delay: i * 0.08,
+      duration: 0.5,
+      ease: cinematicEase,
     },
   }),
 };
 
 const SkillsSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0, 0.2], [50, 0]);
+
   return (
-    <section id="skills" className="py-24 md:py-32 bg-card relative overflow-hidden">
-      {/* Background decoration */}
+    <section ref={sectionRef} id="skills" className="py-24 md:py-32 bg-card relative overflow-hidden">
+      {/* Animated background elements */}
       <motion.div
-        className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5"
-        style={{
-          background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)",
-        }}
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.03, 0.06, 0.03],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+        className="absolute inset-0 pointer-events-none"
+        style={{ y: backgroundY }}
+      >
+        <motion.div
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full opacity-10"
+          style={{
+            background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 60%)",
+          }}
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [-50, 50, -50],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full opacity-5"
+          style={{
+            background: "radial-gradient(circle, hsl(var(--accent)) 0%, transparent 60%)",
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            y: [0, -30, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3,
+          }}
+        />
+      </motion.div>
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
+          style={{ opacity: titleOpacity, y: titleY }}
           className="text-center mb-16"
         >
           <motion.span 
             className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30, letterSpacing: "0.1em" }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0.3em" }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            transition={{ duration: 0.8, ease: cinematicEase }}
           >
             My Skills
           </motion.span>
           <motion.h2 
-            className="text-4xl md:text-5xl font-display font-bold mt-4"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mt-4"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: cinematicEase }}
           >
             Technical Competencies
           </motion.h2>
+          
+          {/* Animated underline */}
+          <motion.div
+            className="h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-6"
+            initial={{ width: 0 }}
+            whileInView={{ width: 200 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 1, ease: cinematicEase }}
+          />
         </motion.div>
 
         <motion.div 
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          style={{ perspective: 1000 }}
+          style={{ perspective: 1200 }}
         >
           {skillCategories.map((category, categoryIndex) => {
             const Icon = category.icon;
             return (
               <motion.div
                 key={category.title}
-                variants={cardVariants}
                 custom={categoryIndex}
-                className="glass p-6 rounded-2xl transition-colors relative overflow-hidden"
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                whileHover={{ 
+                  y: -12,
+                  rotateX: 5,
+                  rotateY: categoryIndex % 2 === 0 ? 3 : -3,
+                  boxShadow: "0 30px 60px -20px hsl(var(--primary) / 0.2)",
+                }}
+                transition={smoothSpring}
+                className="glass p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
+                style={{ transformStyle: "preserve-3d" }}
               >
+                {/* Animated gradient overlay */}
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100`}
+                  transition={{ duration: 0.5 }}
+                />
+                
+                {/* Glow effect on hover */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                  style={{
+                    background: `radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.1) 0%, transparent 60%)`,
+                  }}
+                  transition={{ duration: 0.5 }}
+                />
+
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-5">
-                    <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                      <Icon size={24} />
-                    </div>
-                    <h3 className="font-display font-semibold text-lg">
+                    <motion.div 
+                      className="p-3 rounded-xl bg-primary/10 text-primary"
+                      whileHover={{ rotate: 360, scale: 1.2 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <motion.div
+                        animate={{ 
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: categoryIndex * 0.2,
+                        }}
+                      >
+                        <Icon size={24} />
+                      </motion.div>
+                    </motion.div>
+                    <h3 className="font-display font-semibold text-lg group-hover:text-primary transition-colors">
                       {category.title}
                     </h3>
                   </div>
@@ -171,7 +248,17 @@ const SkillsSection = () => {
                         key={skill}
                         custom={skillIndex}
                         variants={skillVariants}
-                        className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground cursor-default"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        whileHover={{ 
+                          scale: 1.1, 
+                          backgroundColor: "hsl(var(--primary) / 0.2)",
+                          color: "hsl(var(--primary))",
+                          boxShadow: "0 0 20px hsl(var(--primary) / 0.3)",
+                        }}
+                        transition={smoothSpring}
+                        className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground cursor-pointer transition-colors"
                       >
                         {skill}
                       </motion.span>
