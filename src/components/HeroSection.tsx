@@ -22,24 +22,24 @@ const HeroSection = () => {
           className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none"
         >
           <div className="relative">
-            {/* Warm color overlay to blend white background with gradient */}
-            <div className="absolute inset-0 bg-gradient-warm mix-blend-multiply opacity-100" />
+            {/* Warm color overlay to blend white background with gradient - reduced opacity */}
+            <div className="absolute inset-0 bg-gradient-warm mix-blend-multiply opacity-60" />
             <img
               src={profileImage}
               alt="Yashank Gaddi"
               className="h-[70vh] lg:h-[85vh] w-auto object-contain object-bottom"
               style={{
-                filter: 'contrast(1.05) saturate(1.1)',
+                filter: 'contrast(1.08) saturate(1.15) brightness(1.02)',
               }}
             />
             {/* Gradient fade at bottom for seamless blend */}
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
-            {/* Side gradient fades for seamless horizontal blend */}
-            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-transparent via-transparent to-transparent" 
-              style={{ background: 'linear-gradient(to right, hsl(25, 90%, 40%, 0.6), transparent)' }} 
+            {/* Side gradient fades - softer for better blend */}
+            <div className="absolute inset-y-0 left-0 w-16" 
+              style={{ background: 'linear-gradient(to right, hsl(25, 90%, 40%, 0.3), transparent)' }} 
             />
-            <div className="absolute inset-y-0 right-0 w-24"
-              style={{ background: 'linear-gradient(to left, hsl(35, 85%, 50%, 0.6), transparent)' }} 
+            <div className="absolute inset-y-0 right-0 w-16"
+              style={{ background: 'linear-gradient(to left, hsl(35, 85%, 50%, 0.3), transparent)' }} 
             />
           </div>
         </motion.div>
