@@ -27,18 +27,14 @@ const HeroSection = () => {
           transition={{ duration: 1 }}
           className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none z-10"
         >
-          <div className="relative">
-            {/* Strong multiply blend to make white background match gradient */}
-            <div 
-              className="absolute inset-0 bg-gradient-warm mix-blend-multiply"
-              style={{ opacity: 0.85 }}
-            />
+          <div className="relative" style={{ isolation: 'isolate' }}>
+            {/* Image with multiply blend to make white background transparent */}
             <img
               src={profileImage}
               alt="Yashank Gaddi"
-              className="h-[65vh] lg:h-[80vh] w-auto object-contain object-bottom"
+              className="h-[65vh] lg:h-[80vh] w-auto object-contain object-bottom mix-blend-multiply"
               style={{
-                filter: 'contrast(1.1) saturate(1.2)',
+                filter: 'contrast(1.15) saturate(1.25) brightness(1.05)',
               }}
             />
             {/* Gradient fade at bottom */}
