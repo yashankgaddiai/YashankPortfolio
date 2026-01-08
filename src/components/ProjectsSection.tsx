@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ExternalLink, Github, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import aiAgenticVerseImage from "@/assets/aiagenticverse.png";
+import beitYisraelImage from "@/assets/beityisrael.png";
 
 const projects = [
   {
@@ -22,7 +23,7 @@ const projects = [
     solution: "LLM-powered content translation system",
     result: "Content accessible in 70+ languages",
     tech: ["Next.js", "LLM Integration", "Cloud Hosting"],
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
+    image: beitYisraelImage,
   },
   {
     title: "Harvest of Mercy",
