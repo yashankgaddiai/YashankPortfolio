@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown, FileText, Shirt, Layout, TrendingUp } from "lucide-react";
+import profileImage from "@/assets/profile-hero.png";
 
 const services = [
   { icon: FileText, label: "Full Stack" },
@@ -14,11 +15,19 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen overflow-hidden"
     >
-      {/* Warm Gradient Background - Dark red to orange like reference */}
-      <div className="absolute inset-0 bg-gradient-warm" />
+      {/* Hero Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={profileImage}
+          alt="Yashank Gaddi"
+          className="w-full h-full object-cover object-top"
+        />
+        {/* Gradient fade at bottom for smooth transition */}
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/80 to-transparent" />
+      </div>
 
       {/* Main Content Container */}
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen z-10">
 
         {/* Content Layer */}
         <div className="container mx-auto px-6 relative z-20 min-h-screen flex flex-col justify-center pt-20">
