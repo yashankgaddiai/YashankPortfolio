@@ -30,7 +30,7 @@ const HeroSection = () => {
       <div className="relative min-h-screen z-20">
 
         {/* Content Layer */}
-        <div className="container mx-auto px-6 lg:px-12 relative z-20 min-h-screen flex flex-col justify-center pt-20">
+        <div className="container mx-auto px-6 lg:px-12 relative z-20 min-h-screen flex flex-col justify-center items-start pt-20 pb-32">
           {/* Left Content - Title */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
