@@ -9,51 +9,55 @@ const services = [
   { icon: Rocket, label: "Automation" },
 ];
 
+// Smooth spring for hover effects
+const smoothSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
+};
+
 // Stagger animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
+      staggerChildren: 0.12,
+      delayChildren: 0.2,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 25 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: "easeOut" as const,
+      duration: 0.6,
     },
   },
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, scale: 1.05 },
+  hidden: { opacity: 0, scale: 1.03 },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 1.2,
-      ease: "easeOut" as const,
+      duration: 1,
     },
   },
 };
 
 const tagVariants = {
-  hidden: { opacity: 0, x: -20 },
+  hidden: { opacity: 0, x: -15 },
   visible: (i: number) => ({
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.5,
-      delay: 0.6 + i * 0.1,
-      ease: "easeOut" as const,
+      duration: 0.4,
+      delay: 0.5 + i * 0.08,
     },
   }),
 };
@@ -66,7 +70,7 @@ const HeroSection = () => {
     >
       {/* Hero Background Image with baked-in gradient */}
       <motion.div 
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex items-center justify-center will-change-transform"
         variants={imageVariants}
         initial="hidden"
         animate="visible"
@@ -75,8 +79,8 @@ const HeroSection = () => {
           src={profileImage}
           alt="Yashank Gaddi"
           className="w-[85%] h-[85%] object-contain object-center"
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.6 }}
+          whileHover={{ scale: 1.015 }}
+          transition={smoothSpring}
         />
         {/* Gradient fade at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent" />
@@ -90,11 +94,11 @@ const HeroSection = () => {
             background: 'radial-gradient(circle, rgba(255, 120, 50, 0.1) 0%, transparent 70%)',
           }}
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            scale: [1, 1.15, 1],
+            opacity: [0.3, 0.45, 0.3],
           }}
           transition={{
-            duration: 4,
+            duration: 5,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -105,11 +109,11 @@ const HeroSection = () => {
             background: 'radial-gradient(circle, rgba(200, 80, 40, 0.08) 0%, transparent 70%)',
           }}
           animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.35, 0.2],
           }}
           transition={{
-            duration: 5,
+            duration: 6,
             repeat: Infinity,
             ease: "easeInOut",
             delay: 1,
@@ -135,18 +139,18 @@ const HeroSection = () => {
             >
               <motion.span 
                 className="block"
-                initial={{ opacity: 0, x: -40 }}
+                initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                transition={{ duration: 0.6, delay: 0.15 }}
               >
                 AI
               </motion.span>
               <motion.span 
                 className="italic text-7xl md:text-8xl lg:text-9xl block" 
                 style={{ fontFamily: "'Playfair Display', serif" }}
-                initial={{ opacity: 0, x: -40 }}
+                initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
                 Developer
               </motion.span>
@@ -167,12 +171,12 @@ const HeroSection = () => {
                     initial="hidden"
                     animate="visible"
                     whileHover={{ 
-                      scale: 1.05, 
+                      scale: 1.03, 
                       borderColor: 'rgba(255, 120, 50, 0.7)',
-                      transition: { duration: 0.2 }
                     }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-4 py-3 rounded-2xl flex items-center gap-3 cursor-pointer"
+                    transition={smoothSpring}
+                    className="px-4 py-3 rounded-2xl flex items-center gap-3 cursor-pointer will-change-transform"
                     style={{
                       background: 'rgba(0, 0, 0, 0.3)',
                       backdropFilter: 'blur(8px)',
@@ -180,8 +184,8 @@ const HeroSection = () => {
                     }}
                   >
                     <motion.div
-                      whileHover={{ rotate: 10 }}
-                      transition={{ duration: 0.2 }}
+                      whileHover={{ rotate: 8 }}
+                      transition={smoothSpring}
                     >
                       <Icon size={18} className="text-primary" />
                     </motion.div>
@@ -197,19 +201,20 @@ const HeroSection = () => {
 
         {/* Connect Button - Bottom Center */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
+          transition={{ delay: 0.8, duration: 0.6 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
         >
           <motion.a
             href="#contact"
             className="flex flex-col items-center gap-2 group"
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
+            transition={smoothSpring}
           >
             <motion.div 
-              className="w-20 h-20 rounded-full flex flex-col items-center justify-center gap-1"
+              className="w-20 h-20 rounded-full flex flex-col items-center justify-center gap-1 will-change-transform"
               style={{
                 background: 'rgba(80, 60, 50, 0.6)',
                 backdropFilter: 'blur(12px)',
@@ -219,16 +224,16 @@ const HeroSection = () => {
                 boxShadow: '0 0 30px rgba(255, 120, 50, 0.3)',
                 borderColor: 'rgba(255, 120, 50, 0.4)',
               }}
-              transition={{ duration: 0.3 }}
+              transition={smoothSpring}
             >
               <span className="text-[10px] font-semibold uppercase tracking-widest text-foreground/90">
                 Connect
               </span>
               <motion.div
-                animate={{ y: [0, 5, 0] }}
+                animate={{ y: [0, 4, 0] }}
                 transition={{ 
                   repeat: Infinity, 
-                  duration: 1.5,
+                  duration: 1.8,
                   ease: "easeInOut"
                 }}
                 className="text-foreground/70"

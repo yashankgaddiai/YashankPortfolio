@@ -46,23 +46,30 @@ const experiences = [
   },
 ];
 
+// Smooth spring for hover effects
+const smoothSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
+};
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.15,
       delayChildren: 0.1,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, x: -50 },
+  hidden: { opacity: 0, x: -30 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6 },
+    transition: { duration: 0.5 },
   },
 };
 
@@ -71,10 +78,10 @@ const ExperienceSection = () => {
     <section id="experience" className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="text-primary font-medium text-sm uppercase tracking-widest">
@@ -92,7 +99,7 @@ const ExperienceSection = () => {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true, margin: "-60px" }}
           >
             {/* Timeline Line */}
             <motion.div 
@@ -100,7 +107,7 @@ const ExperienceSection = () => {
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: 0.8 }}
               style={{ originY: 0 }}
             />
 
@@ -119,7 +126,7 @@ const ExperienceSection = () => {
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.3 + index * 0.1, type: "spring", stiffness: 200 }}
+                  transition={{ delay: 0.2 + index * 0.08, duration: 0.4 }}
                 />
 
                 {/* Content */}
@@ -129,9 +136,9 @@ const ExperienceSection = () => {
                   }`}
                 >
                   <motion.div 
-                    className="glass p-6 rounded-2xl hover:border-primary/30 transition-colors"
-                    whileHover={{ y: -5, scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
+                    className="glass p-6 rounded-2xl hover:border-primary/30 transition-colors will-change-transform"
+                    whileHover={{ y: -4 }}
+                    transition={smoothSpring}
                   >
                     <div
                       className={`flex items-center gap-2 mb-2 ${
@@ -140,7 +147,8 @@ const ExperienceSection = () => {
                     >
                       <motion.span 
                         className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary"
-                        whileHover={{ scale: 1.1 }}
+                        whileHover={{ scale: 1.05 }}
+                        transition={smoothSpring}
                       >
                         {exp.type}
                       </motion.span>
@@ -167,10 +175,10 @@ const ExperienceSection = () => {
                         <motion.li 
                           key={i} 
                           className="flex items-start gap-2"
-                          initial={{ opacity: 0, x: index % 2 === 0 ? 20 : -20 }}
+                          initial={{ opacity: 0, x: index % 2 === 0 ? 15 : -15 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
-                          transition={{ delay: 0.4 + i * 0.1, duration: 0.4 }}
+                          transition={{ delay: 0.3 + i * 0.08, duration: 0.4 }}
                         >
                           <span className="text-primary mt-1.5 flex-shrink-0">•</span>
                           <span>{achievement}</span>
@@ -188,7 +196,8 @@ const ExperienceSection = () => {
                             key={link.label}
                             href={link.url}
                             className="flex items-center gap-1 text-sm text-primary hover:underline"
-                            whileHover={{ x: 3 }}
+                            whileHover={{ x: 2 }}
+                            transition={smoothSpring}
                           >
                             {link.label}
                             <ExternalLink size={12} />

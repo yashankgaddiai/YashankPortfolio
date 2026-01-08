@@ -6,19 +6,26 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
+// Smooth spring for hover effects
+const smoothSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
+};
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.12,
       delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 25 },
   visible: {
     opacity: 1,
     y: 0,
@@ -52,7 +59,7 @@ const ContactSection = () => {
           opacity: [0.08, 0.12, 0.08],
         }}
         transition={{ 
-          duration: 4, 
+          duration: 5, 
           repeat: Infinity, 
           ease: "easeInOut" 
         }}
@@ -63,7 +70,7 @@ const ContactSection = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-80px" }}
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <span className="text-primary font-medium text-sm uppercase tracking-widest">
@@ -91,12 +98,13 @@ const ContactSection = () => {
               <motion.div 
                 className="flex items-center gap-4"
                 variants={itemVariants}
-                whileHover={{ x: 10 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ x: 6 }}
+                transition={smoothSpring}
               >
                 <motion.div 
                   className="p-4 rounded-xl bg-primary/10 text-primary"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.08, rotate: 4 }}
+                  transition={smoothSpring}
                 >
                   <Mail size={24} />
                 </motion.div>
@@ -114,12 +122,13 @@ const ContactSection = () => {
               <motion.div 
                 className="flex items-center gap-4"
                 variants={itemVariants}
-                whileHover={{ x: 10 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ x: 6 }}
+                transition={smoothSpring}
               >
                 <motion.div 
                   className="p-4 rounded-xl bg-primary/10 text-primary"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.08, rotate: 4 }}
+                  transition={smoothSpring}
                 >
                   <Phone size={24} />
                 </motion.div>
@@ -137,12 +146,13 @@ const ContactSection = () => {
               <motion.div 
                 className="flex items-center gap-4"
                 variants={itemVariants}
-                whileHover={{ x: 10 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ x: 6 }}
+                transition={smoothSpring}
               >
                 <motion.div 
                   className="p-4 rounded-xl bg-primary/10 text-primary"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.08, rotate: 4 }}
+                  transition={smoothSpring}
                 >
                   <MapPin size={24} />
                 </motion.div>
@@ -162,8 +172,9 @@ const ContactSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.08, rotate: 4 }}
                   whileTap={{ scale: 0.95 }}
+                  transition={smoothSpring}
                 >
                   <Linkedin size={24} />
                 </motion.a>
@@ -172,8 +183,9 @@ const ContactSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors"
-                  whileHover={{ scale: 1.1, rotate: -5 }}
+                  whileHover={{ scale: 1.08, rotate: -4 }}
                   whileTap={{ scale: 0.95 }}
+                  transition={smoothSpring}
                 >
                   <Github size={24} />
                 </motion.a>
@@ -185,15 +197,15 @@ const ContactSection = () => {
           <motion.div variants={itemVariants}>
             <motion.form 
               onSubmit={handleSubmit} 
-              className="glass p-8 rounded-2xl space-y-6"
-              whileHover={{ scale: 1.01 }}
-              transition={{ duration: 0.3 }}
+              className="glass p-8 rounded-2xl space-y-6 will-change-transform"
+              whileHover={{ scale: 1.005 }}
+              transition={smoothSpring}
             >
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 15 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.4 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
               >
                 <label
                   htmlFor="name"
@@ -213,10 +225,10 @@ const ContactSection = () => {
                 />
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 15 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+                transition={{ delay: 0.25, duration: 0.4 }}
               >
                 <label
                   htmlFor="email"
@@ -237,10 +249,10 @@ const ContactSection = () => {
                 />
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 15 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.4 }}
+                transition={{ delay: 0.35, duration: 0.4 }}
               >
                 <label
                   htmlFor="message"
@@ -263,6 +275,7 @@ const ContactSection = () => {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                transition={smoothSpring}
               >
                 <Button
                   type="submit"
