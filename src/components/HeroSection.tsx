@@ -159,10 +159,10 @@ const HeroSection = () => {
           animate="visible"
         >
           {/* Left Content - Title with text reveal */}
-          <motion.div className="space-y-8 max-w-lg" style={{ perspective: 800 }}>
+          <motion.div className="space-y-10 max-w-2xl" style={{ perspective: 800 }}>
             {/* Name - Large display font with reveal animation */}
             <motion.h1
-              className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[0.95]"
+              className="text-7xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.95]"
             >
               <motion.span 
                 className="block"
@@ -179,7 +179,7 @@ const HeroSection = () => {
                 YASHANK
               </motion.span>
               <motion.span 
-                className="block text-6xl md:text-7xl lg:text-8xl" 
+                className="block text-8xl md:text-9xl lg:text-[10rem]" 
                 variants={textRevealVariants}
                 initial="hidden"
                 animate="visible"
@@ -197,7 +197,7 @@ const HeroSection = () => {
             
             {/* Subtitle */}
             <motion.p
-              className="text-xl md:text-2xl text-muted-foreground font-light"
+              className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-light"
               variants={itemVariants}
             >
               AI Developer
@@ -205,7 +205,7 @@ const HeroSection = () => {
             
             {/* Tagline */}
             <motion.p
-              className="text-base md:text-lg text-muted-foreground/80 max-w-md leading-relaxed"
+              className="text-lg md:text-xl lg:text-2xl text-muted-foreground/80 max-w-xl leading-relaxed"
               variants={itemVariants}
             >
               Building intelligent solutions that bridge the gap between human creativity and machine capability.
@@ -213,7 +213,7 @@ const HeroSection = () => {
 
             {/* Service Tags - 2x2 Grid with stagger + glow hover */}
             <motion.div
-              className="grid grid-cols-2 gap-3 max-w-sm"
+              className="grid grid-cols-2 gap-4 max-w-md"
               variants={itemVariants}
             >
               {services.map((service, index) => {
@@ -231,7 +231,7 @@ const HeroSection = () => {
                     }}
                     whileTap={{ scale: 0.98 }}
                     transition={smoothSpring}
-                    className="px-4 py-3 rounded-2xl flex items-center gap-3 cursor-pointer will-change-transform relative overflow-hidden group"
+                    className="px-5 py-4 rounded-2xl flex items-center gap-3 cursor-pointer will-change-transform relative overflow-hidden group"
                     style={{
                       background: 'rgba(0, 0, 0, 0.3)',
                       backdropFilter: 'blur(8px)',
@@ -247,9 +247,9 @@ const HeroSection = () => {
                       transition={smoothSpring}
                       className="relative z-10"
                     >
-                      <Icon size={18} className="text-primary" />
+                      <Icon size={22} className="text-primary" />
                     </motion.div>
-                    <span className="text-sm font-medium text-foreground/90 relative z-10">
+                    <span className="text-base md:text-lg font-medium text-foreground/90 relative z-10">
                       {service.label}
                     </span>
                   </motion.div>
