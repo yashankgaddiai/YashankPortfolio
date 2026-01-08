@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowDown, Code2, Brain, Layout, Rocket } from "lucide-react";
 import profileImage from "@/assets/profile.png";
+
+const services = [
+  { icon: Code2, label: "Full Stack" },
+  { icon: Brain, label: "AI Agents" },
+  { icon: Layout, label: "Web Apps" },
+  { icon: Rocket, label: "Automation" },
+];
 
 const HeroSection = () => {
   return (
@@ -13,145 +19,131 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-warm" />
 
       {/* Main Content Container */}
-      <div className="relative min-h-screen flex items-end lg:items-center">
-        {/* Profile Image - Centered like reference, emerging from bottom */}
+      <div className="relative min-h-screen">
+        {/* Profile Image - Centered like reference */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none"
+          className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none z-10"
         >
           <div className="relative">
-            {/* Warm color overlay to blend white background with gradient - light blend */}
-            <div className="absolute inset-0 bg-gradient-warm mix-blend-multiply opacity-35" />
+            {/* Strong multiply blend to make white background match gradient */}
+            <div 
+              className="absolute inset-0 bg-gradient-warm mix-blend-multiply"
+              style={{ opacity: 0.85 }}
+            />
             <img
               src={profileImage}
               alt="Yashank Gaddi"
-              className="h-[70vh] lg:h-[85vh] w-auto object-contain object-bottom"
+              className="h-[65vh] lg:h-[80vh] w-auto object-contain object-bottom"
               style={{
-                filter: 'contrast(1.08) saturate(1.15) brightness(1.02)',
+                filter: 'contrast(1.1) saturate(1.2)',
               }}
             />
-            {/* Gradient fade at bottom for seamless blend */}
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
-            {/* Side gradient fades - softer for better blend */}
-            <div className="absolute inset-y-0 left-0 w-16" 
-              style={{ background: 'linear-gradient(to right, hsl(25, 90%, 40%, 0.3), transparent)' }} 
-            />
-            <div className="absolute inset-y-0 right-0 w-16"
-              style={{ background: 'linear-gradient(to left, hsl(35, 85%, 50%, 0.3), transparent)' }} 
-            />
+            {/* Gradient fade at bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
           </div>
         </motion.div>
 
         {/* Content Layer */}
-        <div className="container mx-auto px-6 relative z-10 pb-32 lg:pb-0">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between min-h-screen pt-24 lg:pt-0">
-            {/* Left Content */}
+        <div className="container mx-auto px-6 relative z-20 min-h-screen flex flex-col justify-center pt-20">
+          <div className="grid lg:grid-cols-3 gap-8 items-start">
+            {/* Left Content - Title & Service Tags */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8 lg:max-w-lg"
+              className="lg:col-span-1 space-y-8"
             >
-              <div className="space-y-4">
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                  className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-tight"
-                >
-                  AI
-                  <br />
-                  <span className="italic">Developer</span>
-                </motion.h1>
+              {/* Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.9]"
+              >
+                AI
+                <br />
+                <span className="italic">Developer</span>
+              </motion.h1>
 
-                {/* Service Tags */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                  className="flex flex-wrap gap-3 pt-4"
-                >
-                  {["Full Stack", "AI Agents", "Web Apps", "Automation"].map(
-                    (tag) => (
-                      <span
-                        key={tag}
-                        className="glass px-4 py-2 rounded-full text-sm font-medium text-foreground/90 flex items-center gap-2"
-                      >
-                        <Sparkles size={14} className="text-primary" />
-                        {tag}
-                      </span>
-                    )
-                  )}
-                </motion.div>
-              </div>
-
-              {/* CTA Buttons */}
+              {/* Service Tags - 2x2 Grid like reference */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-                className="flex flex-wrap gap-4 pt-4"
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="grid grid-cols-2 gap-3 max-w-sm"
               >
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-8"
-                >
-                  <a href="#projects">View My Work</a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-foreground/30 text-foreground hover:bg-foreground/10 rounded-full px-8"
-                >
-                  <a href="#contact">
-                    <Download className="mr-2 h-4 w-4" />
-                    Download CV
-                  </a>
-                </Button>
+                {services.map((service) => {
+                  const Icon = service.icon;
+                  return (
+                    <div
+                      key={service.label}
+                      className="glass px-4 py-3 rounded-xl flex items-center gap-3 hover:bg-foreground/10 transition-colors cursor-pointer"
+                    >
+                      <Icon size={18} className="text-primary" />
+                      <span className="text-sm font-medium text-foreground/90">
+                        {service.label}
+                      </span>
+                    </div>
+                  );
+                })}
               </motion.div>
             </motion.div>
 
-            {/* Floating Card - Right side, positioned over the image area */}
+            {/* Middle - Empty space for image */}
+            <div className="hidden lg:block lg:col-span-1" />
+
+            {/* Right Content - Floating Card */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="hidden lg:block lg:self-center"
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="lg:col-span-1 hidden lg:flex lg:justify-end lg:items-start lg:pt-32"
             >
-              <div className="glass-strong p-6 rounded-2xl max-w-sm">
-                <h3 className="font-display font-semibold text-xl mb-3">
+              <div 
+                className="p-6 rounded-2xl max-w-sm"
+                style={{
+                  background: 'linear-gradient(135deg, hsl(30, 70%, 45%, 0.85), hsl(35, 60%, 40%, 0.75))',
+                  backdropFilter: 'blur(12px)',
+                }}
+              >
+                <h3 className="font-display font-semibold text-xl mb-3 text-foreground">
                   Building the future with AI.
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-foreground/80 text-sm leading-relaxed">
                   Crafting intelligent solutions that help businesses scale and
-                  automate with confidence.
+                  automate with confidence. I build autonomous agents and scalable
+                  web platforms.
                 </p>
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Connect Button - Bottom Center like reference */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
         >
           <a
-            href="#about"
-            className="flex flex-col items-center gap-2 text-foreground/60 hover:text-foreground transition-colors"
+            href="#contact"
+            className="flex flex-col items-center gap-2 group"
           >
-            <span className="text-xs uppercase tracking-widest">Scroll</span>
+            <div className="w-16 h-16 rounded-full bg-foreground/20 backdrop-blur-md border border-foreground/30 flex items-center justify-center hover:bg-foreground/30 transition-colors">
+              <span className="text-xs font-medium uppercase tracking-wider text-foreground">
+                Connect
+              </span>
+            </div>
             <motion.div
-              animate={{ y: [0, 8, 0] }}
+              animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
+              className="text-foreground/60"
             >
-              <ArrowDown size={20} />
+              <ArrowDown size={16} />
             </motion.div>
           </a>
         </motion.div>
