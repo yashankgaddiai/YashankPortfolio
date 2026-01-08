@@ -16,11 +16,11 @@ const HeroSection = () => {
       className="relative min-h-screen overflow-hidden"
     >
       {/* Hero Background Image with baked-in gradient */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 flex items-center justify-center">
         <img
           src={profileImage}
           alt="Yashank Gaddi"
-          className="w-full h-full object-cover object-center"
+          className="w-[85%] h-[85%] object-contain object-center"
         />
         {/* Gradient fade at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent" />
