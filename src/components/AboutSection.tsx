@@ -169,7 +169,7 @@ const AboutSection = () => {
 
             {/* Entrepreneur title */}
             <motion.p 
-              className="text-sm md:text-base uppercase tracking-[0.3em] text-muted-foreground mt-2"
+              className="text-sm md:text-base uppercase tracking-[0.3em] text-muted-foreground mt-2 text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
