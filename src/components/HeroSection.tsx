@@ -30,14 +30,14 @@ const HeroSection = () => {
       <div className="relative min-h-screen z-20">
 
         {/* Content Layer */}
-        <div className="container mx-auto px-6 relative z-20 min-h-screen flex flex-col justify-center pt-20">
-          <div className="grid lg:grid-cols-3 gap-8 items-start">
+        <div className="container mx-auto px-6 lg:px-12 relative z-20 min-h-screen flex flex-col justify-center pt-20">
+          <div className="grid lg:grid-cols-2 gap-8 items-start max-w-6xl">
             {/* Left Content - Title & Service Tags */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="lg:col-span-1 space-y-12"
+              className="space-y-12 max-w-lg"
             >
               {/* Title - Large display font like reference */}
               <motion.h1
@@ -81,36 +81,7 @@ const HeroSection = () => {
               </motion.div>
             </motion.div>
 
-            {/* Middle - Empty space for image */}
-            <div className="hidden lg:block lg:col-span-1" />
-
-            {/* Right Content - Floating Card like reference */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="lg:col-span-1 hidden lg:flex lg:justify-end lg:items-start lg:pt-40"
-            >
-              <div 
-                className="p-6 rounded-2xl max-w-sm"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(180, 100, 50, 0.7), rgba(150, 80, 40, 0.6))',
-                  backdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 150, 80, 0.2)',
-                }}
-              >
-                <h3 
-                  className="font-semibold text-xl mb-3 text-foreground"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Building the future with AI.
-                </h3>
-                <p className="text-foreground/80 text-sm leading-relaxed">
-                  Design solutions that communicate with clarity and intent. I craft
-                  bold, modern AI agents that help businesses stand out with confidence.
-                </p>
-              </div>
-            </motion.div>
+            {/* Right side empty - image shows through */}
           </div>
         </div>
 
