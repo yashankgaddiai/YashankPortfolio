@@ -44,19 +44,28 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 60 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6 },
+    transition: { 
+      duration: 0.5, 
+    },
   },
+};
+
+// Smooth spring config for hover effects
+const smoothSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
 };
 
 const ProjectsSection = () => {
@@ -64,10 +73,10 @@ const ProjectsSection = () => {
     <section id="projects" className="py-24 md:py-32 bg-card">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <span className="text-primary font-medium text-sm uppercase tracking-widest">Portfolio</span>
@@ -80,37 +89,37 @@ const ProjectsSection = () => {
           .map((project) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 60, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="mb-12"
             >
               <motion.div
-                className="relative rounded-3xl overflow-hidden bg-gradient-warm p-1"
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.4 }}
+                className="relative rounded-3xl overflow-hidden bg-gradient-warm p-1 will-change-transform"
+                whileHover={{ scale: 1.005 }}
+                transition={smoothSpring}
               >
                 <div className="glass-strong rounded-[22px] overflow-hidden">
                   <div className="grid lg:grid-cols-2 gap-0">
                     <motion.div
-                      className="aspect-video lg:aspect-auto overflow-hidden"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.5 }}
+                      className="aspect-video lg:aspect-auto overflow-hidden will-change-transform"
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
                     >
                       <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                     </motion.div>
                     <div className="p-8 lg:p-12 flex flex-col justify-center">
                       <motion.div
                         className="flex items-center gap-2 mb-4"
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0, x: -15 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
+                        transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
                       >
                         <motion.div
-                          animate={{ rotate: [0, 10, -10, 0] }}
-                          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                          animate={{ rotate: [0, 8, -8, 0] }}
+                          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
                         >
                           <Sparkles className="text-primary" size={20} />
                         </motion.div>
@@ -133,12 +142,12 @@ const ProjectsSection = () => {
                         {project.tech.map((tech, index) => (
                           <motion.span
                             key={tech}
-                            initial={{ opacity: 0, scale: 0.8 }}
+                            initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
-                            whileHover={{ scale: 1.1 }}
-                            className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary"
+                            transition={{ delay: 0.3 + index * 0.05, duration: 0.25, ease: "easeOut" }}
+                            whileHover={{ scale: 1.08 }}
+                            className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary will-change-transform"
                           >
                             {tech}
                           </motion.span>
@@ -146,7 +155,7 @@ const ProjectsSection = () => {
                       </div>
                       <div className="flex gap-3">
                         {project.link && (
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} transition={smoothSpring}>
                             <Button
                               className="bg-primary text-primary-foreground hover:bg-primary/90"
                               asChild
@@ -158,7 +167,7 @@ const ProjectsSection = () => {
                             </Button>
                           </motion.div>
                         )}
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} transition={smoothSpring}>
                           <Button variant="outline" className="border-border">
                             <Github className="mr-2 h-4 w-4" />
                             Source
@@ -182,21 +191,21 @@ const ProjectsSection = () => {
         >
           {projects
             .filter((p) => !p.featured)
-            .map((project, index) => (
+            .map((project) => (
               <motion.div
                 key={project.title}
                 variants={cardVariants}
-                whileHover={{ y: -10, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="group glass rounded-2xl overflow-hidden hover:border-primary/30 transition-colors cursor-pointer"
+                whileHover={{ y: -8 }}
+                transition={smoothSpring}
+                className="group glass rounded-2xl overflow-hidden hover:border-primary/30 transition-colors cursor-pointer will-change-transform"
               >
                 <div className="aspect-video overflow-hidden">
                   <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
+                    className="w-full h-full object-cover will-change-transform"
+                    whileHover={{ scale: 1.06 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                   />
                 </div>
                 <div className="p-6">
@@ -216,7 +225,8 @@ const ProjectsSection = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-primary hover:underline flex items-center gap-1"
-                        whileHover={{ x: 5 }}
+                        whileHover={{ x: 3 }}
+                        transition={smoothSpring}
                       >
                         View Project <ExternalLink size={12} />
                       </motion.a>
