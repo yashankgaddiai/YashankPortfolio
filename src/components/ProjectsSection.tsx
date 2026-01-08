@@ -5,7 +5,7 @@ import aiAgenticVerseImage from "@/assets/aiagenticverse.png";
 
 const projects = [
   {
-    title: "AI Agentic Verse Platform",
+    title: "AI Agentic Verse",
     description:
       "A comprehensive AI automation platform enabling businesses to deploy smart chat agents and operational workflows.",
     problem: "Businesses struggle with manual repetitive tasks",
@@ -17,8 +17,7 @@ const projects = [
   },
   {
     title: "Beit Yisrael International",
-    description:
-      "Official digital platform with multilingual podcast content generation across 70 languages.",
+    description: "Official digital platform with multilingual podcast content generation across 70 languages.",
     problem: "Global organization needed multilingual reach",
     solution: "LLM-powered content translation system",
     result: "Content accessible in 70+ languages",
@@ -68,12 +67,8 @@ const ProjectsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-medium text-sm uppercase tracking-widest">
-            Portfolio
-          </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold mt-4">
-            Featured Projects
-          </h2>
+          <span className="text-primary font-medium text-sm uppercase tracking-widest">Portfolio</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold mt-4">Featured Projects</h2>
         </motion.div>
 
         {/* Featured Project */}
@@ -88,26 +83,22 @@ const ProjectsSection = () => {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="mb-12"
             >
-              <motion.div 
+              <motion.div
                 className="relative rounded-3xl overflow-hidden bg-gradient-warm p-1"
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.4 }}
               >
                 <div className="glass-strong rounded-[22px] overflow-hidden">
                   <div className="grid lg:grid-cols-2 gap-0">
-                    <motion.div 
+                    <motion.div
                       className="aspect-video lg:aspect-auto overflow-hidden"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                     </motion.div>
                     <div className="p-8 lg:p-12 flex flex-col justify-center">
-                      <motion.div 
+                      <motion.div
                         className="flex items-center gap-2 mb-4"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -120,28 +111,19 @@ const ProjectsSection = () => {
                         >
                           <Sparkles className="text-primary" size={20} />
                         </motion.div>
-                        <span className="text-primary font-medium text-sm">
-                          Featured Project
-                        </span>
+                        <span className="text-primary font-medium text-sm">Featured Project</span>
                       </motion.div>
-                      <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
-                        {project.title}
-                      </h3>
-                      <p className="text-muted-foreground mb-6">
-                        {project.description}
-                      </p>
+                      <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">{project.title}</h3>
+                      <p className="text-muted-foreground mb-6">{project.description}</p>
                       <div className="space-y-2 mb-6 text-sm">
                         <p>
-                          <span className="text-primary font-medium">Problem:</span>{" "}
-                          {project.problem}
+                          <span className="text-primary font-medium">Problem:</span> {project.problem}
                         </p>
                         <p>
-                          <span className="text-primary font-medium">Solution:</span>{" "}
-                          {project.solution}
+                          <span className="text-primary font-medium">Solution:</span> {project.solution}
                         </p>
                         <p>
-                          <span className="text-primary font-medium">Result:</span>{" "}
-                          {project.result}
+                          <span className="text-primary font-medium">Result:</span> {project.result}
                         </p>
                       </div>
                       <div className="flex flex-wrap gap-2 mb-6">
@@ -181,7 +163,7 @@ const ProjectsSection = () => {
           ))}
 
         {/* Other Projects Grid */}
-        <motion.div 
+        <motion.div
           className="grid md:grid-cols-2 gap-6"
           variants={containerVariants}
           initial="hidden"
@@ -208,18 +190,11 @@ const ProjectsSection = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-display font-semibold mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {project.description}
-                  </p>
+                  <h3 className="text-xl font-display font-semibold mb-2">{project.title}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground"
-                      >
+                      <span key={tech} className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground">
                         {tech}
                       </span>
                     ))}
