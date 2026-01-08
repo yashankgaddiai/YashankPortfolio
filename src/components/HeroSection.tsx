@@ -204,7 +204,7 @@ const HeroSection = () => {
           <motion.div className="space-y-8 max-w-lg" style={{ perspective: 800 }}>
             {/* Title - Large display font with reveal animation */}
             <motion.h1
-              className="text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95] overflow-hidden"
+              className="text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95]"
             >
               <motion.span 
                 className="block"
