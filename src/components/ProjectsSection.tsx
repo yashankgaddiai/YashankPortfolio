@@ -24,6 +24,7 @@ const projects = [
     result: "Content accessible in 70+ languages",
     tech: ["Next.js", "LLM Integration", "Cloud Hosting"],
     image: beitYisraelImage,
+    link: "https://www.beityisraelinternational.com/",
   },
   {
     title: "Harvest of Mercy",
@@ -200,13 +201,17 @@ const ProjectsSection = () => {
                     ))}
                   </div>
                   <div className="flex gap-3">
-                    <motion.a
-                      href="#"
-                      className="text-sm text-primary hover:underline flex items-center gap-1"
-                      whileHover={{ x: 5 }}
-                    >
-                      View Project <ExternalLink size={12} />
-                    </motion.a>
+                    {project.link && (
+                      <motion.a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-primary hover:underline flex items-center gap-1"
+                        whileHover={{ x: 5 }}
+                      >
+                        View Project <ExternalLink size={12} />
+                      </motion.a>
+                    )}
                   </div>
                 </div>
               </motion.div>
