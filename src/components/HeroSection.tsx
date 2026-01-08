@@ -28,7 +28,7 @@ const HeroSection = () => {
         <img
           src={profileImage}
           alt="Yashank Gaddi"
-          className="h-[60vh] lg:h-[70vh] w-auto object-contain object-bottom"
+          className="h-[50vh] lg:h-[55vh] w-auto object-contain object-bottom"
         />
         {/* Gradient fade at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent" />
