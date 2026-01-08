@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Mail, Phone, MapPin, Send, Linkedin, Github } from "lucide-react";
+import { useState, useRef } from "react";
+import { Mail, Phone, MapPin, Send, Linkedin, Github, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import MagneticButton from "@/components/MagneticButton";
 
 // Smooth spring for hover effects
 const smoothSpring = {
@@ -25,11 +26,14 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 25 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    transition: { 
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
   },
 };
 
@@ -40,6 +44,7 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,18 +57,44 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-24 md:py-32 bg-card relative overflow-hidden">
-      {/* Background Gradient */}
+      {/* Background Gradient Animation */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-warm opacity-10"
+        className="absolute inset-0 bg-gradient-warm opacity-5"
         animate={{ 
-          opacity: [0.08, 0.12, 0.08],
+          opacity: [0.03, 0.08, 0.03],
+          scale: [1, 1.05, 1],
         }}
         transition={{ 
-          duration: 5, 
+          duration: 8, 
           repeat: Infinity, 
           ease: "easeInOut" 
         }}
       />
+
+      {/* Floating particles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-primary/40"
+            style={{
+              left: `${20 + i * 20}%`,
+              top: `${30 + i * 15}%`,
+            }}
+            animate={{
+              y: [0, -40, 0],
+              x: [0, 20, 0],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Infinity,
+              delay: i * 0.5,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
 
       <motion.div 
         className="container mx-auto px-6 relative z-10"
@@ -73,16 +104,34 @@ const ContactSection = () => {
         viewport={{ once: true, margin: "-80px" }}
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
-          <span className="text-primary font-medium text-sm uppercase tracking-widest">
+          <motion.span 
+            className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
             Get in Touch
-          </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold mt-4">
+          </motion.span>
+          <motion.h2 
+            className="text-4xl md:text-5xl font-display font-bold mt-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
             Let's Build Something Together
-          </h2>
-          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground mt-4 max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
             Have a project in mind? Looking for an AI solution? Let's connect and
             make it happen.
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
@@ -95,101 +144,95 @@ const ContactSection = () => {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <motion.div 
-                className="flex items-center gap-4"
-                variants={itemVariants}
-                whileHover={{ x: 6 }}
-                transition={smoothSpring}
-              >
+              {[
+                { icon: Mail, label: "Email", value: "yashankgaddi.ai@gmail.com", href: "mailto:yashankgaddi.ai@gmail.com" },
+                { icon: Phone, label: "Phone", value: "+91-8074210219", href: "tel:+918074210219" },
+                { icon: MapPin, label: "Location", value: "Hyderabad, India", href: null },
+              ].map((contact, index) => (
                 <motion.div 
-                  className="p-4 rounded-xl bg-primary/10 text-primary"
-                  whileHover={{ scale: 1.08, rotate: 4 }}
+                  key={contact.label}
+                  className="flex items-center gap-4 group"
+                  variants={itemVariants}
+                  whileHover={{ x: 8 }}
                   transition={smoothSpring}
                 >
-                  <Mail size={24} />
-                </motion.div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Email</p>
-                  <a
-                    href="mailto:yashankgaddi.ai@gmail.com"
-                    className="text-lg font-medium hover:text-primary transition-colors"
+                  <motion.div 
+                    className="p-4 rounded-xl bg-primary/10 text-primary relative overflow-hidden"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={smoothSpring}
                   >
-                    yashankgaddi.ai@gmail.com
-                  </a>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                className="flex items-center gap-4"
-                variants={itemVariants}
-                whileHover={{ x: 6 }}
-                transition={smoothSpring}
-              >
-                <motion.div 
-                  className="p-4 rounded-xl bg-primary/10 text-primary"
-                  whileHover={{ scale: 1.08, rotate: 4 }}
-                  transition={smoothSpring}
-                >
-                  <Phone size={24} />
+                    <contact.icon size={24} className="relative z-10" />
+                    {/* Glow effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-primary/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"
+                    />
+                  </motion.div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">{contact.label}</p>
+                    {contact.href ? (
+                      <a
+                        href={contact.href}
+                        className="text-lg font-medium hover:text-primary transition-colors"
+                      >
+                        {contact.value}
+                      </a>
+                    ) : (
+                      <p className="text-lg font-medium">{contact.value}</p>
+                    )}
+                  </div>
                 </motion.div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Phone</p>
-                  <a
-                    href="tel:+918074210219"
-                    className="text-lg font-medium hover:text-primary transition-colors"
-                  >
-                    +91-8074210219
-                  </a>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                className="flex items-center gap-4"
-                variants={itemVariants}
-                whileHover={{ x: 6 }}
-                transition={smoothSpring}
-              >
-                <motion.div 
-                  className="p-4 rounded-xl bg-primary/10 text-primary"
-                  whileHover={{ scale: 1.08, rotate: 4 }}
-                  transition={smoothSpring}
-                >
-                  <MapPin size={24} />
-                </motion.div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Location</p>
-                  <p className="text-lg font-medium">Hyderabad, India</p>
-                </div>
-              </motion.div>
+              ))}
             </motion.div>
 
             {/* Social Links */}
             <motion.div variants={itemVariants} className="pt-6">
               <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
               <div className="flex gap-4">
-                <motion.a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors"
-                  whileHover={{ scale: 1.08, rotate: 4 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={smoothSpring}
-                >
-                  <Linkedin size={24} />
-                </motion.a>
-                <motion.a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors"
-                  whileHover={{ scale: 1.08, rotate: -4 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={smoothSpring}
-                >
-                  <Github size={24} />
-                </motion.a>
+                {[
+                  { icon: Linkedin, href: "https://linkedin.com", rotation: 4 },
+                  { icon: Github, href: "https://github.com", rotation: -4 },
+                ].map((social, index) => (
+                  <MagneticButton key={index} strength={0.3}>
+                    <motion.a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors relative overflow-hidden group"
+                      whileHover={{ scale: 1.1, rotate: social.rotation }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={smoothSpring}
+                    >
+                      <social.icon size={24} className="relative z-10" />
+                      {/* Ripple effect */}
+                      <motion.div
+                        className="absolute inset-0 bg-primary/20 rounded-xl"
+                        initial={{ scale: 0, opacity: 0 }}
+                        whileHover={{ scale: 2, opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                    </motion.a>
+                  </MagneticButton>
+                ))}
               </div>
+            </motion.div>
+
+            {/* Animated closing statement */}
+            <motion.div
+              variants={itemVariants}
+              className="pt-8 border-t border-border/50"
+            >
+              <motion.div
+                className="flex items-center gap-2 mb-3"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Sparkles size={16} className="text-primary" />
+                <span className="text-sm font-medium text-primary">Available for projects</span>
+              </motion.div>
+              <p className="text-muted-foreground text-sm">
+                Ready to transform your ideas into reality with cutting-edge AI solutions. 
+                Let's create something extraordinary together.
+              </p>
             </motion.div>
           </motion.div>
 
@@ -197,94 +240,136 @@ const ContactSection = () => {
           <motion.div variants={itemVariants}>
             <motion.form 
               onSubmit={handleSubmit} 
-              className="glass p-8 rounded-2xl space-y-6 will-change-transform"
-              whileHover={{ scale: 1.005 }}
+              className="glass p-8 rounded-2xl space-y-6 will-change-transform relative overflow-hidden"
+              whileHover={{ boxShadow: "0 20px 50px -20px hsl(var(--primary) / 0.15)" }}
               transition={smoothSpring}
             >
+              {/* Form background glow */}
               <motion.div
-                initial={{ opacity: 0, x: 15 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.15, duration: 0.4 }}
-              >
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-2"
+                className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0"
+                animate={{ opacity: focusedField ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {[
+                { id: "name", label: "Name", type: "text", placeholder: "Your name" },
+                { id: "email", label: "Email", type: "email", placeholder: "your@email.com" },
+              ].map((field, index) => (
+                <motion.div
+                  key={field.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
+                  className="relative z-10"
                 >
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  placeholder="Your name"
-                  className="bg-background/50 border-border focus:border-primary transition-colors"
-                  required
-                />
-              </motion.div>
+                  <label
+                    htmlFor={field.id}
+                    className={`block text-sm font-medium mb-2 transition-colors ${
+                      focusedField === field.id ? "text-primary" : ""
+                    }`}
+                  >
+                    {field.label}
+                  </label>
+                  <motion.div
+                    animate={{
+                      scale: focusedField === field.id ? 1.01 : 1,
+                    }}
+                    transition={smoothSpring}
+                  >
+                    <Input
+                      id={field.id}
+                      type={field.type}
+                      value={formData[field.id as keyof typeof formData]}
+                      onChange={(e) =>
+                        setFormData({ ...formData, [field.id]: e.target.value })
+                      }
+                      onFocus={() => setFocusedField(field.id)}
+                      onBlur={() => setFocusedField(null)}
+                      placeholder={field.placeholder}
+                      className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                      required
+                    />
+                  </motion.div>
+                </motion.div>
+              ))}
+
               <motion.div
-                initial={{ opacity: 0, x: 15 }}
+                initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.25, duration: 0.4 }}
-              >
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  placeholder="your@email.com"
-                  className="bg-background/50 border-border focus:border-primary transition-colors"
-                  required
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 15 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.35, duration: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="relative z-10"
               >
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium mb-2"
+                  className={`block text-sm font-medium mb-2 transition-colors ${
+                    focusedField === "message" ? "text-primary" : ""
+                  }`}
                 >
                   Message
                 </label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  placeholder="Tell me about your project..."
-                  rows={5}
-                  className="bg-background/50 border-border resize-none focus:border-primary transition-colors"
-                  required
-                />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={smoothSpring}
-              >
-                <Button
-                  type="submit"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                  size="lg"
+                <motion.div
+                  animate={{
+                    scale: focusedField === "message" ? 1.01 : 1,
+                  }}
+                  transition={smoothSpring}
                 >
-                  <Send className="mr-2 h-4 w-4" />
-                  Send Message
-                </Button>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    onFocus={() => setFocusedField("message")}
+                    onBlur={() => setFocusedField(null)}
+                    placeholder="Tell me about your project..."
+                    rows={5}
+                    className="bg-background/50 border-border resize-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    required
+                  />
+                </motion.div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="relative z-10"
+              >
+                <MagneticButton strength={0.2} className="w-full">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={smoothSpring}
+                  >
+                    <Button
+                      type="submit"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden group"
+                      size="lg"
+                    >
+                      <span className="relative z-10 flex items-center justify-center">
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Message
+                      </span>
+                      {/* Button glow effect */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%]"
+                        animate={{
+                          backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        style={{ opacity: 0 }}
+                        whileHover={{ opacity: 0.3 }}
+                      />
+                    </Button>
+                  </motion.div>
+                </MagneticButton>
               </motion.div>
             </motion.form>
           </motion.div>
