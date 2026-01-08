@@ -25,7 +25,7 @@ const projects = [
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
   },
   {
-    title: "Harvest of Mercy Website",
+    title: "Harvest of Mercy",
     description:
       "Charity organization website designed to facilitate donations and global outreach with accessible navigation.",
     problem: "Charity needed online presence for donations",
