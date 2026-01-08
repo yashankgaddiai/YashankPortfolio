@@ -41,23 +41,29 @@ const skillCategories = [
   },
 ];
 
+// Smooth spring for hover effects
+const smoothSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
+};
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  hidden: { opacity: 0, y: 35 },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: { duration: 0.5 },
   },
 };
@@ -67,10 +73,10 @@ const SkillsSection = () => {
     <section id="skills" className="py-24 md:py-32 bg-card">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="text-primary font-medium text-sm uppercase tracking-widest">
@@ -86,25 +92,23 @@ const SkillsSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-60px" }}
         >
-          {skillCategories.map((category, index) => {
+          {skillCategories.map((category) => {
             const Icon = category.icon;
             return (
               <motion.div
                 key={category.title}
                 variants={cardVariants}
-                whileHover={{ 
-                  y: -8, 
-                  scale: 1.02,
-                  transition: { duration: 0.3 }
-                }}
-                className="glass p-6 rounded-2xl hover:border-primary/50 transition-colors group cursor-pointer"
+                whileHover={{ y: -6 }}
+                transition={smoothSpring}
+                className="glass p-6 rounded-2xl hover:border-primary/50 transition-colors group cursor-pointer will-change-transform"
               >
                 <div className="flex items-center gap-4 mb-5">
                   <motion.div 
                     className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
-                    whileHover={{ rotate: 10 }}
+                    whileHover={{ rotate: 8 }}
+                    transition={smoothSpring}
                   >
                     <Icon size={24} />
                   </motion.div>
@@ -116,12 +120,12 @@ const SkillsSection = () => {
                   {category.skills.map((skill, skillIndex) => (
                     <motion.span
                       key={skill}
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: 0.3 + skillIndex * 0.05, duration: 0.3 }}
-                      whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.2)" }}
-                      className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground cursor-default"
+                      transition={{ delay: 0.2 + skillIndex * 0.04, duration: 0.25 }}
+                      whileHover={{ scale: 1.08 }}
+                      className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground cursor-default will-change-transform"
                     >
                       {skill}
                     </motion.span>

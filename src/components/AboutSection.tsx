@@ -2,19 +2,26 @@ import { motion } from "framer-motion";
 import { MapPin, Mail, Linkedin, Github } from "lucide-react";
 import profileImage from "@/assets/profile.png";
 
+// Smooth spring for hover effects
+const smoothSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
+};
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.15,
       delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -30,7 +37,7 @@ const AboutSection = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-80px" }}
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <span className="text-primary font-medium text-sm uppercase tracking-widest">
@@ -48,9 +55,9 @@ const AboutSection = () => {
             className="relative"
           >
             <motion.div 
-              className="relative aspect-[4/5] rounded-2xl overflow-hidden"
+              className="relative aspect-[4/5] rounded-2xl overflow-hidden will-change-transform"
               whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.4 }}
+              transition={smoothSpring}
             >
               <img
                 src={profileImage}
@@ -62,20 +69,20 @@ const AboutSection = () => {
             
             {/* Stats Overlay */}
             <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="absolute -bottom-8 -right-8 glass-strong p-6 rounded-xl grid grid-cols-2 gap-6"
+              transition={{ delay: 0.4, duration: 0.5 }}
+              whileHover={{ scale: 1.03, y: -3 }}
+              className="absolute -bottom-8 -right-8 glass-strong p-6 rounded-xl grid grid-cols-2 gap-6 will-change-transform"
             >
               <div className="text-center">
                 <motion.span 
                   className="block text-3xl font-display font-bold text-primary"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
+                  transition={{ delay: 0.6, duration: 0.4 }}
                 >
                   2+
                 </motion.span>
@@ -84,10 +91,10 @@ const AboutSection = () => {
               <div className="text-center">
                 <motion.span 
                   className="block text-3xl font-display font-bold text-primary"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+                  transition={{ delay: 0.7, duration: 0.4 }}
                 >
                   10+
                 </motion.span>
@@ -100,8 +107,8 @@ const AboutSection = () => {
           <motion.div variants={itemVariants} className="space-y-6">
             <motion.h3 
               className="text-2xl md:text-3xl font-display font-semibold"
+              initial={{ opacity: 0, x: 15 }}
               whileInView={{ opacity: 1, x: 0 }}
-              initial={{ opacity: 0, x: 20 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
@@ -135,7 +142,8 @@ const AboutSection = () => {
               <motion.div 
                 className="flex items-center gap-3 text-muted-foreground"
                 variants={itemVariants}
-                whileHover={{ x: 5, color: "hsl(var(--primary))" }}
+                whileHover={{ x: 4 }}
+                transition={smoothSpring}
               >
                 <MapPin size={18} className="text-primary" />
                 <span>Hyderabad, India</span>
@@ -143,7 +151,8 @@ const AboutSection = () => {
               <motion.div 
                 className="flex items-center gap-3 text-muted-foreground"
                 variants={itemVariants}
-                whileHover={{ x: 5 }}
+                whileHover={{ x: 4 }}
+                transition={smoothSpring}
               >
                 <Mail size={18} className="text-primary" />
                 <a
@@ -162,8 +171,9 @@ const AboutSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass p-3 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.08, rotate: 4 }}
                   whileTap={{ scale: 0.95 }}
+                  transition={smoothSpring}
                 >
                   <Linkedin size={20} />
                 </motion.a>
@@ -172,8 +182,9 @@ const AboutSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass p-3 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
-                  whileHover={{ scale: 1.1, rotate: -5 }}
+                  whileHover={{ scale: 1.08, rotate: -4 }}
                   whileTap={{ scale: 0.95 }}
+                  transition={smoothSpring}
                 >
                   <Github size={20} />
                 </motion.a>
