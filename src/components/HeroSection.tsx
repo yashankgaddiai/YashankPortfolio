@@ -22,17 +22,47 @@ const smoothSpring = {
 
 // Letter animation for cinematic text reveal
 const letterVariants = {
-  hidden: { opacity: 0, y: 100, rotateX: -80 },
+  hidden: { opacity: 0, y: 80, rotateX: -60 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     rotateX: 0,
     transition: {
-      duration: 1.2,
-      delay: i * 0.05,
+      duration: 1.4,
+      delay: 0.3 + i * 0.06,
       ease: cinematicEase,
     },
   }),
+};
+
+// Role title animation
+const roleVariants = {
+  hidden: { opacity: 0, y: 30, letterSpacing: "0.5em" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    letterSpacing: "0.3em",
+    transition: {
+      duration: 1.2,
+      delay: 1.2,
+      ease: cinematicEase,
+    },
+  },
+};
+
+// Tagline animation - appears last with emphasis
+const taglineVariants = {
+  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1.4,
+      delay: 1.6,
+      ease: cinematicEase,
+    },
+  },
 };
 
 // Stagger animation variants
@@ -68,7 +98,7 @@ const tagVariants = {
     rotateY: 0,
     transition: {
       duration: 0.7,
-      delay: 1.6 + i * 0.12,
+      delay: 2.2 + i * 0.12,
       ease: cinematicEase,
     },
   }),
@@ -244,14 +274,14 @@ const HeroSection = () => {
               y: useTransform(() => smoothMouseY.get() * -0.5),
             }}
           >
-            {/* Name - Large display font with cinematic letter-by-letter reveal */}
+            {/* Name - Premium display typography with cinematic reveal */}
             <div className="overflow-hidden">
               <motion.h1
-                className="text-7xl md:text-8xl lg:text-9xl font-display font-semibold leading-[0.9] tracking-tight"
-                style={{ perspective: 800 }}
+                className="text-[2.8rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-bold leading-[0.95] tracking-[0.02em]"
+                style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
               >
-                {/* First name with staggered letters */}
-                <span className="block overflow-hidden italic">
+                {/* First name */}
+                <span className="block overflow-hidden whitespace-nowrap">
                   {firstNameLetters.map((letter, i) => (
                     <motion.span
                       key={i}
@@ -261,11 +291,11 @@ const HeroSection = () => {
                       animate={isLoaded ? "visible" : "hidden"}
                       className="inline-block"
                       style={{
-                        background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(25, 95%, 55%) 100%)',
+                        background: 'linear-gradient(180deg, hsl(36, 33%, 94%) 0%, hsl(25, 95%, 65%) 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        textShadow: '0 0 80px hsl(var(--primary) / 0.3)',
+                        filter: 'drop-shadow(0 0 60px hsl(25, 95%, 53% / 0.4))',
                       }}
                     >
                       {letter}
@@ -273,8 +303,8 @@ const HeroSection = () => {
                   ))}
                 </span>
                 
-                {/* Last name with staggered letters */}
-                <span className="block overflow-hidden text-8xl md:text-9xl lg:text-[10rem] not-italic font-bold tracking-tighter">
+                {/* Last name - larger, bolder */}
+                <span className="block overflow-hidden whitespace-nowrap text-[3.2rem] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[11rem] tracking-[-0.02em] mt-[-0.1em]">
                   {lastNameLetters.map((letter, i) => (
                     <motion.span
                       key={i}
@@ -284,11 +314,11 @@ const HeroSection = () => {
                       animate={isLoaded ? "visible" : "hidden"}
                       className="inline-block"
                       style={{
-                        background: 'linear-gradient(145deg, hsl(25, 95%, 55%) 0%, hsl(var(--accent)) 100%)',
+                        background: 'linear-gradient(180deg, hsl(25, 95%, 60%) 0%, hsl(35, 90%, 55%) 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        textShadow: '0 0 80px hsl(var(--primary) / 0.3)',
+                        filter: 'drop-shadow(0 0 80px hsl(25, 95%, 53% / 0.5))',
                       }}
                     >
                       {letter}
@@ -298,34 +328,63 @@ const HeroSection = () => {
               </motion.h1>
             </div>
             
-            {/* Subtitle with typewriter-like reveal */}
+            {/* Role Title - AI DEVELOPER with enhanced visibility */}
             <motion.div
-              className="overflow-hidden"
-              variants={itemVariants}
+              className="overflow-hidden mt-6 md:mt-8"
+              variants={roleVariants}
+              initial="hidden"
+              animate={isLoaded ? "visible" : "hidden"}
             >
-              <motion.p
-                className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-sans font-light tracking-widest uppercase"
-                initial={{ opacity: 0, y: 30, letterSpacing: "0.4em" }}
-                animate={isLoaded ? { opacity: 1, y: 0, letterSpacing: "0.2em" } : {}}
-                transition={{ duration: 1, delay: 1, ease: cinematicEase }}
-              >
-                AI Developer
-              </motion.p>
+              <motion.div className="relative inline-block">
+                <motion.p
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold uppercase"
+                  style={{ 
+                    fontFamily: "'Outfit', sans-serif",
+                    color: 'hsl(36, 33%, 94%)',
+                    textShadow: '0 0 40px hsl(25, 95%, 53% / 0.4)',
+                  }}
+                >
+                  AI Developer
+                </motion.p>
+                {/* Animated underline */}
+                <motion.div
+                  className="absolute -bottom-2 left-0 h-[2px] bg-gradient-to-r from-primary via-accent to-transparent"
+                  initial={{ width: 0 }}
+                  animate={isLoaded ? { width: "100%" } : {}}
+                  transition={{ duration: 1, delay: 1.4, ease: cinematicEase }}
+                />
+              </motion.div>
             </motion.div>
             
-            {/* Tagline with cinematic fade */}
-            <motion.p
-              className="text-lg md:text-xl lg:text-2xl text-muted-foreground/80 max-w-xl leading-relaxed font-body font-light"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1, delay: 1.3, ease: cinematicEase }}
+            {/* Tagline - BOLD and highly visible */}
+            <motion.div
+              className="mt-8 md:mt-10 relative"
+              variants={taglineVariants}
+              initial="hidden"
+              animate={isLoaded ? "visible" : "hidden"}
             >
-              Building intelligent solutions that bridge the gap between human creativity and machine capability.
-            </motion.p>
+              {/* Subtle glow background behind tagline */}
+              <div 
+                className="absolute inset-0 -m-4 rounded-2xl"
+                style={{
+                  background: 'radial-gradient(ellipse at center, hsl(25, 95%, 53% / 0.08) 0%, transparent 70%)',
+                }}
+              />
+              <motion.p
+                className="relative text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-semibold leading-relaxed max-w-xl"
+                style={{ 
+                  fontFamily: "'Outfit', sans-serif",
+                  color: 'hsl(36, 33%, 88%)',
+                  textShadow: '0 2px 20px hsl(0, 0%, 0% / 0.5)',
+                }}
+              >
+                Building intelligent solutions that bridge the gap between human creativity and machine capability.
+              </motion.p>
+            </motion.div>
 
             {/* Service Tags - 2x2 Grid with 3D entrance */}
             <motion.div
-              className="grid grid-cols-2 gap-4 max-w-md"
+              className="grid grid-cols-2 gap-4 max-w-md mt-8 md:mt-10"
               style={{ perspective: 1000 }}
             >
               {services.map((service, index) => {
@@ -351,6 +410,7 @@ const HeroSection = () => {
                       backdropFilter: 'blur(12px)',
                       border: '1px solid rgba(255, 120, 50, 0.3)',
                       transformStyle: 'preserve-3d',
+                      fontFamily: "'Outfit', sans-serif",
                     }}
                   >
                     {/* Animated glow overlay on hover */}
@@ -367,7 +427,7 @@ const HeroSection = () => {
                     >
                       <Icon size={22} className="text-primary" />
                     </motion.div>
-                    <span className="text-base md:text-lg font-medium text-foreground/90 relative z-10">
+                    <span className="text-base md:text-lg font-semibold text-foreground/95 relative z-10">
                       {service.label}
                     </span>
                   </motion.div>
@@ -381,7 +441,7 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 1, ease: cinematicEase }}
+          transition={{ delay: 2.8, duration: 1, ease: cinematicEase }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
         >
           <MagneticButton strength={0.5}>
