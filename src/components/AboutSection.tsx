@@ -100,7 +100,7 @@ const AboutSection = () => {
         viewport={{ once: true, margin: "-80px" }}
       >
         {/* Main Content Grid */}
-        <div className="relative min-h-[600px] md:min-h-[700px]">
+        <div className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center">
           
           {/* Large ABOUT Text Background - Parallax */}
           <motion.div 
@@ -120,7 +120,7 @@ const AboutSection = () => {
 
           {/* Center Profile Image - Floating with parallax */}
           <motion.div 
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
+            className="relative z-10 flex flex-col items-center justify-center"
             style={{ y: imageY, scale: imageScale }}
           >
             <motion.div 
