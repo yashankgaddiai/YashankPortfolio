@@ -1,13 +1,62 @@
 import { motion } from "framer-motion";
-import { ArrowDown, FileText, Shirt, Layout, TrendingUp } from "lucide-react";
+import { ArrowDown, Code2, Brain, Layout, Rocket } from "lucide-react";
 import profileImage from "@/assets/profile-centered.png";
 
 const services = [
-  { icon: FileText, label: "Full Stack" },
-  { icon: Shirt, label: "AI Agents" },
+  { icon: Code2, label: "Full Stack" },
+  { icon: Brain, label: "AI Agents" },
   { icon: Layout, label: "Interfaces" },
-  { icon: TrendingUp, label: "Automation" },
+  { icon: Rocket, label: "Automation" },
 ];
+
+// Stagger animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 1.05 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1.2,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
+const tagVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.6 + i * 0.1,
+      ease: "easeOut" as const,
+    },
+  }),
+};
 
 const HeroSection = () => {
   return (
@@ -16,102 +65,178 @@ const HeroSection = () => {
       className="relative min-h-screen overflow-hidden"
     >
       {/* Hero Background Image with baked-in gradient */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <img
+      <motion.div 
+        className="absolute inset-0 flex items-center justify-center"
+        variants={imageVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.img
           src={profileImage}
           alt="Yashank Gaddi"
           className="w-[85%] h-[85%] object-contain object-center"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.6 }}
         />
         {/* Gradient fade at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent" />
+      </motion.div>
+
+      {/* Floating particles/glow effect */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(255, 120, 50, 0.1) 0%, transparent 70%)',
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(200, 80, 40, 0.08) 0%, transparent 70%)',
+          }}
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
       </div>
 
       {/* Main Content Container */}
       <div className="relative min-h-screen z-20">
-
         {/* Content Layer */}
-        <div className="container mx-auto px-6 lg:px-12 relative z-20 min-h-screen flex flex-col justify-center items-start pt-20 pb-32">
+        <motion.div 
+          className="container mx-auto px-6 lg:px-12 relative z-20 min-h-screen flex flex-col justify-center items-start pt-20 pb-32"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Left Content - Title */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8 max-w-lg"
-          >
+          <motion.div className="space-y-8 max-w-lg">
             {/* Title - Large display font like reference */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
+              variants={itemVariants}
               className="text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95]"
             >
-              <span className="block">AI</span>
-              <span className="italic text-7xl md:text-8xl lg:text-9xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <motion.span 
+                className="block"
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              >
+                AI
+              </motion.span>
+              <motion.span 
+                className="italic text-7xl md:text-8xl lg:text-9xl block" 
+                style={{ fontFamily: "'Playfair Display', serif" }}
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              >
                 Developer
-              </span>
+              </motion.span>
             </motion.h1>
 
             {/* Service Tags - 2x2 Grid below title */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
               className="grid grid-cols-2 gap-3 max-w-sm"
+              variants={itemVariants}
             >
-              {services.map((service) => {
+              {services.map((service, index) => {
                 const Icon = service.icon;
                 return (
-                  <div
+                  <motion.div
                     key={service.label}
-                    className="px-4 py-3 rounded-2xl flex items-center gap-3 cursor-pointer transition-all duration-300 hover:bg-foreground/10"
+                    custom={index}
+                    variants={tagVariants}
+                    initial="hidden"
+                    animate="visible"
+                    whileHover={{ 
+                      scale: 1.05, 
+                      borderColor: 'rgba(255, 120, 50, 0.7)',
+                      transition: { duration: 0.2 }
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-4 py-3 rounded-2xl flex items-center gap-3 cursor-pointer"
                     style={{
                       background: 'rgba(0, 0, 0, 0.3)',
                       backdropFilter: 'blur(8px)',
                       border: '1px solid rgba(255, 120, 50, 0.4)',
                     }}
                   >
-                    <Icon size={18} className="text-primary" />
+                    <motion.div
+                      whileHover={{ rotate: 10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Icon size={18} className="text-primary" />
+                    </motion.div>
                     <span className="text-sm font-medium text-foreground/90">
                       {service.label}
                     </span>
-                  </div>
+                  </motion.div>
                 );
               })}
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
 
-        {/* Connect Button - Bottom Center like reference */}
+        {/* Connect Button - Bottom Center */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
         >
-          <a
+          <motion.a
             href="#contact"
             className="flex flex-col items-center gap-2 group"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <div 
-              className="w-20 h-20 rounded-full flex flex-col items-center justify-center gap-1 transition-all duration-300 hover:scale-105"
+            <motion.div 
+              className="w-20 h-20 rounded-full flex flex-col items-center justify-center gap-1"
               style={{
                 background: 'rgba(80, 60, 50, 0.6)',
                 backdropFilter: 'blur(12px)',
                 border: '1px solid rgba(255, 255, 255, 0.15)',
               }}
+              whileHover={{
+                boxShadow: '0 0 30px rgba(255, 120, 50, 0.3)',
+                borderColor: 'rgba(255, 120, 50, 0.4)',
+              }}
+              transition={{ duration: 0.3 }}
             >
               <span className="text-[10px] font-semibold uppercase tracking-widest text-foreground/90">
                 Connect
               </span>
               <motion.div
-                animate={{ y: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
+                animate={{ y: [0, 5, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 1.5,
+                  ease: "easeInOut"
+                }}
                 className="text-foreground/70"
               >
                 <ArrowDown size={14} />
               </motion.div>
-            </div>
-          </a>
+            </motion.div>
+          </motion.a>
         </motion.div>
       </div>
     </section>
