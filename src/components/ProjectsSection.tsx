@@ -26,8 +26,7 @@ const projects = [
   },
   {
     title: "Harvest of Mercy",
-    description:
-      "Charity organization website designed to facilitate donations and global outreach with accessible navigation.",
+    description:"Charity organization website designed to facilitate donations and global outreach with accessible navigation.",
     problem: "Charity needed online presence for donations",
     solution: "User-friendly donation platform",
     result: "Increased global donations and reach",
