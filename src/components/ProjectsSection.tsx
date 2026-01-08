@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import aiAgenticVerseImage from "@/assets/aiagenticverse.png";
 
 const projects = [
   {
@@ -11,7 +12,7 @@ const projects = [
     solution: "Autonomous AI agents for automation",
     result: "Streamlined operations and reduced manual work",
     tech: ["React", "Node.js", "OpenAI", "Supabase"],
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
+    image: aiAgenticVerseImage,
     featured: true,
   },
   {
