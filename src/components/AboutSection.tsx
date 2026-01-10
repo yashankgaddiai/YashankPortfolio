@@ -147,7 +147,7 @@ const AboutSection = () => {
                   src={profileImage}
                   alt="Yashank Gaddi"
                   className="w-full h-full object-cover"
-                  style={{ transform: 'scale(1.4)', transformOrigin: 'center 30%' }}
+                  style={{ transform: 'scale(1.6)', transformOrigin: 'center 35%' }}
                 />
               </div>
             </motion.div>
