@@ -347,40 +347,6 @@ const AboutSection = () => {
               </div>
             </motion.div>
 
-            {/* Interests */}
-            <motion.div 
-              variants={itemVariants}
-              whileHover={{ x: -10 }}
-              transition={smoothSpring}
-            >
-              <motion.h3 
-                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 }}
-              >
-                Interests
-              </motion.h3>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <motion.p
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7, duration: 0.6 }}
-                >
-                  AI Automation
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                >
-                  Entrepreneurship
-                </motion.p>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
 
@@ -401,10 +367,6 @@ const AboutSection = () => {
             <motion.div variants={itemVariants}>
               <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Tech Stack</h3>
               <p className="text-xs text-muted-foreground">React, Next.js, Python</p>
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Interests</h3>
-              <p className="text-xs text-muted-foreground">AI Automation, Entrepreneurship</p>
             </motion.div>
           </motion.div>
         </div>
