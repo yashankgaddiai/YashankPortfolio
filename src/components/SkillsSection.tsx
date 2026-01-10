@@ -193,38 +193,12 @@ const SkillsSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
-                whileHover={{ 
-                  y: -12,
-                  rotateX: 5,
-                  rotateY: categoryIndex % 2 === 0 ? 3 : -3,
-                  boxShadow: "0 30px 60px -20px hsl(var(--primary) / 0.2)",
-                }}
-                transition={smoothSpring}
-                className="glass p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
+                className="glass p-6 rounded-2xl relative overflow-hidden"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                {/* Animated gradient overlay */}
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100`}
-                  transition={{ duration: 0.5 }}
-                />
-                
-                {/* Glow effect on hover */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                  style={{
-                    background: `radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.1) 0%, transparent 60%)`,
-                  }}
-                  transition={{ duration: 0.5 }}
-                />
-
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-5">
-                    <motion.div 
-                      className="p-3 rounded-xl bg-primary/10 text-primary"
-                      whileHover={{ rotate: 360, scale: 1.2 }}
-                      transition={{ duration: 0.6 }}
-                    >
+                    <div className="p-3 rounded-xl bg-primary/10 text-primary">
                       <motion.div
                         animate={{ 
                           scale: [1, 1.1, 1],
@@ -237,8 +211,8 @@ const SkillsSection = () => {
                       >
                         <Icon size={24} />
                       </motion.div>
-                    </motion.div>
-                    <h3 className="font-display font-semibold text-lg group-hover:text-primary transition-colors">
+                    </div>
+                    <h3 className="font-display font-semibold text-lg">
                       {category.title}
                     </h3>
                   </div>
@@ -251,14 +225,7 @@ const SkillsSection = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        whileHover={{ 
-                          scale: 1.1, 
-                          backgroundColor: "hsl(var(--primary) / 0.2)",
-                          color: "hsl(var(--primary))",
-                          boxShadow: "0 0 20px hsl(var(--primary) / 0.3)",
-                        }}
-                        transition={smoothSpring}
-                        className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground cursor-pointer transition-colors"
+                        className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground"
                       >
                         {skill}
                       </motion.span>
