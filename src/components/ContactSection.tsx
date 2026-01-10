@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Sparkles } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Mail, Phone, MapPin, Send, Linkedin, Github, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import MagneticButton from "@/components/MagneticButton";
+import { supabase } from "@/integrations/supabase/client";
 
 // Smooth spring for hover effects
 const smoothSpring = {
@@ -45,14 +46,101 @@ const ContactSection = () => {
     message: "",
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Prevent duplicate submissions on refresh
+  useEffect(() => {
+    const submitted = sessionStorage.getItem('contactFormSubmitted');
+    if (submitted) {
+      setIsSubmitted(true);
+    }
+  }, []);
+
+  const validateForm = () => {
+    const newErrors: { name?: string; email?: string; message?: string } = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length > 100) {
+      newErrors.name = "Name must be less than 100 characters";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    } else if (formData.email.trim().length > 255) {
+      newErrors.email = "Email must be less than 255 characters";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length > 5000) {
+      newErrors.message = "Message must be less than 5000 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thanks for reaching out. I'll get back to you soon!",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('submit-contact-form', {
+        body: {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        },
+      });
+
+      if (error) {
+        console.error('Submission error:', error);
+        toast({
+          title: "Error",
+          description: "Failed to send message. Please try again later.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Mark as submitted to prevent duplicates on refresh
+      sessionStorage.setItem('contactFormSubmitted', 'true');
+      setIsSubmitted(true);
+      
+      toast({
+        title: "Message Sent!",
+        description: "Thanks! I'll get back to you shortly.",
+      });
+      
+      setFormData({ name: "", email: "", message: "" });
+      setErrors({});
+      
+      // Reset the submitted state after 5 minutes to allow new submissions
+      setTimeout(() => {
+        sessionStorage.removeItem('contactFormSubmitted');
+        setIsSubmitted(false);
+      }, 5 * 60 * 1000);
+      
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -322,15 +410,24 @@ const ContactSection = () => {
                       id={field.id}
                       type={field.type}
                       value={formData[field.id as keyof typeof formData]}
-                      onChange={(e) =>
-                        setFormData({ ...formData, [field.id]: e.target.value })
-                      }
+                      onChange={(e) => {
+                        setFormData({ ...formData, [field.id]: e.target.value });
+                        if (errors[field.id as keyof typeof errors]) {
+                          setErrors({ ...errors, [field.id]: undefined });
+                        }
+                      }}
                       onFocus={() => setFocusedField(field.id)}
                       onBlur={() => setFocusedField(null)}
                       placeholder={field.placeholder}
-                      className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                      className={`bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all ${
+                        errors[field.id as keyof typeof errors] ? 'border-destructive' : ''
+                      }`}
+                      disabled={isSubmitting}
                       required
                     />
+                    {errors[field.id as keyof typeof errors] && (
+                      <p className="text-destructive text-xs mt-1">{errors[field.id as keyof typeof errors]}</p>
+                    )}
                   </motion.div>
                 </motion.div>
               ))}
@@ -359,16 +456,25 @@ const ContactSection = () => {
                   <Textarea
                     id="message"
                     value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                      if (errors.message) {
+                        setErrors({ ...errors, message: undefined });
+                      }
+                    }}
                     onFocus={() => setFocusedField("message")}
                     onBlur={() => setFocusedField(null)}
                     placeholder="Tell me about your project..."
                     rows={5}
-                    className="bg-background/50 border-border resize-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    className={`bg-background/50 border-border resize-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all ${
+                      errors.message ? 'border-destructive' : ''
+                    }`}
+                    disabled={isSubmitting}
                     required
                   />
+                  {errors.message && (
+                    <p className="text-destructive text-xs mt-1">{errors.message}</p>
+                  )}
                 </motion.div>
               </motion.div>
 
@@ -389,10 +495,24 @@ const ContactSection = () => {
                       type="submit"
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden group"
                       size="lg"
+                      disabled={isSubmitting || isSubmitted}
                     >
                       <span className="relative z-10 flex items-center justify-center">
-                        <Send className="mr-2 h-4 w-4" />
-                        Send Message
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Sending...
+                          </>
+                        ) : isSubmitted ? (
+                          <>
+                            ✓ Message Sent
+                          </>
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-4 w-4" />
+                            Send Message
+                          </>
+                        )}
                       </span>
                       {/* Button glow effect */}
                       <motion.div
