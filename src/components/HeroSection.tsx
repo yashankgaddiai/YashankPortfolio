@@ -277,7 +277,7 @@ const HeroSection = () => {
             {/* Name - Premium display typography with cinematic reveal */}
             <div className="overflow-hidden">
               <motion.h1
-                className="text-[2.8rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-bold leading-[0.95] tracking-[0.02em]"
+                className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-[0.02em]"
                 style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
               >
                 {/* First name */}
@@ -304,7 +304,7 @@ const HeroSection = () => {
                 </span>
                 
                 {/* Last name - larger, bolder */}
-                <span className="block overflow-hidden whitespace-nowrap text-[3.2rem] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[11rem] tracking-[-0.02em] mt-[-0.1em]">
+                <span className="block overflow-hidden whitespace-nowrap text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-[-0.02em] mt-[-0.1em]">
                   {lastNameLetters.map((letter, i) => (
                     <motion.span
                       key={i}
@@ -337,7 +337,7 @@ const HeroSection = () => {
             >
               <motion.div className="relative inline-block">
                 <motion.p
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold uppercase"
+                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold uppercase"
                   style={{ 
                     fontFamily: "'Outfit', sans-serif",
                     color: 'hsl(36, 33%, 94%)',
@@ -371,11 +371,11 @@ const HeroSection = () => {
                 }}
               />
               <motion.p
-                className="relative text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-semibold leading-relaxed max-w-xl"
+                className="relative text-xl sm:text-2xl md:text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem] font-semibold leading-relaxed max-w-xl"
                 style={{ 
                   fontFamily: "'Outfit', sans-serif",
-                  color: 'hsl(36, 33%, 88%)',
-                  textShadow: '0 2px 20px hsl(0, 0%, 0% / 0.5)',
+                  color: 'hsl(36, 33%, 92%)',
+                  textShadow: '0 2px 30px hsl(0, 0%, 0% / 0.6)',
                 }}
               >
                 Building intelligent solutions that bridge the gap between human creativity and machine capability.
