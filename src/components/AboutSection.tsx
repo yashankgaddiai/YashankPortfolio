@@ -146,7 +146,8 @@ const AboutSection = () => {
                 <img
                   src={profileImage}
                   alt="Yashank Gaddi"
-                  className="w-full h-full object-cover object-center scale-110"
+                  className="w-full h-full object-cover object-top"
+                  style={{ transform: 'scale(1.3)', transformOrigin: 'center 25%' }}
                 />
               </div>
               <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20 pointer-events-none" />
