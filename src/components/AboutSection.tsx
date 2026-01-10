@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import profileImage from "@/assets/profile.png";
 import { 
   Code2, 
   Brain, 
@@ -118,39 +117,11 @@ const AboutSection = () => {
             </motion.span>
           </motion.div>
 
-          {/* Center Profile Image - Floating with parallax */}
+          {/* Center Content */}
           <motion.div 
             className="relative z-10 flex flex-col items-center justify-center"
             style={{ y: imageY, scale: imageScale }}
           >
-            <motion.div 
-              className="relative w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
-              initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
-              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: cinematicEase }}
-              whileHover={{ scale: 1.05, rotateY: 5 }}
-            >
-              {/* Animated glow ring */}
-              <motion.div 
-                className="absolute inset-[-20px] rounded-full"
-                style={{
-                  background: 'conic-gradient(from 0deg, transparent, hsl(var(--primary) / 0.3), transparent, hsl(var(--accent) / 0.3), transparent)',
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-              
-              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/30 to-transparent blur-2xl" />
-              <div className="w-full h-full rounded-full overflow-hidden relative z-10 border-2 border-primary/20">
-                <img
-                  src={profileImage}
-                  alt="Yashank Gaddi"
-                  className="w-full h-full object-cover"
-                  style={{ transform: 'scale(1.4)', transformOrigin: 'center 30%' }}
-                />
-              </div>
-            </motion.div>
             
             {/* Name below image */}
             <motion.h2 
