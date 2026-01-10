@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import profileImage from "@/assets/profile-about.png";
+import profileImage from "@/assets/profile.png";
 import { 
   Code2, 
   Brain, 
@@ -146,10 +146,10 @@ const AboutSection = () => {
                 <img
                   src={profileImage}
                   alt="Yashank Gaddi"
-                  className="w-full h-full object-cover"
-                  style={{ transform: 'scale(1.6)', transformOrigin: 'center 35%' }}
+                  className="w-full h-full object-cover object-center scale-110"
                 />
               </div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20 pointer-events-none" />
             </motion.div>
             
             {/* Name below image */}
