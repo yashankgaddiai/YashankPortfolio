@@ -188,31 +188,44 @@ const ContactSection = () => {
             <motion.div variants={itemVariants} className="pt-6">
               <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
               <div className="flex gap-4">
-                {[
-                  { icon: Linkedin, href: "https://linkedin.com", rotation: 4 },
-                  { icon: Github, href: "https://github.com", rotation: -4 },
-                ].map((social, index) => (
-                  <MagneticButton key={index} strength={0.3}>
-                    <motion.a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors relative overflow-hidden group"
-                      whileHover={{ scale: 1.1, rotate: social.rotation }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={smoothSpring}
-                    >
-                      <social.icon size={24} className="relative z-10" />
-                      {/* Ripple effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-primary/20 rounded-xl"
-                        initial={{ scale: 0, opacity: 0 }}
-                        whileHover={{ scale: 2, opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                      />
-                    </motion.a>
-                  </MagneticButton>
-                ))}
+                <MagneticButton strength={0.3}>
+                  <motion.a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors relative overflow-hidden group"
+                    whileHover={{ scale: 1.1, rotate: 4 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={smoothSpring}
+                  >
+                    <Linkedin size={24} className="relative z-10" />
+                    <motion.div
+                      className="absolute inset-0 bg-primary/20 rounded-xl"
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 2, opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </motion.a>
+                </MagneticButton>
+                <MagneticButton strength={0.3}>
+                  <motion.a
+                    href="https://github.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors relative overflow-hidden group"
+                    whileHover={{ scale: 1.1, rotate: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={smoothSpring}
+                  >
+                    <Github size={24} className="relative z-10" />
+                    <motion.div
+                      className="absolute inset-0 bg-primary/20 rounded-xl"
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 2, opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </motion.a>
+                </MagneticButton>
               </div>
             </motion.div>
 
