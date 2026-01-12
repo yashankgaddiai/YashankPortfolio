@@ -14,6 +14,7 @@ interface Project {
   tech: string[];
   image: string;
   link?: string;
+  github?: string;
   featured?: boolean;
 }
 
@@ -285,16 +286,20 @@ const ProjectsSection = () => {
                             </Button>
                           </motion.div>
                         )}
-                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} transition={smoothSpring}>
-                          <Button 
-                            variant="outline" 
-                            className="border-border hover:border-primary/50 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Github className="mr-2 h-4 w-4" />
-                            Source
-                          </Button>
-                        </motion.div>
+                        {project.github && (
+                          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} transition={smoothSpring}>
+                            <Button 
+                              variant="outline" 
+                              className="border-border hover:border-primary/50 transition-colors"
+                              asChild
+                            >
+                              <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                                <Github className="mr-2 h-4 w-4" />
+                                Source
+                              </a>
+                            </Button>
+                          </motion.div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -517,10 +522,14 @@ const ProjectsSection = () => {
                       </a>
                     </Button>
                   )}
-                  <Button variant="outline" className="border-border">
-                    <Github className="mr-2 h-4 w-4" />
-                    View Source
-                  </Button>
+                  {selectedProject.github && (
+                    <Button variant="outline" className="border-border" asChild>
+                      <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="mr-2 h-4 w-4" />
+                        View Source
+                      </a>
+                    </Button>
+                  )}
                 </motion.div>
               </div>
             </motion.div>
