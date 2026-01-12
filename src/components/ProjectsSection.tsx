@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import aiAgenticVerseImage from "@/assets/aiagenticverse.png";
 import beitYisraelImage from "@/assets/beityisrael.png";
+import neshamaTrainingImage from "@/assets/neshama-training.png";
 
 interface Project {
   title: string;
@@ -37,7 +38,7 @@ const projects: Project[] = [
     solution: "Automated funnel with CRM integration",
     result: "Efficient lead capture and onboarding automation",
     tech: ["GoHighLevel", "GHL Funnels", "CRM", "Custom CSS"],
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
+    image: neshamaTrainingImage,
     link: "https://neshamatraining.com",
   },
   {
