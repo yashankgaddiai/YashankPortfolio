@@ -31,6 +31,16 @@ const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Neshama Training",
+    description: "A conversion-focused EdTech website and automated lead funnel built using GoHighLevel (GHL).",
+    problem: "EdTech platform needed effective lead generation",
+    solution: "Automated funnel with CRM integration",
+    result: "Efficient lead capture and onboarding automation",
+    tech: ["GoHighLevel", "GHL Funnels", "CRM", "Custom CSS"],
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
+    link: "https://neshamatraining.com",
+  },
+  {
     title: "Beit Yisrael International",
     description: "Official digital platform with multilingual podcast content generation across 70 languages.",
     problem: "Global organization needed multilingual reach",
@@ -42,7 +52,7 @@ const projects: Project[] = [
   },
   {
     title: "Harvest of Mercy",
-    description:"Charity organization website designed to facilitate donations and global outreach with accessible navigation.",
+    description: "Charity organization website designed to facilitate donations and global outreach with accessible navigation.",
     problem: "Charity needed online presence for donations",
     solution: "User-friendly donation platform",
     result: "Increased global donations and reach",
