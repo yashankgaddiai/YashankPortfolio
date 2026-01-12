@@ -17,20 +17,36 @@ const experiences = [
     ],
   },
   {
-    title: "Full Stack Developer (Consultant)",
-    company: "Neshama Training - Beit Yisrael International",
+    title: "GHL Web Designer & Funnel Developer",
+    company: "Neshama Training",
     duration: "Project Based",
     type: "Consulting",
     description:
-      "Collaborated with Neshama Training to design, develop, and deploy the official digital platform.",
+      "Designed and developed a career-focused EdTech platform with AI-assisted learning, focusing on conversions, automation, and seamless user experience.",
+    achievements: [
+      "Designed and built a conversion-optimized landing page in GoHighLevel",
+      "Created high-impact CTAs, registration forms, and structured course curriculum sections",
+      "Set up lead capture, CRM integration, and automated follow-up workflows",
+      "Optimized layout for mobile responsiveness with smooth scroll-based animations",
+    ],
+    links: [
+      { label: "Website", url: "https://neshamatraining.com" },
+    ],
+  },
+  {
+    title: "Full Stack Developer (Consultant)",
+    company: "Beit Yisrael International",
+    duration: "Project Based",
+    type: "Consulting",
+    description:
+      "Collaborated with Beit Yisrael International to design, develop, and deploy the official digital platform.",
     achievements: [
       "Executed complete hosting strategy and deployment pipeline for global access",
       "Built a robust, globally accessible website with high performance and responsive design",
       "Assisted in LLM integration for multilingual podcast content across 70 languages",
     ],
     links: [
-      { label: "Website", url: "#" },
-      { label: "YouTube", url: "#" },
+      { label: "Website", url: "https://www.beityisraelinternational.com/" },
     ],
   },
   {
@@ -43,6 +59,9 @@ const experiences = [
     achievements: [
       "Designed and developed the organization's website to facilitate donations",
       "Ensured user-friendly navigation and global accessibility",
+    ],
+    links: [
+      { label: "Website", url: "https://www.harvestofmercy.org/" },
     ],
   },
 ];
