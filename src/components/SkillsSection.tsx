@@ -43,7 +43,7 @@ const skillCategories = [
   {
     title: "Specializations",
     icon: Lightbulb,
-    skills: ["AI Agents", "Automation", "Full Stack", "LLM Integration"],
+    skills: ["Full-Stack Development", "Blockchain & Web3 Development", "Artificial Intelligence (AI) & Machine Learning (ML)", "Large Language Model (LLM) Integration"],
     color: "from-rose-500/20 to-red-500/20",
   },
 ];
