@@ -1,13 +1,13 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { ArrowDown, Code2, Brain, Layout, Rocket } from "lucide-react";
+import { ArrowDown, Code2, Brain, Link, Cpu } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import MagneticButton from "@/components/MagneticButton";
 
 const services = [
-  { icon: Code2, label: "Full Stack" },
-  { icon: Brain, label: "AI Agents" },
-  { icon: Layout, label: "Interfaces" },
-  { icon: Rocket, label: "Automation" },
+  { icon: Code2, label: "Full-Stack Development" },
+  { icon: Link, label: "Blockchain & Web3" },
+  { icon: Brain, label: "AI & ML" },
+  { icon: Cpu, label: "LLM Integration" },
 ];
 
 // Cinematic easing - slow in, smooth out
