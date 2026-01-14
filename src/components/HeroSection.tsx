@@ -124,6 +124,12 @@ const HeroSection = () => {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.5], ["0%", "20%"]);
   const gradientRotate = useTransform(scrollYProgress, [0, 1], [0, 45]);
+  
+  // Name-specific scroll animations - faster fade for dramatic effect
+  const nameOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const nameScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.9]);
+  const nameY = useTransform(scrollYProgress, [0, 0.4], ["0%", "-10%"]);
+  const nameBlur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
 
   // Page load animation
   useEffect(() => {
@@ -273,7 +279,15 @@ const HeroSection = () => {
             }}
           >
             {/* Name - Premium display typography with cinematic reveal */}
-            <div className="overflow-hidden">
+            <motion.div 
+              className="overflow-hidden"
+              style={{
+                opacity: nameOpacity,
+                scale: nameScale,
+                y: nameY,
+                filter: useTransform(nameBlur, (v) => `blur(${v}px)`),
+              }}
+            >
               <motion.h1
                 className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-[0.02em]"
                 style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
@@ -324,7 +338,7 @@ const HeroSection = () => {
                   ))}
                 </span>
               </motion.h1>
-            </div>
+            </motion.div>
             
             {/* Role Title - AI DEVELOPER with enhanced visibility */}
             <motion.div
