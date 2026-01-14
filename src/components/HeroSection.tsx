@@ -382,9 +382,9 @@ const HeroSection = () => {
               </motion.p>
             </motion.div>
 
-            {/* Service Tags - 2x2 Grid with 3D entrance */}
+            {/* Service Tags - Premium Glassmorphism Cards */}
             <motion.div
-              className="grid grid-cols-2 gap-4 max-w-md mt-8 md:mt-10"
+              className="grid grid-cols-2 gap-5 max-w-lg mt-8 md:mt-10"
               style={{ perspective: 1000 }}
             >
               {services.map((service, index) => {
@@ -397,39 +397,78 @@ const HeroSection = () => {
                     initial="hidden"
                     animate={isLoaded ? "visible" : "hidden"}
                     whileHover={{ 
-                      scale: 1.08, 
-                      rotateY: 5,
-                      boxShadow: '0 0 40px rgba(255, 120, 50, 0.4)',
-                      borderColor: 'rgba(255, 120, 50, 0.8)',
+                      scale: 1.03, 
+                      transition: { duration: 0.3, ease: "easeOut" }
                     }}
                     whileTap={{ scale: 0.98 }}
-                    transition={smoothSpring}
-                    className="px-5 py-4 rounded-2xl flex items-center gap-3 cursor-pointer will-change-transform relative overflow-hidden group"
-                    style={{
-                      background: 'rgba(0, 0, 0, 0.4)',
-                      backdropFilter: 'blur(12px)',
-                      border: '1px solid rgba(255, 120, 50, 0.3)',
-                      transformStyle: 'preserve-3d',
-                      fontFamily: "'Outfit', sans-serif",
-                    }}
+                    className="group relative cursor-pointer will-change-transform"
+                    style={{ transformStyle: 'preserve-3d' }}
                   >
-                    {/* Animated glow overlay on hover */}
+                    {/* Animated gradient border */}
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30"
-                      initial={{ opacity: 0, x: '-100%' }}
-                      whileHover={{ opacity: 1, x: '0%' }}
-                      transition={{ duration: 0.4 }}
+                      className="absolute -inset-[1px] rounded-[18px] opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{
+                        background: 'linear-gradient(135deg, #FF8A00 0%, #FFB347 50%, #FF8A00 100%)',
+                        backgroundSize: '200% 200%',
+                      }}
+                      animate={{
+                        backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: 'linear',
+                      }}
                     />
-                    <motion.div
-                      whileHover={{ rotate: 360, scale: 1.2 }}
-                      transition={{ duration: 0.6 }}
-                      className="relative z-10"
+                    
+                    {/* Card content */}
+                    <div 
+                      className="relative px-5 py-6 rounded-[16px] flex flex-col items-center gap-3 overflow-hidden"
+                      style={{
+                        background: 'rgba(15, 12, 10, 0.85)',
+                        backdropFilter: 'blur(20px)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                      }}
                     >
-                      <Icon size={22} className="text-primary" />
-                    </motion.div>
-                    <span className="text-base md:text-lg font-semibold text-foreground/95 relative z-10">
-                      {service.label}
-                    </span>
+                      {/* Glow effect on hover */}
+                      <motion.div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background: 'radial-gradient(ellipse at center, rgba(255, 138, 0, 0.15) 0%, transparent 70%)',
+                        }}
+                      />
+                      
+                      {/* Icon container */}
+                      <motion.div
+                        className="relative z-10 p-3 rounded-xl"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(255, 138, 0, 0.15) 0%, rgba(255, 179, 71, 0.08) 100%)',
+                          boxShadow: '0 4px 16px rgba(255, 138, 0, 0.1)',
+                        }}
+                        whileHover={{ 
+                          scale: 1.1,
+                          boxShadow: '0 8px 24px rgba(255, 138, 0, 0.25)',
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Icon 
+                          size={24} 
+                          className="text-[#FF8A00]" 
+                          strokeWidth={1.5}
+                        />
+                      </motion.div>
+                      
+                      {/* Title */}
+                      <span 
+                        className="relative z-10 text-sm md:text-base font-semibold text-center leading-tight"
+                        style={{ 
+                          fontFamily: "'Outfit', sans-serif",
+                          color: 'hsl(36, 33%, 92%)',
+                        }}
+                      >
+                        {service.label}
+                      </span>
+                    </div>
                   </motion.div>
                 );
               })}
