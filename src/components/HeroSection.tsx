@@ -270,8 +270,6 @@ const HeroSection = () => {
             className="space-y-10 max-w-2xl" 
             style={{ 
               perspective: 1200,
-              x: useTransform(() => smoothMouseX.get() * -0.5),
-              y: useTransform(() => smoothMouseY.get() * -0.5),
             }}
           >
             {/* Name - Premium display typography with cinematic reveal */}
