@@ -19,10 +19,10 @@ const experiences = [
   {
     title: "GHL Web Designer & Funnel Developer",
     company: "Neshama Training",
-    duration: "Project Based",
+    duration: "Current",
     type: "Consulting",
     description:
-      "Designed and developed a career-focused EdTech platform with AI-assisted learning, focusing on conversions, automation, and seamless user experience.",
+      "Designing and developing a career-focused EdTech platform with AI-assisted learning, focusing on conversions, automation, and seamless user experience.",
     achievements: [
       "Designed and built a conversion-optimized landing page in GoHighLevel",
       "Created high-impact CTAs, registration forms, and structured course curriculum sections",
@@ -36,10 +36,10 @@ const experiences = [
   {
     title: "Full Stack Developer (Consultant)",
     company: "Beit Yisrael International",
-    duration: "Project Based",
+    duration: "Current",
     type: "Consulting",
     description:
-      "Collaborated with Beit Yisrael International to design, develop, and deploy the official digital platform.",
+      "Collaborating with Beit Yisrael International to design, develop, and deploy the official digital platform.",
     achievements: [
       "Executed complete hosting strategy and deployment pipeline for global access",
       "Built a robust, globally accessible website with high performance and responsive design",
