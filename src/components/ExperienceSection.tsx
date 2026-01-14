@@ -29,12 +29,10 @@ const experiences = [
       "Set up lead capture, CRM integration, and automated follow-up workflows",
       "Optimized layout for mobile responsiveness with smooth scroll-based animations",
     ],
-    links: [
-      { label: "Website", url: "https://neshamatraining.com" },
-    ],
+    links: [{ label: "Website", url: "https://neshamatraining.com" }],
   },
   {
-    title: "Full Stack Developer (Consultant)",
+    title: "Full Stack Developer",
     company: "Beit Yisrael International",
     duration: "Current",
     type: "Consulting",
@@ -45,24 +43,19 @@ const experiences = [
       "Built a robust, globally accessible website with high performance and responsive design",
       "Assisted in LLM integration for multilingual podcast content across 70 languages",
     ],
-    links: [
-      { label: "Website", url: "https://www.beityisraelinternational.com/" },
-    ],
+    links: [{ label: "Website", url: "https://www.beityisraelinternational.com/" }],
   },
   {
     title: "Technical Volunteer & Web Developer",
     company: "Harvest of Mercy Charity Organization",
     duration: "Volunteer",
     type: "Non-Profit",
-    description:
-      "Lead developer for the creation of the charity's online presence.",
+    description: "Lead developer for the creation of the charity's online presence.",
     achievements: [
       "Designed and developed the organization's website to facilitate donations",
       "Ensured user-friendly navigation and global accessibility",
     ],
-    links: [
-      { label: "Website", url: "https://www.harvestofmercy.org/" },
-    ],
+    links: [{ label: "Website", url: "https://www.harvestofmercy.org/" }],
   },
 ];
 
@@ -85,8 +78,8 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: (isEven: boolean) => ({ 
-    opacity: 0, 
+  hidden: (isEven: boolean) => ({
+    opacity: 0,
     x: isEven ? -60 : 60,
     scale: 0.95,
   }),
@@ -94,7 +87,7 @@ const cardVariants = {
     opacity: 1,
     x: 0,
     scale: 1,
-    transition: { 
+    transition: {
       duration: 0.7,
       ease: [0.22, 1, 0.36, 1] as const,
     },
@@ -138,7 +131,7 @@ const ExperienceSection = () => {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
           className="text-center mb-16"
         >
-          <motion.span 
+          <motion.span
             className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -147,7 +140,7 @@ const ExperienceSection = () => {
           >
             Experience
           </motion.span>
-          <motion.h2 
+          <motion.h2
             className="text-4xl md:text-5xl font-display font-bold mt-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -160,7 +153,7 @@ const ExperienceSection = () => {
 
         <div className="max-w-4xl mx-auto">
           {/* Timeline */}
-          <motion.div 
+          <motion.div
             className="relative"
             variants={containerVariants}
             initial="hidden"
@@ -170,7 +163,7 @@ const ExperienceSection = () => {
             {/* Animated Timeline Line */}
             <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-1/2 overflow-hidden">
               <div className="absolute inset-0 bg-border/30" />
-              <motion.div 
+              <motion.div
                 className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary via-primary to-primary/50"
                 style={{ height: lineHeight }}
               />
@@ -189,7 +182,7 @@ const ExperienceSection = () => {
                 >
                   {/* Timeline Dot with pulse animation */}
                   <div className="absolute left-0 md:left-1/2 -translate-x-1/2 mt-6">
-                    <motion.div 
+                    <motion.div
                       className="w-4 h-4 rounded-full bg-primary border-4 border-background relative"
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
@@ -213,31 +206,21 @@ const ExperienceSection = () => {
                   </div>
 
                   {/* Content */}
-                  <div
-                    className={`flex-1 ml-8 md:ml-0 ${
-                      isEven ? "md:pr-16 md:text-right" : "md:pl-16"
-                    }`}
-                  >
-                    <motion.div 
+                  <div className={`flex-1 ml-8 md:ml-0 ${isEven ? "md:pr-16 md:text-right" : "md:pl-16"}`}>
+                    <motion.div
                       className="glass p-6 rounded-2xl hover:border-primary/40 transition-all duration-300 will-change-transform relative overflow-hidden group"
-                      whileHover={{ 
-                        y: -6, 
+                      whileHover={{
+                        y: -6,
                         boxShadow: "0 20px 40px -20px hsl(var(--primary) / 0.15)",
                       }}
                       transition={smoothSpring}
                     >
                       {/* Glassmorphism blur effect on hover */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      />
+                      <motion.div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                       <div className="relative z-10">
-                        <div
-                          className={`flex items-center gap-2 mb-2 ${
-                            isEven ? "md:justify-end" : ""
-                          }`}
-                        >
-                          <motion.span 
+                        <div className={`flex items-center gap-2 mb-2 ${isEven ? "md:justify-end" : ""}`}>
+                          <motion.span
                             className="text-xs font-medium px-3 py-1 rounded-full bg-primary/10 text-primary"
                             whileHover={{ scale: 1.05, boxShadow: "0 0 15px hsl(var(--primary) / 0.3)" }}
                             transition={smoothSpring}
@@ -258,21 +241,17 @@ const ExperienceSection = () => {
                           {exp.duration}
                         </div>
                         <p className="text-muted-foreground mb-4">{exp.description}</p>
-                        <ul
-                          className={`space-y-2 text-sm text-muted-foreground ${
-                            isEven ? "md:text-right" : ""
-                          }`}
-                        >
+                        <ul className={`space-y-2 text-sm text-muted-foreground ${isEven ? "md:text-right" : ""}`}>
                           {exp.achievements.map((achievement, i) => (
-                            <motion.li 
-                              key={i} 
+                            <motion.li
+                              key={i}
                               className="flex items-start gap-2"
                               initial={{ opacity: 0, x: isEven ? 20 : -20 }}
                               whileInView={{ opacity: 1, x: 0 }}
                               viewport={{ once: true }}
                               transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
                             >
-                              <motion.span 
+                              <motion.span
                                 className="text-primary mt-1.5 flex-shrink-0"
                                 animate={{ scale: [1, 1.2, 1] }}
                                 transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
@@ -284,11 +263,7 @@ const ExperienceSection = () => {
                           ))}
                         </ul>
                         {exp.links && (
-                          <div
-                            className={`flex gap-3 mt-4 ${
-                              isEven ? "md:justify-end" : ""
-                            }`}
-                          >
+                          <div className={`flex gap-3 mt-4 ${isEven ? "md:justify-end" : ""}`}>
                             {exp.links.map((link) => (
                               <motion.a
                                 key={link.label}
