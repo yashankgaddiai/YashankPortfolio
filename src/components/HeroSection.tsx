@@ -130,6 +130,16 @@ const HeroSection = () => {
   const nameScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.9]);
   const nameY = useTransform(scrollYProgress, [0, 0.4], ["0%", "-10%"]);
   const nameBlur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
+  
+  // Role title parallax - medium speed, slightly delayed fade
+  const roleOpacity = useTransform(scrollYProgress, [0.05, 0.35], [1, 0]);
+  const roleY = useTransform(scrollYProgress, [0, 0.5], ["0%", "30%"]);
+  const roleScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.95]);
+  
+  // Tagline parallax - slowest speed, latest fade for depth layering
+  const taglineOpacity = useTransform(scrollYProgress, [0.08, 0.4], [1, 0]);
+  const taglineY = useTransform(scrollYProgress, [0, 0.5], ["0%", "50%"]);
+  const taglineScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.92]);
 
   // Page load animation
   useEffect(() => {
@@ -340,12 +350,17 @@ const HeroSection = () => {
               </motion.h1>
             </motion.div>
             
-            {/* Role Title - AI DEVELOPER with enhanced visibility */}
+            {/* Role Title - AI DEVELOPER with enhanced visibility and parallax */}
             <motion.div
               className="overflow-hidden mt-6 md:mt-8"
               variants={roleVariants}
               initial="hidden"
               animate={isLoaded ? "visible" : "hidden"}
+              style={{
+                opacity: roleOpacity,
+                y: roleY,
+                scale: roleScale,
+              }}
             >
               <motion.div className="relative inline-block">
                 <motion.p
@@ -368,12 +383,17 @@ const HeroSection = () => {
               </motion.div>
             </motion.div>
             
-            {/* Tagline - BOLD and highly visible */}
+            {/* Tagline - BOLD and highly visible with slower parallax */}
             <motion.div
               className="mt-8 md:mt-10 relative"
               variants={taglineVariants}
               initial="hidden"
               animate={isLoaded ? "visible" : "hidden"}
+              style={{
+                opacity: taglineOpacity,
+                y: taglineY,
+                scale: taglineScale,
+              }}
             >
               {/* Subtle glow background behind tagline */}
               <div 
