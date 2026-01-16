@@ -394,13 +394,20 @@ const HeroSection = () => {
               </motion.p>
             </motion.div>
 
-            {/* Service Tags - 2x2 Grid with 3D entrance */}
+            {/* Service Tags - 2x2 Grid with 3D entrance and staggered scroll fade */}
             <motion.div
               className="grid grid-cols-2 gap-4 max-w-md mt-8 md:mt-10"
               style={{ perspective: 1000 }}
             >
               {services.map((service, index) => {
                 const Icon = service.icon;
+                // Staggered scroll fade - each tag fades at a different scroll position
+                const tagStartFade = 0.1 + index * 0.05;
+                const tagEndFade = 0.25 + index * 0.05;
+                const tagOpacity = useTransform(scrollYProgress, [tagStartFade, tagEndFade], [1, 0]);
+                const tagY = useTransform(scrollYProgress, [tagStartFade, tagEndFade], ["0%", "20%"]);
+                const tagScale = useTransform(scrollYProgress, [tagStartFade, tagEndFade], [1, 0.9]);
+                
                 return (
                   <motion.div
                     key={service.label}
@@ -418,6 +425,9 @@ const HeroSection = () => {
                     transition={smoothSpring}
                     className="px-5 py-4 rounded-2xl flex items-center gap-3 cursor-pointer will-change-transform relative overflow-hidden group"
                     style={{
+                      opacity: tagOpacity,
+                      y: tagY,
+                      scale: tagScale,
                       background: 'rgba(0, 0, 0, 0.4)',
                       backdropFilter: 'blur(12px)',
                       border: '1px solid rgba(255, 120, 50, 0.3)',
