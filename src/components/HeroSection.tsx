@@ -479,11 +479,15 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Connect Button - Bottom Center with magnetic effect */}
+        {/* Connect Button - Bottom Center with magnetic effect and cinematic reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.8, duration: 1, ease: cinematicEase }}
+          initial={{ opacity: 0, y: 60, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ 
+            delay: 2.8, 
+            duration: 1.2, 
+            ease: cinematicEase,
+          }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
         >
           <MagneticButton strength={0.5}>
@@ -499,11 +503,26 @@ const HeroSection = () => {
                   backdropFilter: 'blur(16px)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                 }}
+                initial={{ boxShadow: '0 0 0px rgba(255, 120, 50, 0)' }}
+                animate={{ 
+                  boxShadow: [
+                    '0 0 20px rgba(255, 120, 50, 0.2)',
+                    '0 0 40px rgba(255, 120, 50, 0.4)',
+                    '0 0 20px rgba(255, 120, 50, 0.2)',
+                  ],
+                }}
                 whileHover={{
                   boxShadow: '0 0 60px rgba(255, 120, 50, 0.5)',
                   borderColor: 'rgba(255, 120, 50, 0.6)',
                 }}
-                transition={smoothSpring}
+                transition={{
+                  boxShadow: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                  ...smoothSpring,
+                }}
               >
                 {/* Rotating glow ring */}
                 <motion.div
@@ -511,18 +530,42 @@ const HeroSection = () => {
                   style={{
                     background: 'conic-gradient(from 0deg, transparent, hsl(var(--primary) / 0.3), transparent)',
                   }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                />
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-foreground/90 relative z-10">
-                  Connect
-                </span>
-                <motion.div
-                  animate={{ y: [0, 8, 0] }}
+                  initial={{ rotate: 0, opacity: 0 }}
+                  animate={{ rotate: 360, opacity: 1 }}
                   transition={{ 
-                    repeat: Infinity, 
-                    duration: 2,
-                    ease: "easeInOut"
+                    rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+                    opacity: { delay: 3, duration: 0.8 },
+                  }}
+                />
+                {/* Inner pulse ring */}
+                <motion.div
+                  className="absolute inset-2 rounded-full border border-primary/20"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 3.2, duration: 0.6, ease: cinematicEase }}
+                />
+                <motion.span 
+                  className="text-[10px] font-semibold uppercase tracking-widest text-foreground/90 relative z-10"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 3.4, duration: 0.6, ease: cinematicEase }}
+                >
+                  Connect
+                </motion.span>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: 1,
+                    y: [0, 8, 0],
+                  }}
+                  transition={{ 
+                    opacity: { delay: 3.6, duration: 0.5 },
+                    y: {
+                      delay: 3.6,
+                      repeat: Infinity, 
+                      duration: 2,
+                      ease: "easeInOut",
+                    },
                   }}
                   className="text-foreground/70 relative z-10"
                 >
