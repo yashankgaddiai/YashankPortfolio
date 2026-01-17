@@ -141,7 +141,7 @@ const FloatingParticle = ({
         top: `${15 + (index % 4) * 20}%`,
         width: 3 + (index % 4) * 2,
         height: 3 + (index % 4) * 2,
-        background: `hsl(${262 + index * 2} 100% ${60 + index * 3}% / ${0.25 + index * 0.04})`,
+        background: `hsl(${20 + index * 4} 95% ${48 + index * 3}% / ${0.25 + index * 0.04})`,
         x: particleScrollX,
         y: particleScrollY,
         scale: particleScrollScale,
@@ -191,8 +191,8 @@ const ServiceTag = ({
       whileHover={{ 
         scale: 1.08, 
         rotateY: 5,
-        boxShadow: '0 0 40px rgba(155, 107, 255, 0.4)',
-        borderColor: 'rgba(155, 107, 255, 0.8)',
+        boxShadow: '0 0 40px rgba(255, 120, 50, 0.4)',
+        borderColor: 'rgba(255, 120, 50, 0.8)',
       }}
       whileTap={{ scale: 0.98 }}
       transition={smoothSpring}
@@ -203,7 +203,7 @@ const ServiceTag = ({
         scale: tagScale,
         background: 'rgba(0, 0, 0, 0.4)',
         backdropFilter: 'blur(12px)',
-        border: '1px solid rgba(155, 107, 255, 0.3)',
+        border: '1px solid rgba(255, 120, 50, 0.3)',
         transformStyle: 'preserve-3d',
         fontFamily: "'Outfit', sans-serif",
       }}
@@ -313,8 +313,8 @@ const HeroSection = () => {
           className="absolute inset-0"
           style={{
             background: `radial-gradient(ellipse 80% 80% at 50% 50%, 
-              hsl(262 100% 71% / 0.08) 0%, 
-              hsl(262 80% 60% / 0.04) 40%, 
+              hsl(25 95% 53% / 0.08) 0%, 
+              hsl(35 90% 55% / 0.04) 40%, 
               transparent 70%)`,
             rotate: gradientRotate,
           }}
@@ -339,7 +339,7 @@ const HeroSection = () => {
         <motion.div
           className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(155, 107, 255, 0.1) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(255, 120, 50, 0.1) 0%, transparent 60%)',
             x: smoothMouseX,
             y: smoothMouseY,
           }}
@@ -356,7 +356,7 @@ const HeroSection = () => {
         <motion.div
           className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(155, 107, 255, 0.08) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(200, 80, 40, 0.08) 0%, transparent 60%)',
           }}
           animate={{
             scale: [1, 1.4, 1],
@@ -404,7 +404,7 @@ const HeroSection = () => {
             >
               <motion.h1
                 className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-[0.02em]"
-                style={{ perspective: 800, fontFamily: "'Inter', sans-serif" }}
+                style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
               >
                 {/* First name */}
                 <span className="block overflow-hidden whitespace-nowrap">
@@ -417,11 +417,11 @@ const HeroSection = () => {
                       animate={isLoaded ? "visible" : "hidden"}
                       className="inline-block"
                       style={{
-                        background: 'linear-gradient(180deg, hsl(0, 0%, 93%) 0%, hsl(262, 100%, 71%) 100%)',
+                        background: 'linear-gradient(180deg, hsl(36, 33%, 94%) 0%, hsl(25, 95%, 65%) 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        filter: 'drop-shadow(0 0 60px rgba(155, 107, 255, 0.4))',
+                        filter: 'drop-shadow(0 0 60px hsl(25, 95%, 53% / 0.4))',
                       }}
                     >
                       {letter}
@@ -440,11 +440,11 @@ const HeroSection = () => {
                       animate={isLoaded ? "visible" : "hidden"}
                       className="inline-block"
                       style={{
-                        background: 'linear-gradient(180deg, hsl(262, 100%, 71%) 0%, hsl(262, 80%, 80%) 100%)',
+                        background: 'linear-gradient(180deg, hsl(25, 95%, 60%) 0%, hsl(35, 90%, 55%) 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        filter: 'drop-shadow(0 0 80px rgba(155, 107, 255, 0.5))',
+                        filter: 'drop-shadow(0 0 80px hsl(25, 95%, 53% / 0.5))',
                       }}
                     >
                       {letter}
@@ -470,9 +470,9 @@ const HeroSection = () => {
                 <motion.p
                   className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold uppercase"
                   style={{ 
-                    fontFamily: "'Inter', sans-serif",
-                    color: 'hsl(0, 0%, 93%)',
-                    textShadow: '0 0 40px rgba(155, 107, 255, 0.4)',
+                    fontFamily: "'Outfit', sans-serif",
+                    color: 'hsl(36, 33%, 94%)',
+                    textShadow: '0 0 40px hsl(25, 95%, 53% / 0.4)',
                   }}
                 >
                   AI Developer
@@ -503,14 +503,14 @@ const HeroSection = () => {
               <div 
                 className="absolute inset-0 -m-4 rounded-2xl"
                 style={{
-                  background: 'radial-gradient(ellipse at center, rgba(155, 107, 255, 0.08) 0%, transparent 70%)',
+                  background: 'radial-gradient(ellipse at center, hsl(25, 95%, 53% / 0.08) 0%, transparent 70%)',
                 }}
               />
               <motion.p
                 className="relative text-xl sm:text-2xl md:text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem] font-semibold leading-relaxed max-w-xl"
                 style={{ 
-                  fontFamily: "'Inter', sans-serif",
-                  color: 'hsl(0, 0%, 93%)',
+                  fontFamily: "'Outfit', sans-serif",
+                  color: 'hsl(36, 33%, 92%)',
                   textShadow: '0 2px 30px hsl(0, 0%, 0% / 0.6)',
                 }}
               >
@@ -556,21 +556,21 @@ const HeroSection = () => {
               <motion.div 
                 className="w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 will-change-transform relative overflow-hidden"
                 style={{
-                  background: 'rgba(18, 18, 24, 0.8)',
+                  background: 'rgba(80, 60, 50, 0.5)',
                   backdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(155, 107, 255, 0.2)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                 }}
-                initial={{ boxShadow: '0 0 0px rgba(155, 107, 255, 0)' }}
+                initial={{ boxShadow: '0 0 0px rgba(255, 120, 50, 0)' }}
                 animate={{ 
                   boxShadow: [
-                    '0 0 20px rgba(155, 107, 255, 0.2)',
-                    '0 0 40px rgba(155, 107, 255, 0.4)',
-                    '0 0 20px rgba(155, 107, 255, 0.2)',
+                    '0 0 20px rgba(255, 120, 50, 0.2)',
+                    '0 0 40px rgba(255, 120, 50, 0.4)',
+                    '0 0 20px rgba(255, 120, 50, 0.2)',
                   ],
                 }}
                 whileHover={{
-                  boxShadow: '0 0 60px rgba(155, 107, 255, 0.5)',
-                  borderColor: 'rgba(155, 107, 255, 0.6)',
+                  boxShadow: '0 0 60px rgba(255, 120, 50, 0.5)',
+                  borderColor: 'rgba(255, 120, 50, 0.6)',
                 }}
                 transition={{
                   boxShadow: {

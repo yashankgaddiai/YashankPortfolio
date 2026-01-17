@@ -14,37 +14,37 @@ const skillCategories = [
     title: "Programming Languages",
     icon: Code2,
     skills: ["Python", "JavaScript", "TypeScript", "C++", "C"],
-    color: "from-purple-500/20 to-violet-500/20",
+    color: "from-orange-500/20 to-red-500/20",
   },
   {
     title: "Frameworks & Libraries",
     icon: Layers,
     skills: ["React", "Next.js", "Node.js", "Vue.js", "Angular"],
-    color: "from-violet-500/20 to-indigo-500/20",
+    color: "from-blue-500/20 to-cyan-500/20",
   },
   {
     title: "AI Stack & Tools",
     icon: Brain,
     skills: ["Cursor", "Lovable", "Replit", "Windsurf", "Supabase"],
-    color: "from-purple-600/20 to-fuchsia-500/20",
+    color: "from-purple-500/20 to-pink-500/20",
   },
   {
     title: "Methodologies",
     icon: Wrench,
     skills: ["Vibe Coding", "AI-Assisted Dev", "Prompt Engineering", "Git"],
-    color: "from-indigo-500/20 to-purple-500/20",
+    color: "from-green-500/20 to-emerald-500/20",
   },
   {
     title: "Soft Skills",
     icon: Users,
     skills: ["Adaptability", "Resilience", "Problem-Solving", "Leadership"],
-    color: "from-violet-400/20 to-purple-400/20",
+    color: "from-yellow-500/20 to-orange-500/20",
   },
   {
     title: "Specializations",
     icon: Lightbulb,
     skills: ["Full-Stack Development", "Blockchain & Web3 Development", "Artificial Intelligence (AI) & Machine Learning (ML)", "Large Language Model (LLM) Integration"],
-    color: "from-fuchsia-500/20 to-purple-600/20",
+    color: "from-rose-500/20 to-red-500/20",
   },
 ];
 

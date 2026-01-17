@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Inter", "Segoe UI", "sans-serif"],
-        sans: ["Inter", "Segoe UI", "sans-serif"],
-        body: ["Inter", "Segoe UI", "sans-serif"],
+        display: ["Cinzel", "Georgia", "serif"],
+        sans: ["Outfit", "system-ui", "sans-serif"],
+        body: ["Outfit", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
