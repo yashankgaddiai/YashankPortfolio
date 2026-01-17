@@ -229,6 +229,7 @@ const ServiceTag = ({
   );
 };
 
+// Main HeroSection component - hooks moved to child components for proper React rules
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
