@@ -162,6 +162,73 @@ const FloatingParticle = ({
   );
 };
 
+// Separate component for service tags with scroll-responsive animations
+const ServiceTag = ({
+  service,
+  index,
+  scrollYProgress,
+  isLoaded,
+}: {
+  service: { icon: typeof Code2; label: string };
+  index: number;
+  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+  isLoaded: boolean;
+}) => {
+  const Icon = service.icon;
+  const tagStartFade = 0.1 + index * 0.05;
+  const tagEndFade = 0.25 + index * 0.05;
+  const tagOpacity = useTransform(scrollYProgress, [tagStartFade, tagEndFade], [1, 0]);
+  const tagY = useTransform(scrollYProgress, [tagStartFade, tagEndFade], ["0%", "20%"]);
+  const tagScale = useTransform(scrollYProgress, [tagStartFade, tagEndFade], [1, 0.9]);
+
+  return (
+    <motion.div
+      key={service.label}
+      custom={index}
+      variants={tagVariants}
+      initial="hidden"
+      animate={isLoaded ? "visible" : "hidden"}
+      whileHover={{ 
+        scale: 1.08, 
+        rotateY: 5,
+        boxShadow: '0 0 40px rgba(255, 120, 50, 0.4)',
+        borderColor: 'rgba(255, 120, 50, 0.8)',
+      }}
+      whileTap={{ scale: 0.98 }}
+      transition={smoothSpring}
+      className="px-5 py-4 rounded-2xl flex items-center gap-3 cursor-pointer will-change-transform relative overflow-hidden group"
+      style={{
+        opacity: tagOpacity,
+        y: tagY,
+        scale: tagScale,
+        background: 'rgba(0, 0, 0, 0.4)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(255, 120, 50, 0.3)',
+        transformStyle: 'preserve-3d',
+        fontFamily: "'Outfit', sans-serif",
+      }}
+    >
+      {/* Animated glow overlay on hover */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30"
+        initial={{ opacity: 0, x: '-100%' }}
+        whileHover={{ opacity: 1, x: '0%' }}
+        transition={{ duration: 0.4 }}
+      />
+      <motion.div
+        whileHover={{ rotate: 360, scale: 1.2 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10"
+      >
+        <Icon size={22} className="text-primary" />
+      </motion.div>
+      <span className="text-base md:text-lg font-semibold text-foreground/95 relative z-10">
+        {service.label}
+      </span>
+    </motion.div>
+  );
+};
+
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -455,62 +522,15 @@ const HeroSection = () => {
               className="grid grid-cols-2 gap-4 max-w-md mt-8 md:mt-10"
               style={{ perspective: 1000 }}
             >
-              {services.map((service, index) => {
-                const Icon = service.icon;
-                // Staggered scroll fade - each tag fades at a different scroll position
-                const tagStartFade = 0.1 + index * 0.05;
-                const tagEndFade = 0.25 + index * 0.05;
-                const tagOpacity = useTransform(scrollYProgress, [tagStartFade, tagEndFade], [1, 0]);
-                const tagY = useTransform(scrollYProgress, [tagStartFade, tagEndFade], ["0%", "20%"]);
-                const tagScale = useTransform(scrollYProgress, [tagStartFade, tagEndFade], [1, 0.9]);
-                
-                return (
-                  <motion.div
-                    key={service.label}
-                    custom={index}
-                    variants={tagVariants}
-                    initial="hidden"
-                    animate={isLoaded ? "visible" : "hidden"}
-                    whileHover={{ 
-                      scale: 1.08, 
-                      rotateY: 5,
-                      boxShadow: '0 0 40px rgba(255, 120, 50, 0.4)',
-                      borderColor: 'rgba(255, 120, 50, 0.8)',
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={smoothSpring}
-                    className="px-5 py-4 rounded-2xl flex items-center gap-3 cursor-pointer will-change-transform relative overflow-hidden group"
-                    style={{
-                      opacity: tagOpacity,
-                      y: tagY,
-                      scale: tagScale,
-                      background: 'rgba(0, 0, 0, 0.4)',
-                      backdropFilter: 'blur(12px)',
-                      border: '1px solid rgba(255, 120, 50, 0.3)',
-                      transformStyle: 'preserve-3d',
-                      fontFamily: "'Outfit', sans-serif",
-                    }}
-                  >
-                    {/* Animated glow overlay on hover */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30"
-                      initial={{ opacity: 0, x: '-100%' }}
-                      whileHover={{ opacity: 1, x: '0%' }}
-                      transition={{ duration: 0.4 }}
-                    />
-                    <motion.div
-                      whileHover={{ rotate: 360, scale: 1.2 }}
-                      transition={{ duration: 0.6 }}
-                      className="relative z-10"
-                    >
-                      <Icon size={22} className="text-primary" />
-                    </motion.div>
-                    <span className="text-base md:text-lg font-semibold text-foreground/95 relative z-10">
-                      {service.label}
-                    </span>
-                  </motion.div>
-                );
-              })}
+              {services.map((service, index) => (
+                <ServiceTag
+                  key={service.label}
+                  service={service}
+                  index={index}
+                  scrollYProgress={scrollYProgress}
+                  isLoaded={isLoaded}
+                />
+              ))}
             </motion.div>
           </motion.div>
         </motion.div>
