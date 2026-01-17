@@ -203,33 +203,60 @@ const HeroSection = () => {
         />
       </motion.div>
 
-      {/* Floating particles with enhanced motion */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              left: `${10 + i * 12}%`,
-              top: `${20 + (i % 3) * 25}%`,
-              width: 4 + (i % 3) * 2,
-              height: 4 + (i % 3) * 2,
-              background: `hsl(${25 + i * 5} 95% ${50 + i * 3}% / ${0.2 + i * 0.05})`,
-            }}
-            animate={{
-              y: [0, -60 - i * 10, 0],
-              x: [0, 20 * Math.sin(i), 0],
-              opacity: [0.2, 0.6, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 5 + i * 0.8,
-              repeat: Infinity,
-              delay: i * 0.4,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+      {/* Floating particles with scroll-responsive motion */}
+      <motion.div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(12)].map((_, i) => {
+          // Each particle responds to scroll at different rates for depth
+          const particleScrollY = useTransform(
+            scrollYProgress, 
+            [0, 1], 
+            [0, (i % 2 === 0 ? 1 : -1) * (100 + i * 30)]
+          );
+          const particleScrollX = useTransform(
+            scrollYProgress, 
+            [0, 1], 
+            [0, (i % 3 === 0 ? 1 : -1) * (50 + i * 15)]
+          );
+          const particleScrollScale = useTransform(
+            scrollYProgress, 
+            [0, 0.5, 1], 
+            [1, 1.2 + (i % 3) * 0.2, 0.8]
+          );
+          const particleScrollOpacity = useTransform(
+            scrollYProgress, 
+            [0, 0.3, 0.7, 1], 
+            [0.3 + i * 0.04, 0.6 + i * 0.03, 0.4, 0.1]
+          );
+          
+          return (
+            <motion.div
+              key={i}
+              className="absolute rounded-full will-change-transform"
+              style={{
+                left: `${5 + i * 8}%`,
+                top: `${15 + (i % 4) * 20}%`,
+                width: 3 + (i % 4) * 2,
+                height: 3 + (i % 4) * 2,
+                background: `hsl(${20 + i * 4} 95% ${48 + i * 3}% / ${0.25 + i * 0.04})`,
+                x: particleScrollX,
+                y: particleScrollY,
+                scale: particleScrollScale,
+                opacity: particleScrollOpacity,
+              }}
+              animate={{
+                y: [0, -50 - i * 8, 0],
+                x: [0, 15 * Math.sin(i * 0.8), 0],
+                scale: [1, 1.3 + (i % 3) * 0.1, 1],
+              }}
+              transition={{
+                duration: 6 + i * 0.6,
+                repeat: Infinity,
+                delay: i * 0.3,
+                ease: "easeInOut",
+              }}
+            />
+          );
+        })}
         
         {/* Large cinematic glow orbs */}
         <motion.div
@@ -267,7 +294,7 @@ const HeroSection = () => {
             delay: 3,
           }}
         />
-      </div>
+      </motion.div>
 
       {/* Main Content Container */}
       <motion.div 
