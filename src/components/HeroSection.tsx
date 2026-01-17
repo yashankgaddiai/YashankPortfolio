@@ -208,6 +208,23 @@ const ServiceTag = ({
         fontFamily: "'Outfit', sans-serif",
       }}
     >
+      {/* Subtle pulsing glow border effect */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl pointer-events-none"
+        animate={{
+          boxShadow: [
+            '0 0 0px rgba(255, 120, 50, 0)',
+            '0 0 20px rgba(255, 120, 50, 0.25)',
+            '0 0 0px rgba(255, 120, 50, 0)',
+          ],
+        }}
+        transition={{
+          duration: 2.5 + index * 0.3,
+          repeat: Infinity,
+          delay: index * 0.4,
+          ease: "easeInOut",
+        }}
+      />
       {/* Animated glow overlay on hover */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30"
