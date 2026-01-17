@@ -104,6 +104,64 @@ const tagVariants = {
   }),
 };
 
+// Separate component for scroll-responsive particles (hooks must be at top level)
+const FloatingParticle = ({ 
+  index, 
+  scrollYProgress 
+}: { 
+  index: number; 
+  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+}) => {
+  const particleScrollY = useTransform(
+    scrollYProgress, 
+    [0, 1], 
+    [0, (index % 2 === 0 ? 1 : -1) * (100 + index * 30)]
+  );
+  const particleScrollX = useTransform(
+    scrollYProgress, 
+    [0, 1], 
+    [0, (index % 3 === 0 ? 1 : -1) * (50 + index * 15)]
+  );
+  const particleScrollScale = useTransform(
+    scrollYProgress, 
+    [0, 0.5, 1], 
+    [1, 1.2 + (index % 3) * 0.2, 0.8]
+  );
+  const particleScrollOpacity = useTransform(
+    scrollYProgress, 
+    [0, 0.3, 0.7, 1], 
+    [0.3 + index * 0.04, 0.6 + index * 0.03, 0.4, 0.1]
+  );
+
+  return (
+    <motion.div
+      className="absolute rounded-full will-change-transform"
+      style={{
+        left: `${5 + index * 8}%`,
+        top: `${15 + (index % 4) * 20}%`,
+        width: 3 + (index % 4) * 2,
+        height: 3 + (index % 4) * 2,
+        background: `hsl(${20 + index * 4} 95% ${48 + index * 3}% / ${0.25 + index * 0.04})`,
+        x: particleScrollX,
+        y: particleScrollY,
+        scale: particleScrollScale,
+        opacity: particleScrollOpacity,
+      }}
+      animate={{
+        y: [0, -50 - index * 8, 0],
+        x: [0, 15 * Math.sin(index * 0.8), 0],
+        scale: [1, 1.3 + (index % 3) * 0.1, 1],
+      }}
+      transition={{
+        duration: 6 + index * 0.6,
+        repeat: Infinity,
+        delay: index * 0.3,
+        ease: "easeInOut",
+      }}
+    />
+  );
+};
+
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -205,58 +263,9 @@ const HeroSection = () => {
 
       {/* Floating particles with scroll-responsive motion */}
       <motion.div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(12)].map((_, i) => {
-          // Each particle responds to scroll at different rates for depth
-          const particleScrollY = useTransform(
-            scrollYProgress, 
-            [0, 1], 
-            [0, (i % 2 === 0 ? 1 : -1) * (100 + i * 30)]
-          );
-          const particleScrollX = useTransform(
-            scrollYProgress, 
-            [0, 1], 
-            [0, (i % 3 === 0 ? 1 : -1) * (50 + i * 15)]
-          );
-          const particleScrollScale = useTransform(
-            scrollYProgress, 
-            [0, 0.5, 1], 
-            [1, 1.2 + (i % 3) * 0.2, 0.8]
-          );
-          const particleScrollOpacity = useTransform(
-            scrollYProgress, 
-            [0, 0.3, 0.7, 1], 
-            [0.3 + i * 0.04, 0.6 + i * 0.03, 0.4, 0.1]
-          );
-          
-          return (
-            <motion.div
-              key={i}
-              className="absolute rounded-full will-change-transform"
-              style={{
-                left: `${5 + i * 8}%`,
-                top: `${15 + (i % 4) * 20}%`,
-                width: 3 + (i % 4) * 2,
-                height: 3 + (i % 4) * 2,
-                background: `hsl(${20 + i * 4} 95% ${48 + i * 3}% / ${0.25 + i * 0.04})`,
-                x: particleScrollX,
-                y: particleScrollY,
-                scale: particleScrollScale,
-                opacity: particleScrollOpacity,
-              }}
-              animate={{
-                y: [0, -50 - i * 8, 0],
-                x: [0, 15 * Math.sin(i * 0.8), 0],
-                scale: [1, 1.3 + (i % 3) * 0.1, 1],
-              }}
-              transition={{
-                duration: 6 + i * 0.6,
-                repeat: Infinity,
-                delay: i * 0.3,
-                ease: "easeInOut",
-              }}
-            />
-          );
-        })}
+        {[...Array(12)].map((_, i) => (
+          <FloatingParticle key={i} index={i} scrollYProgress={scrollYProgress} />
+        ))}
         
         {/* Large cinematic glow orbs */}
         <motion.div
