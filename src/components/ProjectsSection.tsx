@@ -1,10 +1,12 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { ExternalLink, Sparkles, X, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import aiAgenticVerseImage from "@/assets/aiagenticverse.png";
 import beitYisraelImage from "@/assets/beityisrael.png";
 import neshamaTrainingImage from "@/assets/neshama-training.png";
+
+const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
 interface Project {
   title: string;
@@ -68,20 +70,59 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.2,
       delayChildren: 0.1,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: (i: number) => ({
+    opacity: 0,
+    y: 80,
+    rotateX: -15,
+    rotateY: i % 2 === 0 ? -10 : 10,
+    scale: 0.9,
+    filter: "blur(10px)",
+  }),
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    rotateY: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1,
+      delay: i * 0.15,
+      ease: cinematicEase,
+    },
+  }),
+};
+
+const titleReveal = {
+  hidden: { opacity: 0, y: 40, filter: "blur(12px)" },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { 
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as const,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1,
+      ease: cinematicEase,
+    },
+  },
+};
+
+const featuredCardReveal = {
+  hidden: { opacity: 0, y: 60, scale: 0.95, filter: "blur(15px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1.2,
+      ease: cinematicEase,
     },
   },
 };
@@ -121,16 +162,134 @@ const backdropVariants = {
   exit: { opacity: 0 },
 };
 
-const ProjectsSection = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+// Parallax card component for grid items
+const ParallaxProjectCard = ({ 
+  project, 
+  index, 
+  onSelect 
+}: { 
+  project: Project; 
+  index: number; 
+  onSelect: (p: Project) => void;
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [8, 0, -8]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
   return (
-    <section id="projects" className="py-24 md:py-32 bg-card relative overflow-hidden">
-      {/* Background decoration */}
+    <motion.div
+      ref={cardRef}
+      custom={index}
+      variants={cardVariants}
+      style={{ y, rotateX, scale, perspective: 1000 }}
+      whileHover={{ 
+        y: -12, 
+        rotateX: 0,
+        scale: 1.02,
+        boxShadow: "0 25px 50px -12px hsl(var(--primary) / 0.25)",
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
+      }}
+      className="group glass rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-300 cursor-pointer will-change-transform"
+      onClick={() => onSelect(project)}
+    >
+      <div className="aspect-video overflow-hidden relative">
+        <motion.img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover will-change-transform"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.5, ease: cinematicEase }}
+        />
+        {/* Hover overlay with project details */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <motion.p
+            className="text-sm text-muted-foreground line-clamp-2 mb-2"
+            initial={{ y: 20, opacity: 0 }}
+            whileHover={{ y: 0, opacity: 1 }}
+          >
+            {project.problem}
+          </motion.p>
+          <motion.span 
+            className="text-primary text-sm font-medium flex items-center gap-1"
+            initial={{ y: 10 }}
+            whileHover={{ y: 0 }}
+          >
+            View Details <ChevronRight size={14} />
+          </motion.span>
+        </motion.div>
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-display font-semibold mb-2 group-hover:text-primary transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{project.description}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tech.slice(0, 3).map((tech) => (
+            <motion.span 
+              key={tech} 
+              className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
+              whileHover={{ scale: 1.05 }}
+            >
+              {tech}
+            </motion.span>
+          ))}
+        </div>
+        <div className="flex gap-3">
+          {project.link && (
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-primary hover:underline flex items-center gap-1"
+              whileHover={{ x: 4 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 25,
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              View Project <ExternalLink size={12} />
+            </motion.a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const ProjectsSection = () => {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+
+  return (
+    <section ref={sectionRef} id="projects" className="py-24 md:py-32 bg-card relative overflow-hidden">
+      {/* Parallax Background decorations */}
       <motion.div
         className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5"
         style={{
           background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)",
+          y: backgroundY,
         }}
         animate={{
           scale: [1, 1.2, 1],
@@ -142,30 +301,35 @@ const ProjectsSection = () => {
           ease: "easeInOut",
         }}
       />
+      
+      <motion.div
+        className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5"
+        style={{
+          background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)",
+          y: useTransform(scrollYProgress, [0, 1], ["30%", "-20%"]),
+        }}
+      />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
           className="text-center mb-16"
+          style={{ opacity: titleOpacity }}
         >
           <motion.span 
             className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={titleReveal}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
           >
             Portfolio
           </motion.span>
           <motion.h2 
             className="text-4xl md:text-5xl font-display font-bold mt-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={titleReveal}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
           >
             Featured Projects
           </motion.h2>
@@ -177,11 +341,12 @@ const ProjectsSection = () => {
           .map((project) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              variants={featuredCardReveal}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
               className="mb-12"
+              style={{ perspective: 1000 }}
             >
               <motion.div
                 className="relative rounded-3xl overflow-hidden bg-gradient-warm p-1 will-change-transform cursor-pointer"
@@ -314,76 +479,13 @@ const ProjectsSection = () => {
         >
           {projects
             .filter((p) => !p.featured)
-            .map((project) => (
-              <motion.div
+            .map((project, index) => (
+              <ParallaxProjectCard
                 key={project.title}
-                variants={cardVariants}
-                whileHover={{ y: -12 }}
-                transition={smoothSpring}
-                className="group glass rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-300 cursor-pointer will-change-transform"
-                onClick={() => setSelectedProject(project)}
-              >
-                <div className="aspect-video overflow-hidden relative">
-                  <motion.img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover will-change-transform"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
-                  />
-                  {/* Hover overlay with project details */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  >
-                    <motion.p
-                      className="text-sm text-muted-foreground line-clamp-2 mb-2"
-                      initial={{ y: 20, opacity: 0 }}
-                      whileHover={{ y: 0, opacity: 1 }}
-                    >
-                      {project.problem}
-                    </motion.p>
-                    <motion.span 
-                      className="text-primary text-sm font-medium flex items-center gap-1"
-                      initial={{ y: 10 }}
-                      whileHover={{ y: 0 }}
-                    >
-                      View Details <ChevronRight size={14} />
-                    </motion.span>
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-display font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.slice(0, 3).map((tech, index) => (
-                      <motion.span 
-                        key={tech} 
-                        className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-                  <div className="flex gap-3">
-                    {project.link && (
-                      <motion.a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary hover:underline flex items-center gap-1"
-                        whileHover={{ x: 4 }}
-                        transition={smoothSpring}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        View Project <ExternalLink size={12} />
-                      </motion.a>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
+                project={project}
+                index={index}
+                onSelect={setSelectedProject}
+              />
             ))}
         </motion.div>
       </div>
