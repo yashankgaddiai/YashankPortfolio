@@ -160,12 +160,39 @@ const ExperienceSection = () => {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            {/* Animated Timeline Line */}
+            {/* Animated Timeline Line with Drawing Effect */}
             <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-1/2 overflow-hidden">
-              <div className="absolute inset-0 bg-border/30" />
+              {/* Background track */}
+              <div className="absolute inset-0 bg-border/20" />
+              
+              {/* Animated drawing line */}
               <motion.div
-                className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary via-primary to-primary/50"
-                style={{ height: lineHeight }}
+                className="absolute top-0 left-0 right-0 origin-top"
+                style={{ 
+                  height: lineHeight,
+                  background: 'linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--primary)) 85%, transparent 100%)',
+                }}
+              />
+              
+              {/* Glowing tip that follows the line */}
+              <motion.div
+                className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
+                style={{
+                  top: lineHeight,
+                  background: 'hsl(var(--primary))',
+                  boxShadow: '0 0 20px 8px hsl(var(--primary) / 0.6), 0 0 40px 16px hsl(var(--primary) / 0.3)',
+                  marginTop: '-6px',
+                }}
+              />
+              
+              {/* Secondary glow trail */}
+              <motion.div
+                className="absolute top-0 left-0 right-0 origin-top"
+                style={{ 
+                  height: lineHeight,
+                  background: 'linear-gradient(180deg, transparent 0%, hsl(var(--primary) / 0.3) 90%, hsl(var(--primary) / 0.6) 100%)',
+                  filter: 'blur(4px)',
+                }}
               />
             </div>
 
