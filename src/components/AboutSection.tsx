@@ -24,47 +24,79 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
+      staggerChildren: 0.2,
+      delayChildren: 0.4,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
   visible: {
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: { 
-      duration: 0.8,
+      duration: 1,
       ease: cinematicEase,
     },
   },
 };
 
-// Slide from sides animation
+// Slide from sides animation with blur
 const slideFromLeft = {
-  hidden: { opacity: 0, x: -80 },
+  hidden: { opacity: 0, x: -100, filter: "blur(12px)" },
   visible: {
     opacity: 1,
     x: 0,
+    filter: "blur(0px)",
     transition: { 
-      duration: 1,
+      duration: 1.2,
       ease: cinematicEase,
     },
   },
 };
 
 const slideFromRight = {
-  hidden: { opacity: 0, x: 80 },
+  hidden: { opacity: 0, x: 100, filter: "blur(12px)" },
   visible: {
     opacity: 1,
     x: 0,
+    filter: "blur(0px)",
     transition: { 
-      duration: 1,
+      duration: 1.2,
       ease: cinematicEase,
     },
   },
+};
+
+// Scale and fade reveal for center content
+const scaleReveal = {
+  hidden: { opacity: 0, scale: 0.8, filter: "blur(20px)" },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { 
+      duration: 1.4,
+      ease: cinematicEase,
+    },
+  },
+};
+
+// Staggered text reveal
+const textReveal = {
+  hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { 
+      duration: 0.8,
+      delay: i * 0.15,
+      ease: cinematicEase,
+    },
+  }),
 };
 
 // Tech stack icons
@@ -125,10 +157,10 @@ const AboutSection = () => {
           >
             <motion.div 
               className="relative w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
-              initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
-              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: cinematicEase }}
+              variants={scaleReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
               whileHover={{ scale: 1.05, rotateY: 5 }}
             >
               {/* Animated glow ring */}
@@ -155,10 +187,11 @@ const AboutSection = () => {
             {/* Name below image */}
             <motion.h2 
               className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-center mt-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              variants={textReveal}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ delay: 0.6, duration: 0.8, ease: cinematicEase }}
               style={{
                 background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)',
                 WebkitBackgroundClip: 'text',
@@ -172,10 +205,11 @@ const AboutSection = () => {
             {/* Entrepreneur title */}
             <motion.p 
               className="text-sm md:text-base uppercase tracking-[0.3em] text-muted-foreground mt-2 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              variants={textReveal}
+              custom={1}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ delay: 0.8, duration: 0.8, ease: cinematicEase }}
             >
               Entrepreneur
             </motion.p>
@@ -183,10 +217,11 @@ const AboutSection = () => {
             {/* Tagline below */}
             <motion.p 
               className="text-center text-sm text-muted-foreground/80 mt-3 italic"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              variants={textReveal}
+              custom={2}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ delay: 1, duration: 0.8, ease: cinematicEase }}
             >
               Building the AI-First Future
             </motion.p>
