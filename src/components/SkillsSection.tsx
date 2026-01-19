@@ -57,14 +57,15 @@ const smoothSpring = {
   damping: 25,
 };
 
-// Wave animation for cards
+// Wave animation for cards with blur-to-focus reveal
 const cardVariants = {
   hidden: (i: number) => ({ 
     opacity: 0, 
-    y: 80, 
-    rotateX: -15,
-    rotateY: i % 2 === 0 ? -10 : 10,
-    scale: 0.9,
+    y: 100, 
+    rotateX: -20,
+    rotateY: i % 2 === 0 ? -15 : 15,
+    scale: 0.85,
+    filter: "blur(15px)",
   }),
   visible: (i: number) => ({
     opacity: 1,
@@ -72,26 +73,42 @@ const cardVariants = {
     rotateX: 0,
     rotateY: 0,
     scale: 1,
+    filter: "blur(0px)",
     transition: { 
-      duration: 0.8,
-      delay: i * 0.1,
+      duration: 1,
+      delay: i * 0.12,
       ease: cinematicEase,
     },
   }),
 };
 
 const skillVariants = {
-  hidden: { opacity: 0, scale: 0.6, y: 20 },
+  hidden: { opacity: 0, scale: 0.5, y: 25, filter: "blur(8px)" },
   visible: (i: number) => ({
     opacity: 1,
     scale: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: {
-      delay: i * 0.08,
-      duration: 0.5,
+      delay: i * 0.1,
+      duration: 0.6,
       ease: cinematicEase,
     },
   }),
+};
+
+// Title reveal with blur
+const titleReveal = {
+  hidden: { opacity: 0, y: 40, filter: "blur(12px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { 
+      duration: 1,
+      ease: cinematicEase,
+    },
+  },
 };
 
 const SkillsSection = () => {
@@ -152,19 +169,19 @@ const SkillsSection = () => {
         >
           <motion.span 
             className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
-            initial={{ opacity: 0, y: 30, letterSpacing: "0.1em" }}
-            whileInView={{ opacity: 1, y: 0, letterSpacing: "0.3em" }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: cinematicEase }}
+            variants={titleReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
           >
             My Skills
           </motion.span>
           <motion.h2 
             className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mt-4"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.8, ease: cinematicEase }}
+            variants={titleReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
           >
             Technical Competencies
           </motion.h2>
