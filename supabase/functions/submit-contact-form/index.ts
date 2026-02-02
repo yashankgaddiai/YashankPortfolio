@@ -1,30 +1,16 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-// Allowed origins for CORS - restricts who can call this endpoint
-const ALLOWED_ORIGINS = [
-  'https://hctdtjoeukvlffbqysce.lovableproject.com',
-  'https://lovable.app',
-  'http://localhost:8080',
-  'http://localhost:5173',
-  'http://localhost:3000',
-];
+// CORS headers for browser requests
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
 // In-memory rate limiting store (resets on function cold start)
-// For production with high traffic, consider using Deno KV or external store
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_MAX = 5; // Max submissions per window
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour window
-
-function getCorsHeaders(origin: string | null): Record<string, string> {
-  const allowedOrigin = origin && ALLOWED_ORIGINS.some(allowed => 
-    origin === allowed || origin.endsWith('.lovable.app') || origin.endsWith('.lovableproject.com')
-  ) ? origin : ALLOWED_ORIGINS[0];
-  
-  return {
-    'Access-Control-Allow-Origin': allowedOrigin,
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  };
-}
 
 function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
   const now = Date.now();
@@ -40,7 +26,6 @@ function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
   }
   
   if (!record || now > record.resetTime) {
-    // New window or expired, reset counter
     rateLimitStore.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
     return { allowed: true, remaining: RATE_LIMIT_MAX - 1 };
   }
@@ -54,18 +39,14 @@ function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
 }
 
 function getClientIP(req: Request): string {
-  // Try various headers that might contain the real IP
   const forwardedFor = req.headers.get('x-forwarded-for');
   if (forwardedFor) {
     return forwardedFor.split(',')[0].trim();
   }
-  
   const realIP = req.headers.get('x-real-ip');
   if (realIP) {
     return realIP;
   }
-  
-  // Fallback to a generic identifier
   return 'unknown';
 }
 
@@ -76,23 +57,9 @@ interface ContactFormRequest {
 }
 
 serve(async (req) => {
-  const origin = req.headers.get('origin');
-  const corsHeaders = getCorsHeaders(origin);
-  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
-  }
-
-  // Validate origin for non-preflight requests
-  if (origin && !ALLOWED_ORIGINS.some(allowed => 
-    origin === allowed || origin.endsWith('.lovable.app') || origin.endsWith('.lovableproject.com')
-  )) {
-    console.warn('Rejected request from unauthorized origin:', origin);
-    return new Response(
-      JSON.stringify({ error: 'Unauthorized origin' }),
-      { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
   }
 
   try {
@@ -106,22 +73,8 @@ serve(async (req) => {
         JSON.stringify({ error: 'Too many requests. Please try again later.' }),
         { 
           status: 429, 
-          headers: { 
-            ...corsHeaders, 
-            'Content-Type': 'application/json',
-            'Retry-After': '3600'
-          } 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Retry-After': '3600' } 
         }
-      );
-    }
-
-    const googleScriptUrl = Deno.env.get('GOOGLE_SCRIPT_URL');
-    
-    if (!googleScriptUrl) {
-      console.error('GOOGLE_SCRIPT_URL is not configured');
-      return new Response(
-        JSON.stringify({ error: 'Server configuration error' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -179,38 +132,27 @@ serve(async (req) => {
       );
     }
 
-    // Prepare data for Google Sheet
-    const payload = {
-      timestamp: new Date().toISOString(),
-      name: name.trim(),
-      email: email.trim(),
-      message: message.trim(),
-      source: 'Portfolio Contact Form',
-    };
+    // Create Supabase client with service role key
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Log with masked email for privacy
     const maskedEmail = email.replace(/(.{2})(.*)(@.*)/, '$1***$3');
-    console.log('Submitting contact form:', { name: payload.name, email: maskedEmail });
-    console.log('Google Script URL (first 50 chars):', googleScriptUrl.substring(0, 50));
+    console.log('Submitting contact form:', { name: name.trim(), email: maskedEmail });
 
-    // Send to Google Apps Script
-    // Google Apps Script redirects on success, so we need to follow redirects
-    const response = await fetch(googleScriptUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-      redirect: 'follow', // Follow redirects (Google Apps Script returns 302)
-    });
+    // Insert into database
+    const { error: dbError } = await supabase
+      .from('contact_submissions')
+      .insert({
+        name: name.trim(),
+        email: email.trim(),
+        message: message.trim(),
+        source: 'Portfolio Contact Form',
+      });
 
-    const responseText = await response.text();
-    console.log('Google Script response status:', response.status);
-    console.log('Google Script response (first 200 chars):', responseText.substring(0, 200));
-
-    // Google Apps Script may return 200 with error in body, or redirect
-    if (!response.ok) {
-      console.error('Google Script error:', response.status, responseText);
+    if (dbError) {
+      console.error('Database error:', dbError);
       return new Response(
         JSON.stringify({ error: 'Failed to save form submission' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
