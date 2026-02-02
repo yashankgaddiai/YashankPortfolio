@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         display: ["Cinzel", "Georgia", "serif"],
+        serif: ["Domine", "Georgia", "serif"],
         sans: ["Outfit", "system-ui", "sans-serif"],
         body: ["Outfit", "system-ui", "sans-serif"],
       },
