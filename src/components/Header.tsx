@@ -48,7 +48,7 @@ const Header = () => {
         ease: [0.22, 1, 0.36, 1],
         delay: 0.2 
       }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 font-sans ${
         isScrolled ? "glass-strong py-4" : "py-6"
       }`}
     >
