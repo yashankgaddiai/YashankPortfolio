@@ -8,11 +8,10 @@ import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import CursorEffect from "@/components/CursorEffect";
+import LoadingScreen from "@/components/LoadingScreen";
 import ScrollProgress from "@/components/ScrollProgress";
 import PageTransition from "@/components/PageTransition";
 import SectionDivider from "@/components/SectionDivider";
-import LoadingScreen from "@/components/LoadingScreen";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +30,7 @@ const Index = () => {
             {/* Cinematic grain overlay */}
             <div className="grain" />
             
-            <CursorEffect />
+            
             <ScrollProgress />
             <Header />
             <main>
