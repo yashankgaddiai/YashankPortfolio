@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Domine:wght@400..700&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 /* Domine font with optical sizing - applied globally */
-html, body {
+html {
+  font-size: 125%; /* Increased base font size (~20px) */
+}
+
+body {
   font-family: "Domine", Georgia, serif;
   font-optical-sizing: auto;
   font-style: normal;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 @tailwind base;
