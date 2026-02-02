@@ -16,8 +16,8 @@ export default {
       fontFamily: {
         display: ["Cinzel", "Georgia", "serif"],
         serif: ["Domine", "Georgia", "serif"],
-        sans: ["Outfit", "system-ui", "sans-serif"],
-        body: ["Outfit", "system-ui", "sans-serif"],
+        sans: ["Domine", "Georgia", "serif"],
+        body: ["Domine", "Georgia", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
