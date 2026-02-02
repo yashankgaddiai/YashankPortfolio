@@ -132,7 +132,7 @@ const ExperienceSection = () => {
           className="text-center mb-16"
         >
           <motion.span
-            className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
+            className="text-primary font-medium text-small uppercase tracking-widest inline-block"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -248,27 +248,27 @@ const ExperienceSection = () => {
                       <div className="relative z-10">
                         <div className={`flex items-center gap-2 mb-2 ${isEven ? "md:justify-end" : ""}`}>
                           <motion.span
-                            className="text-xs font-medium px-3 py-1 rounded-full bg-primary/10 text-primary"
+                            className="text-small font-medium px-3 py-1 rounded-full bg-primary/10 text-primary"
                             whileHover={{ scale: 1.05, boxShadow: "0 0 15px hsl(var(--primary) / 0.3)" }}
                             transition={smoothSpring}
                           >
                             {exp.type}
                           </motion.span>
                         </div>
-                        <h3 className="text-xl font-display font-semibold mb-1 group-hover:text-primary transition-colors">
+                        <h3 className="text-subsection font-display font-semibold mb-1 group-hover:text-primary transition-colors">
                           {exp.title}
                         </h3>
-                        <p className="text-primary font-medium mb-2">{exp.company}</p>
+                        <p className="text-primary font-medium text-body mb-2">{exp.company}</p>
                         <div
-                          className={`flex items-center gap-2 text-sm text-muted-foreground mb-4 ${
+                          className={`flex items-center gap-2 text-body text-muted-foreground mb-4 ${
                             isEven ? "md:justify-end" : ""
                           }`}
                         >
-                          <Calendar size={14} />
+                          <Calendar size={18} />
                           {exp.duration}
                         </div>
-                        <p className="text-muted-foreground mb-4">{exp.description}</p>
-                        <ul className={`space-y-2 text-sm text-muted-foreground ${isEven ? "md:text-right" : ""}`}>
+                        <p className="text-muted-foreground text-body mb-4">{exp.description}</p>
+                        <ul className={`space-y-2 text-body text-muted-foreground ${isEven ? "md:text-right" : ""}`}>
                           {exp.achievements.map((achievement, i) => (
                             <motion.li
                               key={i}
@@ -295,12 +295,12 @@ const ExperienceSection = () => {
                               <motion.a
                                 key={link.label}
                                 href={link.url}
-                                className="flex items-center gap-1 text-sm text-primary hover:underline"
+                                className="flex items-center gap-1 text-body text-primary hover:underline"
                                 whileHover={{ x: 3 }}
                                 transition={smoothSpring}
                               >
                                 {link.label}
-                                <ExternalLink size={12} />
+                                <ExternalLink size={16} />
                               </motion.a>
                             ))}
                           </div>
