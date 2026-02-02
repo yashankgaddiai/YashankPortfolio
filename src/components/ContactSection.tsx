@@ -193,7 +193,7 @@ const ContactSection = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <motion.span 
-            className="text-primary font-medium text-small uppercase tracking-widest inline-block"
+            className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -211,7 +211,7 @@ const ContactSection = () => {
             Let's Build Something Together
           </motion.h2>
           <motion.p 
-            className="text-muted-foreground text-body mt-4 max-w-xl mx-auto"
+            className="text-muted-foreground mt-4 max-w-xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -256,16 +256,16 @@ const ContactSection = () => {
                     />
                   </motion.div>
                   <div>
-                    <p className="text-small text-muted-foreground">{contact.label}</p>
+                    <p className="text-sm text-muted-foreground">{contact.label}</p>
                     {contact.href ? (
                       <a
                         href={contact.href}
-                        className="text-body-lg font-medium hover:text-primary transition-colors"
+                        className="text-lg font-medium hover:text-primary transition-colors"
                       >
                         {contact.value}
                       </a>
                     ) : (
-                      <p className="text-body-lg font-medium">{contact.value}</p>
+                      <p className="text-lg font-medium">{contact.value}</p>
                     )}
                   </div>
                 </motion.div>
@@ -274,7 +274,7 @@ const ContactSection = () => {
 
             {/* Social Links */}
             <motion.div variants={itemVariants} className="pt-6">
-              <p className="text-small text-muted-foreground mb-4">Connect with me</p>
+              <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
               <div className="flex gap-4">
                 <MagneticButton strength={0.3}>
                   <motion.a
@@ -350,15 +350,15 @@ const ContactSection = () => {
               variants={itemVariants}
               className="pt-8 border-t border-border/50"
             >
-                <motion.div
-                  className="flex items-center gap-2 mb-3"
-                  animate={{ opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <Sparkles size={18} className="text-primary" />
-                  <span className="text-body font-medium text-primary">Available for projects</span>
-                </motion.div>
-                <p className="text-muted-foreground text-body">
+              <motion.div
+                className="flex items-center gap-2 mb-3"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Sparkles size={16} className="text-primary" />
+                <span className="text-sm font-medium text-primary">Available for projects</span>
+              </motion.div>
+              <p className="text-muted-foreground text-sm">
                 Ready to transform your ideas into reality with cutting-edge AI solutions. 
                 Let's create something extraordinary together.
               </p>
@@ -394,7 +394,7 @@ const ContactSection = () => {
                 >
                   <label
                     htmlFor={field.id}
-                    className={`block text-body font-medium mb-2 transition-colors ${
+                    className={`block text-sm font-medium mb-2 transition-colors ${
                       focusedField === field.id ? "text-primary" : ""
                     }`}
                   >
@@ -441,7 +441,7 @@ const ContactSection = () => {
               >
                 <label
                   htmlFor="message"
-                  className={`block text-body font-medium mb-2 transition-colors ${
+                  className={`block text-sm font-medium mb-2 transition-colors ${
                     focusedField === "message" ? "text-primary" : ""
                   }`}
                 >

@@ -204,7 +204,7 @@ const AboutSection = () => {
 
             {/* Entrepreneur title */}
             <motion.p 
-              className="text-body uppercase tracking-[0.3em] text-muted-foreground mt-2 text-center"
+              className="text-sm md:text-base uppercase tracking-[0.3em] text-muted-foreground mt-2 text-center"
               variants={textReveal}
               custom={1}
               initial="hidden"
@@ -216,7 +216,7 @@ const AboutSection = () => {
             
             {/* Tagline below */}
             <motion.p 
-              className="text-center text-body text-muted-foreground/80 mt-3 italic"
+              className="text-center text-sm text-muted-foreground/80 mt-3 italic"
               variants={textReveal}
               custom={2}
               initial="hidden"
@@ -240,7 +240,7 @@ const AboutSection = () => {
               transition={smoothSpring}
             >
               <motion.h3 
-                className="text-primary font-semibold text-small uppercase tracking-widest mb-3"
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -248,7 +248,7 @@ const AboutSection = () => {
               >
                 Experience
               </motion.h3>
-              <div className="space-y-2 text-body text-muted-foreground">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 <motion.p
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -275,7 +275,7 @@ const AboutSection = () => {
               transition={smoothSpring}
             >
               <motion.h3 
-                className="text-primary font-semibold text-small uppercase tracking-widest mb-3"
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -283,7 +283,7 @@ const AboutSection = () => {
               >
                 Achievements
               </motion.h3>
-              <div className="space-y-2 text-body text-muted-foreground">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 <motion.p
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -319,7 +319,7 @@ const AboutSection = () => {
               transition={smoothSpring}
             >
               <motion.h3 
-                className="text-primary font-semibold text-small uppercase tracking-widest mb-3"
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -327,7 +327,7 @@ const AboutSection = () => {
               >
                 Tech Stack
               </motion.h3>
-              <div className="space-y-1 text-body text-muted-foreground">
+              <div className="space-y-1 text-sm text-muted-foreground">
                 <motion.p
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -362,7 +362,7 @@ const AboutSection = () => {
               transition={smoothSpring}
             >
               <motion.h3 
-                className="text-primary font-semibold text-small uppercase tracking-widest mb-3"
+                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -370,7 +370,7 @@ const AboutSection = () => {
               >
                 Contact
               </motion.h3>
-              <div className="text-body text-muted-foreground">
+              <div className="text-sm text-muted-foreground">
                 <motion.a 
                   href="#contact" 
                   className="text-primary hover:underline inline-block"
@@ -389,19 +389,19 @@ const AboutSection = () => {
         <div className="md:hidden mt-8 grid grid-cols-2 gap-8">
           <motion.div className="space-y-6" variants={containerVariants}>
             <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-small uppercase tracking-widest mb-2">Experience</h3>
-              <p className="text-small text-muted-foreground">Co-Founder at AI Agentic Verse</p>
+              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Experience</h3>
+              <p className="text-xs text-muted-foreground">Co-Founder at AI Agentic Verse</p>
             </motion.div>
             <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-small uppercase tracking-widest mb-2">Achievements</h3>
-              <p className="text-small text-muted-foreground">Built platforms reaching 70+ languages</p>
+              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Achievements</h3>
+              <p className="text-xs text-muted-foreground">Built platforms reaching 70+ languages</p>
             </motion.div>
           </motion.div>
 
           <motion.div className="space-y-6 text-right" variants={containerVariants}>
             <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-small uppercase tracking-widest mb-2">Tech Stack</h3>
-              <p className="text-small text-muted-foreground">React, Next.js, Python</p>
+              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Tech Stack</h3>
+              <p className="text-xs text-muted-foreground">React, Next.js, Python</p>
             </motion.div>
           </motion.div>
         </div>
@@ -415,7 +415,7 @@ const AboutSection = () => {
           transition={{ duration: 1, ease: cinematicEase }}
         >
           <motion.p 
-            className="text-small uppercase tracking-[0.3em] text-muted-foreground mb-8"
+            className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8"
             initial={{ opacity: 0, letterSpacing: "0.1em" }}
             whileInView={{ opacity: 1, letterSpacing: "0.3em" }}
             viewport={{ once: true }}
@@ -460,7 +460,7 @@ const AboutSection = () => {
 
             {/* Description Text */}
             <motion.p 
-              className="flex-1 text-muted-foreground text-body max-w-md ml-auto"
+              className="flex-1 text-muted-foreground text-sm md:text-base max-w-md ml-auto"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

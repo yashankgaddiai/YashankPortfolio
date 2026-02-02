@@ -215,31 +215,31 @@ const ParallaxProjectCard = ({
           className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         >
           <motion.p
-            className="text-body text-muted-foreground line-clamp-2 mb-2"
+            className="text-sm text-muted-foreground line-clamp-2 mb-2"
             initial={{ y: 20, opacity: 0 }}
             whileHover={{ y: 0, opacity: 1 }}
           >
             {project.problem}
           </motion.p>
           <motion.span 
-            className="text-primary text-body font-medium flex items-center gap-1"
+            className="text-primary text-sm font-medium flex items-center gap-1"
             initial={{ y: 10 }}
             whileHover={{ y: 0 }}
           >
-            View Details <ChevronRight size={18} />
+            View Details <ChevronRight size={14} />
           </motion.span>
         </motion.div>
       </div>
       <div className="p-6">
-        <h3 className="text-subsection font-display font-semibold mb-2 group-hover:text-primary transition-colors">
+        <h3 className="text-xl font-display font-semibold mb-2 group-hover:text-primary transition-colors">
           {project.title}
         </h3>
-        <p className="text-muted-foreground text-body mb-4 line-clamp-2">{project.description}</p>
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{project.description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tech.slice(0, 3).map((tech) => (
             <motion.span 
               key={tech} 
-              className="px-3 py-1.5 text-small rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
+              className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
               whileHover={{ scale: 1.05 }}
             >
               {tech}
@@ -252,7 +252,7 @@ const ParallaxProjectCard = ({
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-body text-primary hover:underline flex items-center gap-1"
+              className="text-sm text-primary hover:underline flex items-center gap-1"
               whileHover={{ x: 4 }}
               transition={{
                 type: "spring",
@@ -261,7 +261,7 @@ const ParallaxProjectCard = ({
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              View Project <ExternalLink size={16} />
+              View Project <ExternalLink size={12} />
             </motion.a>
           )}
         </div>
@@ -316,7 +316,7 @@ const ProjectsSection = () => {
           style={{ opacity: titleOpacity }}
         >
           <motion.span 
-            className="text-primary font-medium text-small uppercase tracking-widest inline-block"
+            className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
             variants={titleReveal}
             initial="hidden"
             whileInView="visible"
@@ -373,9 +373,9 @@ const ProjectsSection = () => {
                         <motion.span
                           initial={{ y: 20, opacity: 0 }}
                           whileHover={{ y: 0, opacity: 1 }}
-                          className="text-body font-medium text-primary flex items-center gap-2"
+                          className="text-sm font-medium text-primary flex items-center gap-2"
                         >
-                          View Case Study <ChevronRight size={18} />
+                          View Case Study <ChevronRight size={16} />
                         </motion.span>
                       </motion.div>
                     </motion.div>
@@ -391,13 +391,13 @@ const ProjectsSection = () => {
                           animate={{ rotate: [0, 10, -10, 0] }}
                           transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
                         >
-                        <Sparkles className="text-primary" size={22} />
+                          <Sparkles className="text-primary" size={20} />
                         </motion.div>
-                        <span className="text-primary font-medium text-body">Featured Project</span>
+                        <span className="text-primary font-medium text-sm">Featured Project</span>
                       </motion.div>
-                      <h3 className="text-section font-display font-bold mb-4">{project.title}</h3>
-                      <p className="text-muted-foreground text-body mb-6">{project.description}</p>
-                      <div className="space-y-2 mb-6 text-body">
+                      <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">{project.title}</h3>
+                      <p className="text-muted-foreground mb-6">{project.description}</p>
+                      <div className="space-y-2 mb-6 text-sm">
                         <motion.p
                           initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
@@ -435,7 +435,7 @@ const ProjectsSection = () => {
                               scale: 1.1, 
                               boxShadow: "0 0 15px hsl(var(--primary) / 0.3)",
                             }}
-                            className="px-3 py-1.5 text-body rounded-full bg-primary/10 text-primary will-change-transform cursor-default"
+                            className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary will-change-transform cursor-default"
                           >
                             {tech}
                           </motion.span>
@@ -546,7 +546,7 @@ const ProjectsSection = () => {
                 </motion.h3>
                 
                 <motion.p
-                  className="text-muted-foreground text-body-lg mb-8"
+                  className="text-muted-foreground text-lg mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 }}
@@ -568,10 +568,10 @@ const ProjectsSection = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: item.delay, duration: 0.5 }}
                     >
-                      <span className="text-primary font-semibold text-small uppercase tracking-wider block mb-2">
+                      <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
                         {item.label}
                       </span>
-                      <p className="text-foreground text-body">{item.content}</p>
+                      <p className="text-foreground">{item.content}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -583,14 +583,14 @@ const ProjectsSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}
                 >
-                  <h4 className="text-small font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+                  <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
                     Technologies Used
                   </h4>
                   <div className="flex flex-wrap gap-3">
                     {selectedProject.tech.map((tech, index) => (
                       <motion.span
                         key={tech}
-                        className="px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-body"
+                        className="px-4 py-2 rounded-full bg-primary/10 text-primary font-medium"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.4 + index * 0.05 }}

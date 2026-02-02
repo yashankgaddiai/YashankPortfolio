@@ -168,7 +168,7 @@ const SkillsSection = () => {
           className="text-center mb-16"
         >
           <motion.span 
-            className="text-primary font-medium text-small uppercase tracking-widest inline-block"
+            className="text-primary font-medium text-sm uppercase tracking-widest inline-block"
             variants={titleReveal}
             initial="hidden"
             whileInView="visible"
@@ -229,7 +229,7 @@ const SkillsSection = () => {
                         <Icon size={24} />
                       </motion.div>
                     </div>
-                    <h3 className="font-display font-semibold text-body-lg">
+                    <h3 className="font-display font-semibold text-lg">
                       {category.title}
                     </h3>
                   </div>
@@ -242,7 +242,7 @@ const SkillsSection = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="px-4 py-2 text-body rounded-full bg-muted text-muted-foreground"
+                        className="px-3 py-1.5 text-sm rounded-full bg-muted text-muted-foreground"
                       >
                         {skill}
                       </motion.span>

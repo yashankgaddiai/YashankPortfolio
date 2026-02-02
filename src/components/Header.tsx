@@ -79,7 +79,7 @@ const Header = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + index * 0.05, duration: 0.5 }}
-                className="relative px-4 py-2 text-nav font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
                 {/* Active indicator - animated underline */}
@@ -195,7 +195,7 @@ const Header = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className={`text-nav font-medium py-3 px-4 rounded-lg transition-colors ${
+                      className={`text-sm font-medium py-2 px-3 rounded-lg transition-colors ${
                         isActive 
                           ? "text-primary bg-primary/10" 
                           : "text-muted-foreground hover:text-primary hover:bg-primary/5"
