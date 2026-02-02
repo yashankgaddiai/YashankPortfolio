@@ -2,7 +2,7 @@
 
 /* Domine font with optical sizing - applied globally */
 html {
-  font-size: 125%; /* Increased base font size (~20px) */
+  font-size: 137.5%; /* Larger base font size (~22px) */
 }
 
 body {
@@ -10,7 +10,7 @@ body {
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 @tailwind base;
