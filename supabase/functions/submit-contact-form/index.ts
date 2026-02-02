@@ -9,14 +9,13 @@ const corsHeaders = {
 
 // In-memory rate limiting store (resets on function cold start)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_MAX = 5; // Max submissions per window
-const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour window
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 
 function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
   const now = Date.now();
   const record = rateLimitStore.get(ip);
   
-  // Clean up expired entries periodically
   if (rateLimitStore.size > 1000) {
     for (const [key, value] of rateLimitStore.entries()) {
       if (now > value.resetTime) {
@@ -71,10 +70,7 @@ serve(async (req) => {
       console.warn('Rate limit exceeded for IP:', clientIP.substring(0, 8) + '***');
       return new Response(
         JSON.stringify({ error: 'Too many requests. Please try again later.' }),
-        { 
-          status: 429, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Retry-After': '3600' } 
-        }
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Retry-After': '3600' } }
       );
     }
 
@@ -109,7 +105,6 @@ serve(async (req) => {
       );
     }
 
-    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
@@ -132,38 +127,85 @@ serve(async (req) => {
       );
     }
 
-    // Create Supabase client with service role key
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
     // Log with masked email for privacy
     const maskedEmail = email.replace(/(.{2})(.*)(@.*)/, '$1***$3');
     console.log('Submitting contact form:', { name: name.trim(), email: maskedEmail });
 
-    // Insert into database
+    // Prepare payload
+    const payload = {
+      timestamp: new Date().toISOString(),
+      name: name.trim(),
+      email: email.trim(),
+      message: message.trim(),
+      source: 'Portfolio Contact Form',
+    };
+
+    // Save to database (always works as backup)
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
     const { error: dbError } = await supabase
       .from('contact_submissions')
       .insert({
-        name: name.trim(),
-        email: email.trim(),
-        message: message.trim(),
-        source: 'Portfolio Contact Form',
+        name: payload.name,
+        email: payload.email,
+        message: payload.message,
+        source: payload.source,
       });
 
     if (dbError) {
       console.error('Database error:', dbError);
+    } else {
+      console.log('Saved to database successfully');
+    }
+
+    // Send to Google Sheets
+    const googleScriptUrl = Deno.env.get('GOOGLE_SCRIPT_URL');
+    let googleSheetsSuccess = false;
+    
+    if (googleScriptUrl) {
+      try {
+        console.log('Sending to Google Sheets...');
+        const response = await fetch(googleScriptUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          redirect: 'follow',
+        });
+
+        const responseText = await response.text();
+        console.log('Google Sheets response status:', response.status);
+        
+        if (response.ok) {
+          googleSheetsSuccess = true;
+          console.log('Sent to Google Sheets successfully');
+        } else {
+          console.error('Google Sheets error:', response.status, responseText.substring(0, 200));
+        }
+      } catch (googleError) {
+        console.error('Google Sheets fetch error:', googleError);
+      }
+    } else {
+      console.warn('GOOGLE_SCRIPT_URL not configured');
+    }
+
+    // Success if at least database worked
+    if (!dbError) {
       return new Response(
-        JSON.stringify({ error: 'Failed to save form submission' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ 
+          success: true, 
+          message: 'Form submitted successfully',
+          googleSheets: googleSheetsSuccess 
+        }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Form submitted successfully');
-
+    // Both failed
     return new Response(
-      JSON.stringify({ success: true, message: 'Form submitted successfully' }),
-      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      JSON.stringify({ error: 'Failed to save form submission' }),
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
