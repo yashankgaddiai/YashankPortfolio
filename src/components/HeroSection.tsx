@@ -420,10 +420,10 @@ const HeroSection = () => {
               }}
             >
               <motion.h1
-                className="text-[2.8rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-bold leading-[0.95] tracking-[0.02em]"
+                className="text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-bold leading-[0.95] tracking-[0.02em]"
                 style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
               >
-                {/* First name - larger */}
+                {/* First name */}
                 <span className="block overflow-hidden whitespace-nowrap">
                   {firstNameLetters.map((letter, i) => (
                     <motion.span
@@ -446,7 +446,7 @@ const HeroSection = () => {
                   ))}
                 </span>
                 
-                {/* Last name - smaller */}
+                {/* Last name */}
                 <span className="block overflow-hidden whitespace-nowrap text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-[-0.02em] mt-[-0.1em]">
                   {lastNameLetters.map((letter, i) => (
                     <motion.span
