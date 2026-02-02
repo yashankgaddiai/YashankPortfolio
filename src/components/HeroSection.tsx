@@ -420,11 +420,11 @@ const HeroSection = () => {
               }}
             >
               <motion.h1
-                className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-[0.02em]"
-                style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
+                className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95] tracking-[0.02em]"
+                style={{ perspective: 800 }}
               >
-                {/* First name */}
-                <span className="block overflow-hidden whitespace-nowrap">
+                {/* First name - using Cinzel (serif) */}
+                <span className="block overflow-hidden whitespace-nowrap" style={{ fontFamily: "'Cinzel', serif" }}>
                   {firstNameLetters.map((letter, i) => (
                     <motion.span
                       key={i}
@@ -446,8 +446,8 @@ const HeroSection = () => {
                   ))}
                 </span>
                 
-                {/* Last name - larger, bolder */}
-                <span className="block overflow-hidden whitespace-nowrap text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-[-0.02em] mt-[-0.1em]">
+                {/* Last name - larger, bolder, using Outfit (sans-serif) */}
+                <span className="block overflow-hidden whitespace-nowrap text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-[-0.02em] mt-[-0.1em]" style={{ fontFamily: "'Outfit', sans-serif" }}>
                   {lastNameLetters.map((letter, i) => (
                     <motion.span
                       key={i}
