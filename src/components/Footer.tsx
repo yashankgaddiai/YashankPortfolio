@@ -8,10 +8,10 @@ const Footer = () => {
           <div className="flex items-center gap-2">
             <span className="text-2xl font-display font-bold text-gradient">YG</span>
             <span className="text-muted-foreground">|</span>
-            <span className="text-sm text-muted-foreground">AI Developer</span>
+            <span className="text-body text-muted-foreground">AI Developer</span>
           </div>
 
-          <nav className="flex flex-wrap justify-center gap-6 text-sm">
+          <nav className="flex flex-wrap justify-center gap-6 text-nav">
             <a href="#home" className="text-muted-foreground hover:text-primary transition-colors">
               Home
             </a>
@@ -53,9 +53,9 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-border text-center">
-          <p className="text-sm text-muted-foreground flex items-center justify-center gap-1">
+          <p className="text-body text-muted-foreground flex items-center justify-center gap-1">
             © {new Date().getFullYear()} Yashank Gaddi. Crafted with{" "}
-            <Heart size={14} className="text-primary" /> in Hyderabad
+            <Heart size={16} className="text-primary" /> in Hyderabad
           </p>
         </div>
       </div>
