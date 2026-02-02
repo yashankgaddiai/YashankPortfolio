@@ -191,18 +191,26 @@ serve(async (req) => {
     // Log with masked email for privacy
     const maskedEmail = email.replace(/(.{2})(.*)(@.*)/, '$1***$3');
     console.log('Submitting contact form:', { name: payload.name, email: maskedEmail });
+    console.log('Google Script URL (first 50 chars):', googleScriptUrl.substring(0, 50));
 
     // Send to Google Apps Script
+    // Google Apps Script redirects on success, so we need to follow redirects
     const response = await fetch(googleScriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
+      redirect: 'follow', // Follow redirects (Google Apps Script returns 302)
     });
 
+    const responseText = await response.text();
+    console.log('Google Script response status:', response.status);
+    console.log('Google Script response (first 200 chars):', responseText.substring(0, 200));
+
+    // Google Apps Script may return 200 with error in body, or redirect
     if (!response.ok) {
-      console.error('Google Script error:', response.status);
+      console.error('Google Script error:', response.status, responseText);
       return new Response(
         JSON.stringify({ error: 'Failed to save form submission' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
