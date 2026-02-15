@@ -25,7 +25,6 @@ const Header = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       
-      // Determine active section
       const sections = navLinks.map(link => link.href.replace("#", ""));
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
@@ -53,13 +52,13 @@ const Header = () => {
         delay: 0.2 
       }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 font-sans ${
-        isScrolled ? "glass-strong py-4" : "py-6"
+        isScrolled ? "glass-strong py-2" : "py-3"
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="container mx-auto px-4 lg:px-6 flex items-center justify-between">
         <motion.a 
           href="#home" 
-          className="text-2xl font-display font-bold text-gradient relative"
+          className="text-xl font-display font-bold text-gradient relative flex-shrink-0"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -73,7 +72,7 @@ const Header = () => {
         </motion.a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-0.5">
           {navLinks.map((link, index) => {
             const isActive = activeSection === link.href.replace("#", "");
             return (
@@ -82,13 +81,18 @@ const Header = () => {
                 href={link.href}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.05, duration: 0.5 }}
-                className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                transition={{ delay: 0.3 + index * 0.04, duration: 0.5 }}
+                className={`relative px-2.5 py-1.5 text-xs font-medium transition-colors rounded-md ${
+                  isActive 
+                    ? "text-primary" 
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+                style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: '0.02em' }}
               >
                 {link.label}
-                {/* Active indicator - animated underline */}
+                {/* Active indicator */}
                 <motion.div
-                  className="absolute bottom-0 left-1/2 h-0.5 bg-primary rounded-full"
+                  className="absolute bottom-0 left-1/2 h-[2px] bg-primary rounded-full"
                   initial={{ width: 0, x: "-50%" }}
                   animate={{ 
                     width: isActive ? "60%" : 0,
@@ -96,20 +100,13 @@ const Header = () => {
                   }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 />
-                {/* Hover background */}
-                <motion.div
-                  className="absolute inset-0 bg-primary/5 rounded-lg -z-10"
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileHover={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
               </motion.a>
             );
           })}
         </nav>
 
         <motion.div 
-          className="hidden md:block"
+          className="hidden lg:block flex-shrink-0"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
@@ -118,7 +115,11 @@ const Header = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground relative overflow-hidden group">
+            <Button 
+              asChild 
+              size="sm"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs px-4 h-8 relative overflow-hidden group"
+            >
               <a href="#contact">
                 <span className="relative z-10">Get in touch</span>
                 <motion.div
@@ -141,7 +142,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <motion.button
-          className="md:hidden text-foreground relative p-2"
+          className="lg:hidden text-foreground relative p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -155,7 +156,7 @@ const Header = () => {
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <X size={24} />
+                <X size={22} />
               </motion.div>
             ) : (
               <motion.div
@@ -165,7 +166,7 @@ const Header = () => {
                 exit={{ rotate: -90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <Menu size={24} />
+                <Menu size={22} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -180,15 +181,15 @@ const Header = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden"
+            className="lg:hidden overflow-hidden"
           >
             <motion.div 
-              className="glass-strong mt-4 mx-6 rounded-lg p-6"
+              className="glass-strong mt-3 mx-4 rounded-lg p-4"
               initial={{ y: -20 }}
               animate={{ y: 0 }}
               exit={{ y: -20 }}
             >
-              <nav className="flex flex-col gap-2">
+              <nav className="grid grid-cols-2 gap-1">
                 {navLinks.map((link, index) => {
                   const isActive = activeSection === link.href.replace("#", "");
                   return (
@@ -198,29 +199,31 @@ const Header = () => {
                       onClick={() => setIsMobileMenuOpen(false)}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className={`text-sm font-medium py-2 px-3 rounded-lg transition-colors ${
+                      transition={{ delay: index * 0.03 }}
+                      className={`text-xs font-medium py-2 px-3 rounded-lg transition-colors ${
                         isActive 
                           ? "text-primary bg-primary/10" 
                           : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                       }`}
+                      style={{ fontFamily: "'Outfit', sans-serif" }}
                     >
                       {link.label}
                     </motion.a>
                   );
                 })}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navLinks.length * 0.05 }}
-                >
-                  <Button asChild className="mt-4 w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                    <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                      Get in touch
-                    </a>
-                  </Button>
-                </motion.div>
               </nav>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.03 }}
+                className="mt-3"
+              >
+                <Button asChild size="sm" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-xs h-8">
+                  <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    Get in touch
+                  </a>
+                </Button>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
