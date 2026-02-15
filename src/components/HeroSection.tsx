@@ -559,31 +559,12 @@ const HeroSection = () => {
               animate={isLoaded ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
               transition={{ duration: 1.4, delay: 1.0, ease: cinematicEase }}
             >
-              <div className="relative w-64 h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
-                {/* Animated glow ring */}
-                <motion.div 
-                  className="absolute inset-[-16px] rounded-full"
-                  style={{
-                    background: 'conic-gradient(from 0deg, transparent, hsl(25 95% 53% / 0.4), transparent, hsl(35 90% 55% / 0.3), transparent)',
-                  }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              <div className="w-64 h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden">
+                <img
+                  src={heroProfileImage}
+                  alt="Yashank Gaddi"
+                  className="w-full h-full object-cover object-center"
                 />
-                
-                {/* Outer glow */}
-                <div className="absolute inset-[-8px] rounded-full bg-gradient-to-b from-primary/20 to-transparent blur-2xl" />
-                
-                {/* Image container */}
-                <div className="w-full h-full rounded-full overflow-hidden relative z-10 border-2 border-primary/30">
-                  <img
-                    src={heroProfileImage}
-                    alt="Yashank Gaddi"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-                
-                {/* Bottom gradient fade */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/40 via-transparent to-transparent z-20 pointer-events-none" />
               </div>
             </motion.div>
           </div>
