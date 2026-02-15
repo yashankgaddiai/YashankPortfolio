@@ -3,6 +3,7 @@ import { ExternalLink, Sparkles, X, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useRef } from "react";
 import neshamaTrainingImage from "@/assets/neshama-training.png";
+import ecogenImage from "@/assets/ecogen.png";
 
 const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
@@ -27,7 +28,7 @@ const projects: Project[] = [
     solution: "Integrated booking system with AI-powered messaging and email automation",
     result: "Seamless business automation with reduced manual intervention",
     tech: ["React", "AI Automation", "Email Integration", "Booking System"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    image: ecogenImage,
     link: "https://aiagenticverse.shop",
     featured: true,
   },
