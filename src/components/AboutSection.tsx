@@ -131,31 +131,8 @@ const AboutSection = () => {
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
       >
-        {/* Center Profile Image */}
-        <div className="flex justify-center">
-          <motion.div 
-            className="relative z-10"
-            style={{ y: imageY, scale: imageScale }}
-          >
-            <motion.div 
-              className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
-              variants={scaleReveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-            >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/30 to-transparent blur-2xl" />
-              <div className="w-full h-full rounded-full overflow-hidden relative z-10 border-2 border-primary/20">
-                <img
-                  src={heroProfileImage}
-                  alt="Yashank Gaddi"
-                  className="w-full h-full object-cover object-center scale-110"
-                />
-              </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20 pointer-events-none" />
-            </motion.div>
-          </motion.div>
-        </div>
+
+
         {/* About Me Bio */}
         <motion.div
           className="mt-16 md:mt-20 max-w-4xl mx-auto space-y-8"
