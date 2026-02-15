@@ -21,6 +21,17 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Neshama Training",
+    description: "A conversion-focused EdTech website and automated lead funnel built using GoHighLevel (GHL).",
+    problem: "EdTech platform needed effective lead generation",
+    solution: "Automated funnel with CRM integration",
+    result: "Efficient lead capture and onboarding automation",
+    tech: ["GoHighLevel", "GHL Funnels", "CRM", "Custom CSS"],
+    image: neshamaTrainingImage,
+    link: "https://neshamatraining.com",
+    featured: true,
+  },
+  {
     title: "EcoGen",
     description:
       "Intelligent ecosystem for business automation. Integrated Booking system with Automated Follow-up messaging and Email models built directly into the website.",
@@ -30,17 +41,6 @@ const projects: Project[] = [
     tech: ["React", "AI Automation", "Email Integration", "Booking System"],
     image: ecogenImage,
     link: "https://aiagenticverse.shop",
-    featured: true,
-  },
-  {
-    title: "Neshama Training",
-    description: "A conversion-focused EdTech website and automated lead funnel built using GoHighLevel (GHL).",
-    problem: "EdTech platform needed effective lead generation",
-    solution: "Automated funnel with CRM integration",
-    result: "Efficient lead capture and onboarding automation",
-    tech: ["GoHighLevel", "GHL Funnels", "CRM", "Custom CSS"],
-    image: neshamaTrainingImage,
-    link: "https://neshamatraining.com",
   },
   {
     title: "Harvest of Mercy",
