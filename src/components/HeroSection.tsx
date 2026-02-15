@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import { ArrowDown, Code2, Brain, Link, Cpu } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import MagneticButton from "@/components/MagneticButton";
-import heroProfileImage from "@/assets/hero-profile.png";
+import heroProfileImage from "@/assets/profile-hero-new.jpeg";
 
 const services = [
   { icon: Code2, label: "Full-Stack Development" },
@@ -552,7 +552,21 @@ const HeroSection = () => {
               </motion.div>
             </motion.div>
 
-
+            {/* Right Content - Profile Image */}
+            <motion.div
+              className="relative flex-shrink-0"
+              initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)" }}
+              animate={isLoaded ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+              transition={{ duration: 1.4, delay: 1.0, ease: cinematicEase }}
+            >
+              <div className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-2 border-primary/30 shadow-[0_0_40px_rgba(255,120,50,0.2)]">
+                <img
+                  src={heroProfileImage}
+                  alt="Yashank Gaddi"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+            </motion.div>
 
           </div>
         </motion.div>
