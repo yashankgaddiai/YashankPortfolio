@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import { ArrowDown, Code2, Brain, Link, Cpu } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import MagneticButton from "@/components/MagneticButton";
+import heroProfileImage from "@/assets/hero-profile.png";
 
 const services = [
   { icon: Code2, label: "Full-Stack Development" },
@@ -397,160 +398,195 @@ const HeroSection = () => {
       >
         {/* Content Layer */}
         <motion.div 
-          className="container mx-auto px-6 lg:px-12 relative z-20 min-h-screen flex flex-col justify-center items-start pt-20 pb-32"
+          className="container mx-auto px-6 lg:px-12 relative z-20 min-h-screen flex flex-col justify-center pt-20 pb-32"
           variants={containerVariants}
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
         >
-          {/* Left Content - Title with cinematic letter reveal */}
-          <motion.div 
-            className="space-y-10 max-w-2xl" 
-            style={{ 
-              perspective: 1200,
-            }}
-          >
-            {/* Name - Premium display typography with cinematic reveal */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+            {/* Left Content - Title with cinematic letter reveal */}
             <motion.div 
-              className="overflow-hidden"
-              style={{
-                opacity: nameOpacity,
-                scale: nameScale,
-                y: nameY,
-                filter: useTransform(nameBlur, (v) => `blur(${v}px)`),
+              className="space-y-10 max-w-2xl flex-1" 
+              style={{ 
+                perspective: 1200,
               }}
             >
-              <motion.h1
-                className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-[0.02em]"
-                style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
+              {/* Name - Premium display typography with cinematic reveal */}
+              <motion.div 
+                className="overflow-hidden"
+                style={{
+                  opacity: nameOpacity,
+                  scale: nameScale,
+                  y: nameY,
+                  filter: useTransform(nameBlur, (v) => `blur(${v}px)`),
+                }}
               >
-                {/* First name */}
-                <span className="block overflow-hidden whitespace-nowrap">
-                  {firstNameLetters.map((letter, i) => (
-                    <motion.span
-                      key={i}
-                      custom={i}
-                      variants={letterVariants}
-                      initial="hidden"
-                      animate={isLoaded ? "visible" : "hidden"}
-                      className="inline-block"
-                      style={{
-                        background: 'linear-gradient(180deg, hsl(36, 33%, 94%) 0%, hsl(25, 95%, 65%) 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        filter: 'drop-shadow(0 0 60px hsl(25, 95%, 53% / 0.4))',
-                      }}
-                    >
-                      {letter}
-                    </motion.span>
-                  ))}
-                </span>
-                
-                {/* Last name - larger, bolder */}
-                <span className="block overflow-hidden whitespace-nowrap text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-[-0.02em] mt-[-0.1em]">
-                  {lastNameLetters.map((letter, i) => (
-                    <motion.span
-                      key={i}
-                      custom={i + firstNameLetters.length}
-                      variants={letterVariants}
-                      initial="hidden"
-                      animate={isLoaded ? "visible" : "hidden"}
-                      className="inline-block"
-                      style={{
-                        background: 'linear-gradient(180deg, hsl(25, 95%, 60%) 0%, hsl(35, 90%, 55%) 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        filter: 'drop-shadow(0 0 80px hsl(25, 95%, 53% / 0.5))',
-                      }}
-                    >
-                      {letter}
-                    </motion.span>
-                  ))}
-                </span>
-              </motion.h1>
-            </motion.div>
-            
-            {/* Role Title - AI DEVELOPER with enhanced visibility and parallax */}
-            <motion.div
-              className="overflow-hidden mt-6 md:mt-8"
-              variants={roleVariants}
-              initial="hidden"
-              animate={isLoaded ? "visible" : "hidden"}
-              style={{
-                opacity: roleOpacity,
-                y: roleY,
-                scale: roleScale,
-              }}
-            >
-              <motion.div className="relative inline-block">
+                <motion.h1
+                  className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-[0.02em]"
+                  style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
+                >
+                  {/* First name */}
+                  <span className="block overflow-hidden whitespace-nowrap">
+                    {firstNameLetters.map((letter, i) => (
+                      <motion.span
+                        key={i}
+                        custom={i}
+                        variants={letterVariants}
+                        initial="hidden"
+                        animate={isLoaded ? "visible" : "hidden"}
+                        className="inline-block"
+                        style={{
+                          background: 'linear-gradient(180deg, hsl(36, 33%, 94%) 0%, hsl(25, 95%, 65%) 100%)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          filter: 'drop-shadow(0 0 60px hsl(25, 95%, 53% / 0.4))',
+                        }}
+                      >
+                        {letter}
+                      </motion.span>
+                    ))}
+                  </span>
+                  
+                  {/* Last name - larger, bolder */}
+                  <span className="block overflow-hidden whitespace-nowrap text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-[-0.02em] mt-[-0.1em]">
+                    {lastNameLetters.map((letter, i) => (
+                      <motion.span
+                        key={i}
+                        custom={i + firstNameLetters.length}
+                        variants={letterVariants}
+                        initial="hidden"
+                        animate={isLoaded ? "visible" : "hidden"}
+                        className="inline-block"
+                        style={{
+                          background: 'linear-gradient(180deg, hsl(25, 95%, 60%) 0%, hsl(35, 90%, 55%) 100%)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          filter: 'drop-shadow(0 0 80px hsl(25, 95%, 53% / 0.5))',
+                        }}
+                      >
+                        {letter}
+                      </motion.span>
+                    ))}
+                  </span>
+                </motion.h1>
+              </motion.div>
+              
+              {/* Role Title */}
+              <motion.div
+                className="overflow-hidden mt-6 md:mt-8"
+                variants={roleVariants}
+                initial="hidden"
+                animate={isLoaded ? "visible" : "hidden"}
+                style={{
+                  opacity: roleOpacity,
+                  y: roleY,
+                  scale: roleScale,
+                }}
+              >
+                <motion.div className="relative inline-block">
+                  <motion.p
+                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold uppercase"
+                    style={{ 
+                      fontFamily: "'Outfit', sans-serif",
+                      color: 'hsl(36, 33%, 94%)',
+                      textShadow: '0 0 40px hsl(25, 95%, 53% / 0.4)',
+                    }}
+                  >
+                    AI Developer
+                  </motion.p>
+                  <motion.div
+                    className="absolute -bottom-2 left-0 h-[2px] bg-gradient-to-r from-primary via-accent to-transparent"
+                    initial={{ width: 0 }}
+                    animate={isLoaded ? { width: "100%" } : {}}
+                    transition={{ duration: 1, delay: 1.4, ease: cinematicEase }}
+                  />
+                </motion.div>
+              </motion.div>
+              
+              {/* Tagline */}
+              <motion.div
+                className="mt-8 md:mt-10 relative"
+                variants={taglineVariants}
+                initial="hidden"
+                animate={isLoaded ? "visible" : "hidden"}
+                style={{
+                  opacity: taglineOpacity,
+                  y: taglineY,
+                  scale: taglineScale,
+                }}
+              >
+                <div 
+                  className="absolute inset-0 -m-4 rounded-2xl"
+                  style={{
+                    background: 'radial-gradient(ellipse at center, hsl(25, 95%, 53% / 0.08) 0%, transparent 70%)',
+                  }}
+                />
                 <motion.p
-                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold uppercase"
+                  className="relative text-xl sm:text-2xl md:text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem] font-semibold leading-relaxed max-w-xl"
                   style={{ 
                     fontFamily: "'Outfit', sans-serif",
-                    color: 'hsl(36, 33%, 94%)',
-                    textShadow: '0 0 40px hsl(25, 95%, 53% / 0.4)',
+                    color: 'hsl(36, 33%, 92%)',
+                    textShadow: '0 2px 30px hsl(0, 0%, 0% / 0.6)',
                   }}
                 >
-                  AI Developer
+                  Building intelligent solutions that bridge the gap between human creativity and machine capability.
                 </motion.p>
-                {/* Animated underline */}
-                <motion.div
-                  className="absolute -bottom-2 left-0 h-[2px] bg-gradient-to-r from-primary via-accent to-transparent"
-                  initial={{ width: 0 }}
-                  animate={isLoaded ? { width: "100%" } : {}}
-                  transition={{ duration: 1, delay: 1.4, ease: cinematicEase }}
-                />
+              </motion.div>
+
+              {/* Service Tags */}
+              <motion.div
+                className="grid grid-cols-2 gap-4 max-w-md mt-8 md:mt-10"
+                style={{ perspective: 1000 }}
+              >
+                {services.map((service, index) => (
+                  <ServiceTag
+                    key={service.label}
+                    service={service}
+                    index={index}
+                    scrollYProgress={scrollYProgress}
+                    isLoaded={isLoaded}
+                  />
+                ))}
               </motion.div>
             </motion.div>
-            
-            {/* Tagline - BOLD and highly visible with slower parallax */}
-            <motion.div
-              className="mt-8 md:mt-10 relative"
-              variants={taglineVariants}
-              initial="hidden"
-              animate={isLoaded ? "visible" : "hidden"}
-              style={{
-                opacity: taglineOpacity,
-                y: taglineY,
-                scale: taglineScale,
-              }}
-            >
-              {/* Subtle glow background behind tagline */}
-              <div 
-                className="absolute inset-0 -m-4 rounded-2xl"
-                style={{
-                  background: 'radial-gradient(ellipse at center, hsl(25, 95%, 53% / 0.08) 0%, transparent 70%)',
-                }}
-              />
-              <motion.p
-                className="relative text-xl sm:text-2xl md:text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem] font-semibold leading-relaxed max-w-xl"
-                style={{ 
-                  fontFamily: "'Outfit', sans-serif",
-                  color: 'hsl(36, 33%, 92%)',
-                  textShadow: '0 2px 30px hsl(0, 0%, 0% / 0.6)',
-                }}
-              >
-                Building intelligent solutions that bridge the gap between human creativity and machine capability.
-              </motion.p>
-            </motion.div>
 
-            {/* Service Tags - 2x2 Grid with 3D entrance and staggered scroll fade */}
+            {/* Right Content - Profile Image */}
             <motion.div
-              className="grid grid-cols-2 gap-4 max-w-md mt-8 md:mt-10"
-              style={{ perspective: 1000 }}
+              className="relative flex-shrink-0 hidden md:block"
+              initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)" }}
+              animate={isLoaded ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+              transition={{ duration: 1.4, delay: 1.0, ease: cinematicEase }}
             >
-              {services.map((service, index) => (
-                <ServiceTag
-                  key={service.label}
-                  service={service}
-                  index={index}
-                  scrollYProgress={scrollYProgress}
-                  isLoaded={isLoaded}
+              <div className="relative w-64 h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
+                {/* Animated glow ring */}
+                <motion.div 
+                  className="absolute inset-[-16px] rounded-full"
+                  style={{
+                    background: 'conic-gradient(from 0deg, transparent, hsl(25 95% 53% / 0.4), transparent, hsl(35 90% 55% / 0.3), transparent)',
+                  }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 />
-              ))}
+                
+                {/* Outer glow */}
+                <div className="absolute inset-[-8px] rounded-full bg-gradient-to-b from-primary/20 to-transparent blur-2xl" />
+                
+                {/* Image container */}
+                <div className="w-full h-full rounded-full overflow-hidden relative z-10 border-2 border-primary/30">
+                  <img
+                    src={heroProfileImage}
+                    alt="Yashank Gaddi"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+                
+                {/* Bottom gradient fade */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/40 via-transparent to-transparent z-20 pointer-events-none" />
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Connect Button - Bottom Center with magnetic effect and cinematic reveal */}
