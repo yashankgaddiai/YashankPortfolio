@@ -227,273 +227,17 @@ const AboutSection = () => {
             </motion.p>
           </motion.div>
 
-          {/* Left Column - Slides from left */}
-          <motion.div 
-            className="absolute left-0 top-1/2 -translate-y-1/2 max-w-xs space-y-8 hidden md:block"
-            style={{ y: textY }}
-            variants={slideFromLeft}
-          >
-            {/* Experience */}
-            <motion.div 
-              variants={itemVariants}
-              whileHover={{ x: 10 }}
-              transition={smoothSpring}
-            >
-              <motion.h3 
-                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                Experience
-              </motion.h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                >
-                  Co-Founder at AI Agentic Verse
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
-                >
-                  Full Stack Developer for international organizations
-                </motion.p>
-              </div>
-            </motion.div>
-
-            {/* Achievements */}
-            <motion.div 
-              variants={itemVariants}
-              whileHover={{ x: 10 }}
-              transition={smoothSpring}
-            >
-              <motion.h3 
-                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
-                Achievements
-              </motion.h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                  whileHover={{ color: "hsl(var(--primary))" }}
-                >
-                  Built platforms reaching 70+ languages
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7, duration: 0.6 }}
-                  whileHover={{ color: "hsl(var(--primary))" }}
-                >
-                  Deployed AI solutions for global clients
-                </motion.p>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column - Slides from right */}
-          <motion.div 
-            className="absolute right-0 top-1/2 -translate-y-1/2 max-w-xs space-y-8 text-right hidden md:block"
-            style={{ y: textY }}
-            variants={slideFromRight}
-          >
-            {/* Tech Stack */}
-            <motion.div 
-              variants={itemVariants}
-              whileHover={{ x: -10 }}
-              transition={smoothSpring}
-            >
-              <motion.h3 
-                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                Tech Stack
-              </motion.h3>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <motion.p
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                >
-                  React, Next.js, Node.js
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
-                >
-                  Python, TypeScript
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                >
-                  AI/LLM Integration
-                </motion.p>
-              </div>
-            </motion.div>
-
-            {/* Contact */}
-            <motion.div 
-              variants={itemVariants}
-              whileHover={{ x: -10 }}
-              transition={smoothSpring}
-            >
-              <motion.h3 
-                className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
-                Contact
-              </motion.h3>
-              <div className="text-sm text-muted-foreground">
-                <motion.a 
-                  href="#contact" 
-                  className="text-primary hover:underline inline-block"
-                  whileHover={{ scale: 1.05, x: -5 }}
-                  transition={smoothSpring}
-                >
-                  Visit Contact Section
-                </motion.a>
-              </div>
-            </motion.div>
-
-          </motion.div>
         </div>
-
-        {/* Mobile Layout */}
-        <div className="md:hidden mt-8 grid grid-cols-2 gap-8">
-          <motion.div className="space-y-6" variants={containerVariants}>
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Experience</h3>
-              <p className="text-xs text-muted-foreground">Co-Founder at AI Agentic Verse</p>
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Achievements</h3>
-              <p className="text-xs text-muted-foreground">Built platforms reaching 70+ languages</p>
-            </motion.div>
-          </motion.div>
-
-          <motion.div className="space-y-6 text-right" variants={containerVariants}>
-            <motion.div variants={itemVariants}>
-              <h3 className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Tech Stack</h3>
-              <p className="text-xs text-muted-foreground">React, Next.js, Python</p>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* My Creative Stack - Bottom Section */}
-        <motion.div 
-          className="mt-16 md:mt-24"
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: cinematicEase }}
-        >
-          <motion.p 
-            className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8"
-            initial={{ opacity: 0, letterSpacing: "0.1em" }}
-            whileInView={{ opacity: 1, letterSpacing: "0.3em" }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            My Creative Stack
-          </motion.p>
-          
-          <div className="flex flex-wrap items-center gap-6 md:gap-10">
-            {/* Tech Icons */}
-            <div className="flex items-center gap-6 md:gap-8">
-              {techStack.map((tech, index) => {
-                const Icon = tech.icon;
-                return (
-                  <motion.div
-                    key={tech.label}
-                    initial={{ opacity: 0, y: 30, rotateY: -30 }}
-                    whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + index * 0.1, duration: 0.6, ease: cinematicEase }}
-                    whileHover={{ scale: 1.2, y: -8, rotateY: 15 }}
-                    className="group relative cursor-pointer"
-                    style={{ perspective: 500 }}
-                  >
-                    <motion.div 
-                      className="p-3 rounded-xl bg-card border border-border/50 group-hover:border-primary/50 group-hover:bg-primary/10 transition-all duration-300"
-                      whileHover={{ boxShadow: "0 10px 30px -10px hsl(var(--primary) / 0.4)" }}
-                    >
-                      <Icon size={24} className="text-muted-foreground group-hover:text-primary transition-colors" />
-                    </motion.div>
-                    <motion.span 
-                      className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-                      initial={{ y: 5 }}
-                      whileHover={{ y: 0 }}
-                    >
-                      {tech.label}
-                    </motion.span>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Description Text */}
-            <motion.p 
-              className="flex-1 text-muted-foreground text-sm md:text-base max-w-md ml-auto"
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8, duration: 0.8, ease: cinematicEase }}
-            >
-              I leverage a vast ecosystem of{" "}
-              <motion.span 
-                className="text-primary"
-                whileHover={{ textShadow: "0 0 20px hsl(var(--primary) / 0.5)" }}
-              >
-                industry standard tools
-              </motion.span> and
-              cutting edge <motion.span 
-                className="text-primary"
-                whileHover={{ textShadow: "0 0 20px hsl(var(--primary) / 0.5)" }}
-              >
-                AI integration
-              </motion.span> to
-              transform ambitious ideas into high impact digital experiences.
-            </motion.p>
-          </div>
-        </motion.div>
-
         {/* About Me Bio */}
         <motion.div
-          className="mt-16 md:mt-24 max-w-3xl mx-auto space-y-6"
+          className="mt-16 md:mt-20 max-w-4xl mx-auto space-y-8"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 1, ease: cinematicEase }}
         >
           <motion.h3
-            className="text-primary font-semibold text-sm uppercase tracking-widest mb-6"
+            className="text-primary font-semibold text-base uppercase tracking-widest mb-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -502,7 +246,7 @@ const AboutSection = () => {
             About Me
           </motion.h3>
           <motion.p
-            className="text-muted-foreground text-base md:text-lg leading-relaxed"
+            className="text-muted-foreground text-lg md:text-xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -512,7 +256,7 @@ const AboutSection = () => {
             <span className="text-primary">Artificial Intelligence</span>, scalable systems, and modern web architecture. I specialize in designing intelligent digital solutions that are not just functional, but efficient, automated, and future-ready.
           </motion.p>
           <motion.p
-            className="text-muted-foreground text-base md:text-lg leading-relaxed"
+            className="text-muted-foreground text-lg md:text-xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -522,7 +266,7 @@ const AboutSection = () => {
             <span className="text-primary">AI and software development</span>, where ideas turn into high-impact products.
           </motion.p>
           <motion.p
-            className="text-muted-foreground text-base md:text-lg leading-relaxed"
+            className="text-muted-foreground text-lg md:text-xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
