@@ -17,6 +17,24 @@ const experiences = [
     ],
   },
   {
+    title: "Founder & Creator",
+    company: "PenCraft AI",
+    duration: "Current",
+    type: "Product",
+    description:
+      "Platform-aware AI ghostwriting system that transforms a single idea into publish-ready content across multiple platforms while preserving voice, tone, and formatting integrity.",
+    achievements: [
+      "Architected a multi-agent AI system (research, writing, visual generation running in parallel)",
+      "Built platform intelligence for 12+ platforms (LinkedIn, X, Instagram, YouTube, Blogs, Newsletters, etc.)",
+      "Designed a Single Source of Truth system to reduce hallucinations using reference-based grounding",
+      "Implemented persona & voice control (Professional, Viral, Technical, Storytelling modes)",
+      "Developed unified text + visual generation pipeline for consistent cross-platform branding",
+      "Engineered one-click export workflow with optional publishing automation",
+      "Enabled multilingual content generation",
+    ],
+    links: [{ label: "Website", url: "https://pencraft-ai-latest.vercel.app" }],
+  },
+  {
     title: "GHL Web Designer & Funnel Developer",
     company: "Neshama Training",
     duration: "Current",
@@ -30,32 +48,6 @@ const experiences = [
       "Optimized layout for mobile responsiveness with smooth scroll-based animations",
     ],
     links: [{ label: "Website", url: "https://neshamatraining.com" }],
-  },
-  {
-    title: "Full Stack Developer",
-    company: "Beit Yisrael International",
-    duration: "Current",
-    type: "Consulting",
-    description:
-      "Collaborating with Beit Yisrael International to design, develop, and deploy the official digital platform.",
-    achievements: [
-      "Executed complete hosting strategy and deployment pipeline for global access",
-      "Built a robust, globally accessible website with high performance and responsive design",
-      "Assisted in LLM integration for multilingual podcast content across 70 languages",
-    ],
-    links: [{ label: "Website", url: "https://www.beityisraelinternational.com/" }],
-  },
-  {
-    title: "Technical Volunteer & Web Developer",
-    company: "Harvest of Mercy Charity Organization",
-    duration: "Volunteer",
-    type: "Non-Profit",
-    description: "Lead developer for the creation of the charity's online presence.",
-    achievements: [
-      "Designed and developed the organization's website to facilitate donations",
-      "Ensured user-friendly navigation and global accessibility",
-    ],
-    links: [{ label: "Website", url: "https://www.harvestofmercy.org/" }],
   },
 ];
 
