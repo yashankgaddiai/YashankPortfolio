@@ -483,6 +483,55 @@ const AboutSection = () => {
             </motion.p>
           </div>
         </motion.div>
+
+        {/* About Me Bio */}
+        <motion.div
+          className="mt-16 md:mt-24 max-w-3xl mx-auto space-y-6"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 1, ease: cinematicEase }}
+        >
+          <motion.h3
+            className="text-primary font-semibold text-sm uppercase tracking-widest mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            About Me
+          </motion.h3>
+          <motion.p
+            className="text-muted-foreground text-base md:text-lg leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.8, ease: cinematicEase }}
+          >
+            I'm a technology-focused builder passionate about{" "}
+            <span className="text-primary">Artificial Intelligence</span>, scalable systems, and modern web architecture. I specialize in designing intelligent digital solutions that are not just functional, but efficient, automated, and future-ready.
+          </motion.p>
+          <motion.p
+            className="text-muted-foreground text-base md:text-lg leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.8, ease: cinematicEase }}
+          >
+            What drives me is solving real-world problems using clean architecture and smart system design. I enjoy working at the intersection of{" "}
+            <span className="text-primary">AI and software development</span>, where ideas turn into high-impact products.
+          </motion.p>
+          <motion.p
+            className="text-muted-foreground text-base md:text-lg leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7, duration: 0.8, ease: cinematicEase }}
+          >
+            I believe technology should reduce friction, increase leverage, and create meaningful outcomes. My goal is to build systems that{" "}
+            <span className="text-primary">think, adapt, and scale</span>.
+          </motion.p>
+        </motion.div>
       </motion.div>
     </section>
   );
