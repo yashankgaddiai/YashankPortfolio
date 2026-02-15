@@ -5,28 +5,22 @@ const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
 const certifications = [
   {
-    title: "AI & Machine Learning Specialization",
-    issuer: "Certification Authority",
-    date: "2024",
-    link: "#",
+    title: "C++ with OOPs Programming Language",
+    issuer: "Cipher Schools",
+    date: "July 2025",
+    link: "https://www.cipherschools.com/courses/c-programming-course-beginner-friendly-with-data-structures-0c5b/overview-of-course-and-basics-of-c-program-part1-0e4f",
   },
   {
-    title: "Full-Stack Web Development",
-    issuer: "Certification Authority",
-    date: "2023",
-    link: "#",
+    title: "The Bits and Bytes of Computer Networking",
+    issuer: "Google (Coursera)",
+    date: "August 2025",
+    link: "https://www.coursera.org/learn/computer-networking",
   },
   {
-    title: "Blockchain & Web3 Development",
-    issuer: "Certification Authority",
-    date: "2023",
-    link: "#",
-  },
-  {
-    title: "Cloud Computing Fundamentals",
-    issuer: "Certification Authority",
-    date: "2023",
-    link: "#",
+    title: "Hardware and Operating Systems",
+    issuer: "IBM",
+    date: "November 2024",
+    link: "https://www.coursera.org/learn/introduction-to-hardware-and-operating-systems",
   },
 ];
 
