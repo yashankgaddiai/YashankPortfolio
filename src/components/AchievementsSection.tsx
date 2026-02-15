@@ -5,14 +5,14 @@ const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
 const achievements = [
   {
-    icon: Globe,
-    title: "70+ Languages",
-    description: "Built platforms delivering content across 70+ languages using LLM-powered translation.",
+    icon: Trophy,
+    title: "Byte Bash Hackathon",
+    description: "Secured Level-3 in ByteBash Hackathon, October 2024.",
   },
   {
-    icon: Rocket,
-    title: "AI Agency Co-Founded",
-    description: "Co-founded AI Agentic Verse, delivering autonomous automation solutions for businesses.",
+    icon: Star,
+    title: "State Level Tennis Player",
+    description: "Represented at state level in tennis, January 2023.",
   },
   {
     icon: Users,
