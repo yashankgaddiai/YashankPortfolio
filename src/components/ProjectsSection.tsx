@@ -2,8 +2,6 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { ExternalLink, Sparkles, X, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useRef } from "react";
-import aiAgenticVerseImage from "@/assets/aiagenticverse.png";
-import beitYisraelImage from "@/assets/beityisrael.png";
 import neshamaTrainingImage from "@/assets/neshama-training.png";
 
 const cinematicEase = [0.16, 1, 0.3, 1] as const;
@@ -22,15 +20,15 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "AI Agentic Verse",
+    title: "EcoGen",
     description:
-      "A comprehensive AI automation platform enabling businesses to deploy smart chat agents and operational workflows.",
-    problem: "Businesses struggle with manual repetitive tasks",
-    solution: "Autonomous AI agents for automation",
-    result: "Streamlined operations and reduced manual work",
-    tech: ["React", "Node.js", "OpenAI", "Supabase"],
-    image: aiAgenticVerseImage,
-    link: "https://aiagenticverse.com/",
+      "Intelligent ecosystem for business automation. Integrated Booking system with Automated Follow-up messaging and Email models built directly into the website.",
+    problem: "Businesses need streamlined booking and automated follow-ups",
+    solution: "Integrated booking system with AI-powered messaging and email automation",
+    result: "Seamless business automation with reduced manual intervention",
+    tech: ["React", "AI Automation", "Email Integration", "Booking System"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    link: "https://aiagenticverse.shop",
     featured: true,
   },
   {
@@ -42,16 +40,6 @@ const projects: Project[] = [
     tech: ["GoHighLevel", "GHL Funnels", "CRM", "Custom CSS"],
     image: neshamaTrainingImage,
     link: "https://neshamatraining.com",
-  },
-  {
-    title: "Beit Yisrael International",
-    description: "Official digital platform with multilingual podcast content generation across 70 languages.",
-    problem: "Global organization needed multilingual reach",
-    solution: "LLM-powered content translation system",
-    result: "Content accessible in 70+ languages",
-    tech: ["Next.js", "LLM Integration", "Cloud Hosting"],
-    image: beitYisraelImage,
-    link: "https://www.beityisraelinternational.com/",
   },
   {
     title: "Harvest of Mercy",
