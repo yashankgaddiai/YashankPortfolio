@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import profileImage from "@/assets/profile.png";
+import heroProfileImage from "@/assets/hero-profile.png";
 import { 
   Code2, 
   Brain, 
@@ -131,102 +131,30 @@ const AboutSection = () => {
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
       >
-        {/* Main Content Grid */}
-        <div className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center">
-          
-          {/* Large ABOUT Text Background - Parallax */}
+        {/* Center Profile Image */}
+        <div className="flex justify-center">
           <motion.div 
-            className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-            style={{ y: backgroundY }}
-          >
-            <motion.span 
-              className="text-[120px] md:text-[200px] lg:text-[280px] font-display font-bold text-foreground/[0.03] tracking-wider"
-              initial={{ opacity: 0, scale: 1.2 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, ease: cinematicEase }}
-            >
-              ABOUT
-            </motion.span>
-          </motion.div>
-
-          {/* Center Profile Image - Floating with parallax */}
-          <motion.div 
-            className="relative z-10 flex flex-col items-center justify-center"
+            className="relative z-10"
             style={{ y: imageY, scale: imageScale }}
           >
             <motion.div 
-              className="relative w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
+              className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
               variants={scaleReveal}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ scale: 1.05, rotateY: 5 }}
             >
-              {/* Animated glow ring */}
-              <motion.div 
-                className="absolute inset-[-20px] rounded-full"
-                style={{
-                  background: 'conic-gradient(from 0deg, transparent, hsl(var(--primary) / 0.3), transparent, hsl(var(--accent) / 0.3), transparent)',
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-              
               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/30 to-transparent blur-2xl" />
               <div className="w-full h-full rounded-full overflow-hidden relative z-10 border-2 border-primary/20">
                 <img
-                  src={profileImage}
+                  src={heroProfileImage}
                   alt="Yashank Gaddi"
                   className="w-full h-full object-cover object-center scale-110"
                 />
               </div>
               <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/60 via-transparent to-transparent z-20 pointer-events-none" />
             </motion.div>
-            
-            {/* Name below image */}
-            <motion.h2 
-              className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-center mt-6"
-              variants={textReveal}
-              custom={0}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              style={{
-                background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Yashank Gaddi
-            </motion.h2>
-
-            {/* Entrepreneur title */}
-            <motion.p 
-              className="text-sm md:text-base uppercase tracking-[0.3em] text-muted-foreground mt-2 text-center"
-              variants={textReveal}
-              custom={1}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              Entrepreneur
-            </motion.p>
-            
-            {/* Tagline below */}
-            <motion.p 
-              className="text-center text-sm text-muted-foreground/80 mt-3 italic"
-              variants={textReveal}
-              custom={2}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              Building the AI-First Future
-            </motion.p>
           </motion.div>
-
         </div>
         {/* About Me Bio */}
         <motion.div
