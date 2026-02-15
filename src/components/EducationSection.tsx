@@ -8,12 +8,29 @@ const education = [
   {
     degree: "Bachelor of Technology (B.Tech)",
     field: "Computer Science & Engineering",
-    institution: "University Name",
-    duration: "2020 – 2024",
+    institution: "Lovely Professional University, Punjab",
+    duration: "Aug 2023 – Present",
     highlights: [
-      "Specialized in AI & Machine Learning",
-      "Developed multiple full-stack projects",
-      "Active participant in hackathons and coding competitions",
+      "Current Standing: CGPA 6.5",
+      "Focus: Object Oriented Programming, Web Development, Data Structures",
+    ],
+  },
+  {
+    degree: "Intermediate Education",
+    field: "General Studies",
+    institution: "Nano Junior College, Hyderabad",
+    duration: "May 2021 – April 2023",
+    highlights: [
+      "Percentage: 70%",
+    ],
+  },
+  {
+    degree: "Matriculation (High School)",
+    field: "General Studies",
+    institution: "Johnson Grammar School, Hyderabad",
+    duration: "Completed 2021",
+    highlights: [
+      "Percentage: 80%",
     ],
   },
 ];
