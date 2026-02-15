@@ -552,21 +552,8 @@ const HeroSection = () => {
               </motion.div>
             </motion.div>
 
-            {/* Right Content - Profile Image */}
-            <motion.div
-              className="relative flex-shrink-0 hidden md:block"
-              initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)" }}
-              animate={isLoaded ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
-              transition={{ duration: 1.4, delay: 1.0, ease: cinematicEase }}
-            >
-              <div className="w-64 h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden">
-                <img
-                  src={heroProfileImage}
-                  alt="Yashank Gaddi"
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-            </motion.div>
+
+
           </div>
         </motion.div>
 
