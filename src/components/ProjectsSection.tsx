@@ -21,14 +21,14 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Neshama Training",
-    description: "A conversion-focused EdTech website and automated lead funnel built using GoHighLevel (GHL).",
-    problem: "EdTech platform needed effective lead generation",
-    solution: "Automated funnel with CRM integration",
-    result: "Efficient lead capture and onboarding automation",
-    tech: ["GoHighLevel", "GHL Funnels", "CRM", "Custom CSS"],
-    image: neshamaTrainingImage,
-    link: "https://neshamatraining.com",
+    title: "String Metaverse",
+    description: "AI-powered Telegram chat agent with RAG pipelines for the String Metaverse project, enabling intelligent conversational interactions.",
+    problem: "Needed an intelligent AI agent for community engagement on Telegram",
+    solution: "Built RAG pipelines using Claude and DeepSeek with Supabase backend",
+    result: "Deployed a fully functional AI Telegram bot for the String Metaverse ecosystem",
+    tech: ["DeepSeek", "n8n", "Supabase", "Claude", "RAG"],
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
+    link: "https://t.me/StringMetaAIBot",
     featured: true,
   },
   {
