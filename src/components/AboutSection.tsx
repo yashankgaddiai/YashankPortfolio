@@ -151,7 +151,8 @@ const AboutSection = () => {
             About Me
           </motion.h3>
           <motion.p
-            className="text-muted-foreground text-lg md:text-xl leading-relaxed"
+            className="text-foreground text-xl md:text-2xl leading-snug font-bold"
+            style={{ fontFamily: "'Outfit', sans-serif" }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -161,7 +162,8 @@ const AboutSection = () => {
             <span className="text-primary">Artificial Intelligence</span>, scalable systems, and modern web architecture. I specialize in designing intelligent digital solutions that are not just functional, but efficient, automated, and future-ready.
           </motion.p>
           <motion.p
-            className="text-muted-foreground text-lg md:text-xl leading-relaxed"
+            className="text-foreground text-xl md:text-2xl leading-snug font-bold"
+            style={{ fontFamily: "'Outfit', sans-serif" }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -171,7 +173,8 @@ const AboutSection = () => {
             <span className="text-primary">AI and software development</span>, where ideas turn into high-impact products.
           </motion.p>
           <motion.p
-            className="text-muted-foreground text-lg md:text-xl leading-relaxed"
+            className="text-foreground text-xl md:text-2xl leading-snug font-bold"
+            style={{ fontFamily: "'Outfit', sans-serif" }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
