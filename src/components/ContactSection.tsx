@@ -278,7 +278,7 @@ const ContactSection = () => {
               <div className="flex gap-4">
                 <MagneticButton strength={0.3}>
                   <motion.a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/yashankgaddi/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors relative overflow-hidden group"
