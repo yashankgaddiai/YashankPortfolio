@@ -13,8 +13,8 @@ const certifications = [
   {
     title: "The Bits and Bytes of Computer Networking",
     issuer: "Google (Coursera)",
-    date: "August 2025",
-    link: "https://www.coursera.org/learn/computer-networking",
+    date: "September 2024",
+    link: "https://coursera.org/verify/WWHMOAQ67QZ7",
   },
   {
     title: "Hardware and Operating Systems",
