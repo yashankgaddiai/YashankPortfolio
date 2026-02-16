@@ -2,7 +2,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { ExternalLink, Sparkles, X, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useRef } from "react";
-import neshamaTrainingImage from "@/assets/neshama-training.png";
+import stringMetaverseImage from "@/assets/string-metaverse.png";
 import ecogenImage from "@/assets/ecogen.png";
 
 const cinematicEase = [0.16, 1, 0.3, 1] as const;
@@ -27,7 +27,7 @@ const projects: Project[] = [
     solution: "Built RAG pipelines using Claude and DeepSeek with Supabase backend",
     result: "Deployed a fully functional AI Telegram bot for the String Metaverse ecosystem",
     tech: ["DeepSeek", "n8n", "Supabase", "Claude", "RAG"],
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
+    image: stringMetaverseImage,
     link: "https://t.me/StringMetaAIBot",
     featured: true,
   },
