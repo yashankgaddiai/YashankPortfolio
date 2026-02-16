@@ -423,7 +423,7 @@ const HeroSection = () => {
               >
                 <motion.h1
                   className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-[0.02em]"
-                  style={{ perspective: 800, fontFamily: "'Cinzel', serif" }}
+                  style={{ perspective: 800, fontFamily: "'Outfit', sans-serif" }}
                 >
                   {/* First name */}
                   <span className="block overflow-hidden whitespace-nowrap">
