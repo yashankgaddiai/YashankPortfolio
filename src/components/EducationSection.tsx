@@ -12,7 +12,6 @@ const education = [
     duration: "Aug 2023 – Present",
     highlights: [
       "Current Standing: CGPA 6.5",
-      "Focus: Object Oriented Programming, Web Development, Data Structures",
     ],
   },
   {
