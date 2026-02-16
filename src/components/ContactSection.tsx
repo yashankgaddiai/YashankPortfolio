@@ -312,7 +312,7 @@ const ContactSection = () => {
                 </MagneticButton>
                 <MagneticButton strength={0.3}>
                   <motion.a
-                    href="https://github.com"
+                    href="https://github.com/yashankgaddiai"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="glass p-4 rounded-xl hover:bg-primary hover:text-primary-foreground transition-colors relative overflow-hidden group"
