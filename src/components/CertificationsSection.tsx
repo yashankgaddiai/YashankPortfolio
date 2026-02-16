@@ -66,11 +66,8 @@ const CertificationsSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: cinematicEase }}
         >
-          <motion.span className="text-primary font-medium text-sm uppercase tracking-widest inline-block">
+          <motion.h2 className="text-4xl md:text-5xl font-display font-bold">
             Certifications
-          </motion.span>
-          <motion.h2 className="text-4xl md:text-5xl font-display font-bold mt-4">
-            Professional Credentials
           </motion.h2>
         </motion.div>
 
