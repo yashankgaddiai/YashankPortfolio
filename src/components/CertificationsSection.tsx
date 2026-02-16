@@ -8,7 +8,7 @@ const certifications = [
     title: "C++ with OOPs Programming Language",
     issuer: "Cipher Schools",
     date: "July 2025",
-    link: "https://www.cipherschools.com/courses/c-programming-course-beginner-friendly-with-data-structures-0c5b/overview-of-course-and-basics-of-c-program-part1-0e4f",
+    link: "https://www.cipherschools.com/certificate/preview?id=689dd79094c24c5a4c60ab81",
   },
   {
     title: "The Bits and Bytes of Computer Networking",
