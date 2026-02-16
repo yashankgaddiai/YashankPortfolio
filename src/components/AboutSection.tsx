@@ -15,8 +15,9 @@ const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
 const smoothSpring = {
   type: "spring" as const,
-  stiffness: 200,
-  damping: 30,
+  stiffness: 150,
+  damping: 25,
+  mass: 0.8,
 };
 
 const containerVariants = {

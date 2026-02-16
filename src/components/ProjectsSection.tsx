@@ -116,11 +116,12 @@ const featuredCardReveal = {
   },
 };
 
-// Smooth spring config for hover effects
+// Smooth spring config for hover effects - optimized for fluidity
 const smoothSpring = {
   type: "spring" as const,
-  stiffness: 300,
+  stiffness: 150,
   damping: 25,
+  mass: 0.8,
 };
 
 // Case study modal animation

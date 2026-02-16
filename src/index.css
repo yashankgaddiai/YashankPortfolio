@@ -157,6 +157,34 @@ body {
     scroll-padding-top: 80px;
   }
 
+  /* GPU acceleration hints for animated elements */
+  .will-change-transform {
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Promote animated sections to own compositing layer */
+  [data-animated] {
+    contain: layout style;
+    transform: translateZ(0);
+  }
+
+  /* Smooth 60fps animations - avoid layout thrashing */
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   /* Custom scrollbar for cinematic look */
   ::-webkit-scrollbar {
     width: 8px;
@@ -169,6 +197,7 @@ body {
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--primary) / 0.3);
     border-radius: 4px;
+    transition: background 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {

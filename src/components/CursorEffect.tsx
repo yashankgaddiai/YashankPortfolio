@@ -11,8 +11,8 @@ const CursorEffect = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
-  // Different spring configs for different elements
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  // Ultra-smooth spring config - lower stiffness + higher damping = fluid motion
+  const springConfig = { damping: 35, stiffness: 180, mass: 0.3, restSpeed: 0.001 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
@@ -185,10 +185,11 @@ const CursorEffect = () => {
             opacity: isVisible ? (cursorVariant === "default" ? 0.8 : 1) : 0,
           }}
           transition={{ 
-            duration: 0.2,
+            duration: 0.25,
             type: "spring",
-            stiffness: 300,
-            damping: 20,
+            stiffness: 200,
+            damping: 25,
+            mass: 0.5,
           }}
         >
           {/* Inner content for specific variants */}

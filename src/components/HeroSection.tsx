@@ -14,11 +14,12 @@ const services = [
 // Cinematic easing - slow in, smooth out
 const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
-// Smooth spring for hover effects
+// Smooth spring for hover effects - optimized for 60fps fluidity
 const smoothSpring = {
   type: "spring" as const,
-  stiffness: 200,
-  damping: 30,
+  stiffness: 150,
+  damping: 25,
+  mass: 0.8,
 };
 
 // Letter animation for cinematic text reveal
@@ -255,8 +256,8 @@ const HeroSection = () => {
   // Mouse position for subtle parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 30 });
-  const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 30 });
+  const smoothMouseX = useSpring(mouseX, { stiffness: 30, damping: 40, mass: 0.5, restSpeed: 0.001 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 30, damping: 40, mass: 0.5, restSpeed: 0.001 });
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -349,7 +350,7 @@ const HeroSection = () => {
 
       {/* Floating particles with scroll-responsive motion */}
       <motion.div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(12)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <FloatingParticle key={i} index={i} scrollYProgress={scrollYProgress} />
         ))}
         

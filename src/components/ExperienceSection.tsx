@@ -51,11 +51,12 @@ const experiences = [
   },
 ];
 
-// Smooth spring for hover effects
+// Smooth spring for hover effects - optimized fluidity
 const smoothSpring = {
   type: "spring" as const,
-  stiffness: 300,
+  stiffness: 150,
   damping: 25,
+  mass: 0.8,
 };
 
 const containerVariants = {
@@ -80,7 +81,7 @@ const cardVariants = {
     x: 0,
     scale: 1,
     transition: {
-      duration: 0.7,
+      duration: 0.9,
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
