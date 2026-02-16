@@ -16,12 +16,6 @@ const certifications = [
     date: "September 2024",
     link: "https://coursera.org/verify/WWHMOAQ67QZ7",
   },
-  {
-    title: "Hardware and Operating Systems",
-    issuer: "IBM",
-    date: "November 2024",
-    link: "https://www.coursera.org/learn/introduction-to-hardware-and-operating-systems",
-  },
 ];
 
 const cardVariants = {
