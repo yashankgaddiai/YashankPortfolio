@@ -449,7 +449,7 @@ const HeroSection = () => {
                   </span>
                   
                   {/* Last name - larger, bolder */}
-                  <span className="block overflow-hidden whitespace-nowrap text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-[-0.02em] mt-[-0.1em]">
+                  <span className="block overflow-hidden whitespace-nowrap tracking-[-0.02em] mt-[-0.1em]">
                     {lastNameLetters.map((letter, i) => (
                       <motion.span
                         key={i}
