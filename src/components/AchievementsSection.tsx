@@ -7,12 +7,12 @@ const achievements = [
   {
     icon: Trophy,
     title: "Byte Bash Hackathon",
-    description: "Secured Level-3 in ByteBash Hackathon, October 2024.",
+    description: "Secured Level-3 in the ByteBash National Hackathon (October 2024), competing against 500+ teams with an AI-powered automation solution.",
   },
   {
     icon: Star,
     title: "State Level Tennis Player",
-    description: "Represented at state level in tennis, January 2023.",
+    description: "Represented Telangana at the state-level tennis championship (January 2023), showcasing discipline, competitive spirit, and athletic excellence.",
   },
   {
     icon: Users,
